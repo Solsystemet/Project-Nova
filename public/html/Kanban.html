@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="../css/Kanban.css" />
+  </head>
+  <body>
+    <div class="board">
+      <form id="todo-form">
+        <input type="text" placeholder="New TODO..." id="todo-input" />
+        <button type="submit">Add +</button>
+      </form>
+
+      <div class="lanes">
+        <div class="swim-lane" id="todo-lane">
+          <h3 class="heading">TODO</h3>
+          <p class="task" draggable="true">Kiss Blach</p>
+          <p class="task" draggable="true">Feed Max</p>
+          <p class="task" draggable="true">Masturbate again V2</p>
+          <p class="task" draggable="true">Buy groceries</p>
+        </div>
+
+        <div class="swim-lane" id="progress-lane">
+          <h3 class="heading">In progress</h3>
+          <p class="task" draggable="true">Masturbate again</p>
+          <p class="task" draggable="true">Groom Max</p>
+          <p class="task" draggable="true">AMBATUKUM</p>
+        </div>
+
+        <div class="swim-lane" id="done-lane">
+          <h3 class="heading">Done</h3>
+          <p class="task" draggable="true">Masturbate</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="../js/todo.js" defer></script>
+  <script src="../js/drag.js" defer></script>
+</html>

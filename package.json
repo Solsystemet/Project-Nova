@@ -1,0 +1,25 @@
+{
+  "name": "project-nova",
+  "version": "1.0.0",
+  "description": "P2 project",
+  "main": "Server.js",
+  "scripts": {
+    "server": "nodemon Server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeisterRepsak/Project-Nova.git"
+  },
+  "author": "RepDev",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/MeisterRepsak/Project-Nova/issues"
+  },
+  "homepage": "https://github.com/MeisterRepsak/Project-Nova#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
