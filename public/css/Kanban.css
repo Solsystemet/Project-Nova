@@ -1,8 +1,16 @@
+/* ---- Custom Fonts ---- */
+@font-face {
+  font-family: "IBM";
+  src: url("../fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
+  font-family: "IBM";
 
   -ms-text-overflow: none;
   text-overflow: none;
@@ -76,13 +84,13 @@
 }
 
 .task {
-  background: white;
+  background: #37306b;
   color: black;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 
   padding: 12px;
   border-radius: 4px;
-
+  color: white;
   font-size: 16px;
   cursor: move;
 }

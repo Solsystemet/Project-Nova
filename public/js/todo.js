@@ -1,14 +1,16 @@
 const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
 const todoLane = document.getElementById("todo-lane");
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const value = input.value;
-
   if (!value) return;
+  socket.emit("new task", value);
+});
 
+socket.on("new task", (value, uuid) => {
   const newTask = document.createElement("p");
+  newTask.id = uuid;
   newTask.classList.add("task");
   newTask.setAttribute("draggable", true);
   newTask.innerText = value;
@@ -22,4 +24,5 @@ form.addEventListener("submit", (e) => {
   });
 
   todoLane.appendChild(newTask);
+  UpdateDragAndDrop();
 });
