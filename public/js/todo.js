@@ -9,9 +9,9 @@ form.addEventListener("submit", (e) => {
   socket.emit("new task", value);
 });
 
-socket.on("new task", (value, uuid) => {
+socket.on("new task", (value, id) => {
   const newTask = document.createElement("p");
-  newTask.id = uuid;
+  newTask.id = id;
   newTask.classList.add("task");
   newTask.setAttribute("draggable", true);
   newTask.innerText = value;

@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const connectDB = require("./config/dbConnect.js");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
-const { v4: uuidv4 } = require("uuid");
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
