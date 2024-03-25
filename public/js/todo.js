@@ -4,8 +4,11 @@ const todoLane = document.getElementById("todo-lane");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  const modal = document.getElementById("modal");
   const value = input.value;
   if (!value) return;
+
+  openModal(modal, value);
   socket.emit("new task", value);
 });
 
