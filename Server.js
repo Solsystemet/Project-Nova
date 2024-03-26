@@ -31,9 +31,9 @@ io.on("connection", (socket) => {
   GetIssues();
   console.log("a user connected");
 
-  socket.on("new task", (value) => {
+  socket.on("new task", (value, description) => {
     console.log("New task With: " + value);
-    const issue = new Issue({ title: value });
+    const issue = new Issue({ title: value, description: description });
 
     async function SaveIssue() {
       await issue.save();

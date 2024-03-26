@@ -166,3 +166,7 @@
   pointer-events: all;
   opacity: 1;
 }
+
+.issue-description {
+  min-height: 50px;
+}

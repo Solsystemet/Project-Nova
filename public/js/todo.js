@@ -1,6 +1,8 @@
 const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
 const todoLane = document.getElementById("todo-lane");
+const btnCreateIssue = document.getElementById("btn-issue-create");
+const description = document.querySelector(".issue-description");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -8,8 +10,14 @@ form.addEventListener("submit", (e) => {
   const value = input.value;
   if (!value) return;
 
-  openModal(modal, value);
-  socket.emit("new task", value);
+  openModal(modal, value); // popup for create issue
+
+  //
+});
+
+btnCreateIssue.addEventListener("click", (e) => {
+  const value = input.value;
+  socket.emit("new task", value, description.textContent);
 });
 
 socket.on("new task", (value, id) => {
@@ -29,6 +37,9 @@ socket.on("new task", (value, id) => {
 
   todoLane.appendChild(newTask);
   UpdateDragAndDrop();
+  const modal = document.getElementById("modal");
+  closeModal(modal);
+  description.textContent = "";
 });
 
 socket.on("create board", (title, id) => {
