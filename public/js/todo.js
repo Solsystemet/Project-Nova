@@ -20,12 +20,17 @@ btnCreateIssue.addEventListener("click", (e) => {
   socket.emit("new task", value, description.textContent);
 });
 
-socket.on("new task", (value, id) => {
+socket.on("new task", (value, id, createDate) => {
   const newTask = document.createElement("p");
   newTask.id = id;
   newTask.classList.add("task");
   newTask.setAttribute("draggable", true);
   newTask.innerText = value;
+
+  const createdDate = document.createElement("p");
+  createdDate.classList.add("create-date");
+  createdDate.textContent = createDate;
+  newTask.appendChild(createdDate);
 
   newTask.addEventListener("dragstart", () => {
     newTask.classList.add("is-dragging");
@@ -42,12 +47,17 @@ socket.on("new task", (value, id) => {
   description.textContent = "";
 });
 
-socket.on("create board", (title, id) => {
+socket.on("create board", (title, id, createDate) => {
   const newTask = document.createElement("p");
   newTask.id = id;
   newTask.classList.add("task");
   newTask.setAttribute("draggable", true);
   newTask.innerText = title;
+
+  const createdDate = document.createElement("p");
+  createdDate.classList.add("create-date");
+  createdDate.textContent = createDate;
+  newTask.appendChild(createdDate);
 
   newTask.addEventListener("dragstart", () => {
     newTask.classList.add("is-dragging");

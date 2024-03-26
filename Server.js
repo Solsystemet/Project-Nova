@@ -8,6 +8,7 @@ const server = createServer(app);
 const io = new Server(server);
 const port = 3000;
 const staticPath = __dirname + "/public";
+const GetCurrentTime = require("./Utils/Dates.js");
 
 const Issue = require("./models/issue.js");
 
@@ -25,7 +26,7 @@ io.on("connection", (socket) => {
     const issues = await Issue.find();
     if (!issues) return;
     issues.forEach((issue) => {
-      socket.emit("create board", issue.title, issue._id);
+      socket.emit("create board", issue.title, issue._id, issue.createdData);
     });
   }
   GetIssues();
@@ -33,13 +34,18 @@ io.on("connection", (socket) => {
 
   socket.on("new task", (value, description) => {
     console.log("New task With: " + value);
-    const issue = new Issue({ title: value, description: description });
+    const createDate = `Created at ${GetCurrentTime()}`;
+    const issue = new Issue({
+      title: value,
+      description: description,
+      createdData: createDate,
+    });
 
     async function SaveIssue() {
       await issue.save();
     }
     SaveIssue();
-    io.emit("new task", value, issue._id);
+    io.emit("new task", value, issue._id, createDate);
   });
 
   socket.on("drag ended", (curTask, bottomTask, curZoneID) => {
