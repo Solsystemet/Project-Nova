@@ -56,3 +56,8 @@ mongoose.connection.once("open", () => {
     console.log(`server running at http://localhost:${port}`);
   });
 });
+
+// Delete all issues in collection (only use after you have gotten greenlight from the group)
+async function EmptyIssues() {
+  await Issue.deleteMany({});
+}
