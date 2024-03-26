@@ -12,6 +12,7 @@ function closeModal(modal) {
 
   modal.classList.remove("active");
   overlay.classList.remove("active");
+  description.textContent = "";
 }
 function openModal(modal, value) {
   if (!modal) return;
