@@ -11,6 +11,7 @@ const staticPath = __dirname + "/public";
 const GetCurrentTime = require("./Utils/Dates.js");
 
 const Issue = require("./models/issue.js");
+const User = require("./models/user.js");
 
 app.use(express.static("public"));
 
@@ -31,6 +32,19 @@ io.on("connection", (socket) => {
   }
   GetIssues();
   console.log("a user connected");
+
+  socket.on("new user", (username, password, email) => {
+    const user = new User({
+      username: username,
+      password: password,
+      email: email,
+    });
+
+    async function SaveUser() {
+      await user.save();
+    }
+    SaveUser();
+  });
 
   socket.on("new task", (value, description) => {
     console.log("New task With: " + value);

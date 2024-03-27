@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Nova</title>
+    <link rel="styleSheet" href="../css/HomePage.css" />
+  </head>
+  <body>
+    <div class="login"><h1>Login page</h1></div>
+
+    <div class="modal-body">
+      <h5>UserName</h5>
+      <div class="username" contenteditable="plaintext-only"></div>
+      <h5>Password</h5>
+      <div class="password" contenteditable="plaintext-only"></div>
+      <h5>Email</h5>
+      <div class="email" contenteditable="plaintext-only"></div>
+      <button class="btn-create-user" type="submit">Create User</button>
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="../js/socketAPI.js" defer></script>
+  <script src="../js/UserService.js" defer></script>
+</html>
