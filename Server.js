@@ -72,6 +72,7 @@ io.on("connection", (socket) => {
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
+  PrintGay();
   server.listen(port, () => {
     console.log(`server running at http://localhost:${port}`);
   });
@@ -80,4 +81,8 @@ mongoose.connection.once("open", () => {
 // Delete all issues in collection (only use after you have gotten greenlight from the group)
 async function EmptyIssues() {
   await Issue.deleteMany({});
+}
+
+function PrintGay() {
+  console.log("Gay");
 }
