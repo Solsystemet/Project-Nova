@@ -1,0 +1,44 @@
+<div class="sidebar">
+   <div class="sidebar-top">
+      <img class="app-logo" src="../img/AppLogo.png" />
+      <p class="app-name">NOVA</p>
+   </div>
+</div>
+<div class="board">
+   <form id="todo-form">
+      <input type="text" placeholder="New TODO..." id="todo-input" />
+      <button type="submit">Add +</button>
+   </form>
+
+   <div class="lanes">
+      <div class="swim-lane" id="todo-lane">
+         <h3 class="heading">TODO</h3>
+      </div>
+
+      <div class="swim-lane" id="progress-lane">
+         <h3 class="heading">In progress</h3>
+      </div>
+
+      <div class="swim-lane" id="done-lane">
+         <h3 class="heading">Done</h3>
+      </div>
+   </div>
+</div>
+
+<button data-modal-target="#modal">Open Modal</button>
+<div class="modal" id="modal">
+   <div class="modal-header">
+      <div class="modal-title">Example Modal</div>
+      <button data-close-button class="close-button">&times;</button>
+   </div>
+   <div class="modal-body">
+      <h5>Description</h5>
+      <div class="issue-description" contenteditable="plaintext-only"></div>
+      <button>Status</button>
+      <button>Assign</button>
+      <button>Label</button>
+   </div>
+   <button id="btn-issue-create" type="submit">Create Issue</button>
+</div>
+
+<div id="overlay"></div>

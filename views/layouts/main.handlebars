@@ -1,0 +1,16 @@
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>{{title}}</title>
+      {{#each css}}
+         <link rel="stylesheet" href="{{this}}" />
+      {{/each}}
+   </head>
+   <body>
+      {{{body}}}
+      {{#each js}}
+         <script src="{{this.src}}" {{#each this.attributes}} {{this}} {{/each}}></script>
+      {{/each}}
+   </body>
+</html>
