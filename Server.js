@@ -1,25 +1,28 @@
+//Express
 const express = require("express");
-
-const mongoose = require("mongoose");
-const connectDB = require("./config/dbConnect.js");
-
-const { createServer } = require("node:http");
-const { Server } = require("socket.io");
-
 const app = express();
+const { createServer } = require("node:http");
 const server = createServer(app);
 const { engine } = require("express-handlebars");
 
+//Mongoose (MongoDB)
+const mongoose = require("mongoose");
+const connectDB = require("./config/dbConnect.js");
+
+//Socket.io (WebSockets)
+const { Server } = require("socket.io");
 const io = new Server(server);
 const port = 3000;
 const staticPath = __dirname + "/public";
 const GetCurrentTime = require("./utils/Dates.js");
 
+//Models
 const Issue = require("./models/issue.js");
 const User = require("./models/user.js");
 
-//routers
+//Routers
 const workspace = require("./routes/workspaces.js");
+const informational = require("./routes/informational.js");
 
 app.use(express.static("public"));
 
@@ -27,6 +30,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
+app.use("/", informational);
 app.use("/workspaces", workspace);
 
 // Connect to MongoDB
