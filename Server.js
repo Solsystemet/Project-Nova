@@ -37,7 +37,7 @@ app.set("views", "./views");
 
 app.use("/", informational);
 app.use("/workspaces", workspace);
-app.use("/register", userRgister);
+app.use("/register", userRegister);
 app.use("/login", userLogin);
 app.use("/register-user", registerUser);
 
