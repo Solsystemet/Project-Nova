@@ -1,15 +1,11 @@
 const btnCreateUser = document.querySelector(".btn-create-user");
-
-const txtUserName = document.querySelector(".username");
-const txtPassword = document.querySelector(".password");
-const txtEmail = document.querySelector(".email");
+const Username = document.querySelector(".username");
+const Password = document.querySelector(".password");
+const Email = document.querySelector(".email");
 
 btnCreateUser.addEventListener("click", (e) => {
   e.preventDefault();
-  socket.emit(
-    "new user",
-    txtUserName.textContent,
-    txtPassword.textContent,
-    txtEmail.textContent
-  );
+  fetch(
+    `register-user/${Username.value}/${Password.value}/${Email.value}`
+  ).then((window.location.href = "/workspaces/69420"));
 });
