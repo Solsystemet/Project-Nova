@@ -24,7 +24,7 @@ const User = require("./models/user.js");
 //Routers
 const workspace = require("./routes/workspaces.js");
 const informational = require("./routes/informational.js");
-const userRgister = require("./routes/userRegister.js");
+const userRegister = require("./routes/userRegister.js");
 const userLogin = require("./routes/userLogin.js");
 const registerUser = require("./routes/registerUser.js");
 
