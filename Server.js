@@ -5,6 +5,12 @@ const app = express();
 const { createServer } = require("node:http");
 const server = createServer(app);
 const { engine } = require("express-handlebars");
+const session = require("express-session");
+app.use(express.urlencoded({ extended: true }));
+
+//Passport
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
 //Mongoose (MongoDB)
 const mongoose = require("mongoose");
@@ -22,24 +28,46 @@ const Issue = require("./models/issue.js");
 const User = require("./models/user.js");
 
 //Routers
-const workspace = require("./routes/workspaces.js");
-const informational = require("./routes/informational.js");
-const userRegister = require("./routes/userRegister.js");
-const userLogin = require("./routes/userLogin.js");
-const registerUser = require("./routes/registerUser.js");
+const workspaces = require("./routes/workspaces.js");
+const informationals = require("./routes/informationals.js");
+const users = require("./routes/users.js");
 
+//cookies and sessions
 app.use(express.static("public"));
 app.use(cookieParser());
+const sessionDaysTillExpire = 7;
+const sessionConfig = {
+  secret: "thisShouldBeABetterSecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * sessionDaysTillExpire,
+  },
+};
+app.use(session(sessionConfig));
 
+// Passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//Template Engine initialization
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
-app.use("/", informational);
-app.use("/workspaces", workspace);
-app.use("/register", userRegister);
-app.use("/login", userLogin);
-app.use("/register-user", registerUser);
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+//Routes
+app.use("/", informationals);
+app.use("/", users);
+app.use("/workspaces", workspaces);
 
 // Connect to MongoDB
 connectDB();
