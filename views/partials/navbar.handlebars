@@ -1,9 +1,17 @@
 <nav>
+  {{#if isLoggedIn}}
+    <h3>{{currentUserUsername}}</h3>
+  {{/if}}
   <ul>
     <li><a href="/">Home</a></li>
     <li><a href="/about">About</a></li>
-    <li><a href="/manifesto">manifesto</a></li>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/register">Register</a></li>
+    <li><a href="/manifesto">Manifesto</a></li>
+    {{#unless isLoggedIn}}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
+    {{/unless}}
+    {{#if isLoggedIn}}
+      <li><a href="/logout">Logout</a></li>
+    {{/if}}
   </ul>
 </nav>
