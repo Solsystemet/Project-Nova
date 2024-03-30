@@ -26,6 +26,21 @@ router.get("/login", (req, res) => {
   });
 });
 
+router.get("/get-users", (req, res) => {
+  const users = [];
+  async function fillUsers() {
+    // TODO: When workspaces are in DB use filter
+    for await (const doc of User.find({})) {
+      await users.push(doc.username);
+    }
+
+    //console.log(users);
+    res.json(users);
+    res.end();
+  }
+  fillUsers();
+});
+
 router.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/login" }),
