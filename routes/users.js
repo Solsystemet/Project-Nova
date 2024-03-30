@@ -14,7 +14,10 @@ router.post("/register", async (req, res) => {
   const user = new User({ username, email });
   const registeredUser = await User.register(user, password);
   console.log(registeredUser);
-  res.redirect("/workspaces/69");
+  req.login(registeredUser, (err) => {
+    if (err) return console.log(err);
+    res.redirect("/workspaces/69");
+  });
 });
 
 router.get("/login", (req, res) => {

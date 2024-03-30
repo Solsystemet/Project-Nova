@@ -15,6 +15,7 @@ const LocalStrategy = require("passport-local");
 //Mongoose (MongoDB)
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConnect.js");
+const MongoStore = require("connect-mongo");
 
 //Socket.io (WebSockets)
 const { Server } = require("socket.io");
@@ -22,6 +23,13 @@ const io = new Server(server);
 const port = 3000;
 const staticPath = __dirname + "/public";
 const GetCurrentTime = require("./utils/Dates.js");
+
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  server.listen(port, () => {
+    console.log(`server running at http://localhost:${port}`);
+  });
+});
 
 //Models
 const Issue = require("./models/issue.js");
@@ -35,8 +43,20 @@ const users = require("./routes/users.js");
 //cookies and sessions
 app.use(express.static("public"));
 app.use(cookieParser());
+
+const dbUrl =
+  "mongodb+srv://kasperschnejder:05080369420@cluster0.tqto0z0.mongodb.net/BoardDB?retryWrites=true&w=majority&appName=Cluster";
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: "thisShouldBeABetterSecret!",
+  },
+});
+
 const sessionDaysTillExpire = 7;
 const sessionConfig = {
+  store,
   secret: "thisShouldBeABetterSecret",
   resave: false,
   saveUninitialized: true,
@@ -59,8 +79,15 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
+app.use(async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.locals.currentUserUsername = req.user.username;
+    res.locals.currentUserId = req.user.id;
+    res.locals.isLoggedIn = true;
+  } else {
+    res.locals.isLoggedIn = false;
+  }
+
   next();
 });
 
@@ -104,13 +131,6 @@ io.on("connection", (socket) => {
     console.log(bottomTask);
     console.log(curZoneID);
     io.emit("drag ended", curTask, bottomTask, curZoneID);
-  });
-});
-
-mongoose.connection.once("open", () => {
-  console.log("Connected to MongoDB");
-  server.listen(port, () => {
-    console.log(`server running at http://localhost:${port}`);
   });
 });
 
