@@ -65,7 +65,7 @@ socket.on("new task", (value, id, createDate) => {
   description.textContent = "";
 });
 
-socket.on("create board", (title, id, createDate) => {
+socket.on("create board", (title, id, createDate, laneID) => {
   const newTask = document.createElement("p");
   newTask.id = id;
   newTask.classList.add("task");
@@ -85,7 +85,9 @@ socket.on("create board", (title, id, createDate) => {
     newTask.classList.remove("is-dragging");
   });
 
-  todoLane.appendChild(newTask);
+  // Appending the new board element to the todoLane container
+  const lane = document.getElementById(laneID);
+  lane.appendChild(newTask);
   UpdateDragAndDrop();
 });
 

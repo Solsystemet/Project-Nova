@@ -5,7 +5,13 @@ module.exports = (socket, io) => {
     const issues = await Issue.find();
     if (!issues) return;
     issues.forEach((issue) => {
-      socket.emit("create board", issue.title, issue._id, issue.createdData);
+      socket.emit(
+        "create board",
+        issue.title,
+        issue._id,
+        issue.createdData,
+        issue.status
+      );
     });
   }
   GetIssues();
@@ -31,9 +37,14 @@ module.exports = (socket, io) => {
   });
 
   socket.on("drag ended", (curTask, bottomTask, curZoneID) => {
-    console.log(curTask);
-    console.log(bottomTask);
-    console.log(curZoneID);
+    async function UpdateIssueStatus() {
+      const issue = await Issue.findById(curTask);
+      if (!issue) return;
+
+      issue.status = curZoneID;
+      issue.save();
+    }
+    UpdateIssueStatus();
     io.emit("drag ended", curTask, bottomTask, curZoneID);
   });
 };

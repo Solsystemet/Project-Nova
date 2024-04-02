@@ -5,9 +5,6 @@ let curTask = null;
 let curZone = null;
 
 function UpdateDragAndDrop() {
-  //console.log(draggables);
-  //console.log(document.querySelectorAll(".task"));
-  //console.log(droppabls);
   draggables = document.querySelectorAll(".task");
   droppabls = document.querySelectorAll(".swim-lane");
 
