@@ -34,7 +34,8 @@ btnCreateIssue.addEventListener("click", (e) => {
     description.value,
     priority.value,
     label.value,
-    selectionUserResponsibility.value
+    selectionUserResponsibility.value,
+    todoLane.id
   );
 });
 

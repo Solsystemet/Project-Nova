@@ -23,7 +23,6 @@ const io = new Server(server);
 const port = 3000;
 const socketManager = require("./socketManager.js");
 const staticPath = __dirname + "/public";
-const GetCurrentTime = require("./utils/Dates.js");
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
