@@ -19,8 +19,14 @@ function UpdateDragAndDrop() {
       //console.log(curTask.id);
 
       if (bottomTask)
-        socket.emit("drag ended", curTask.id, bottomTask.id, curZone.id);
-      else socket.emit("drag ended", curTask.id, null, curZone.id);
+        socket.emit(
+          "drag ended",
+          curTask.id,
+          bottomTask.id,
+          curZone.id,
+          workspaceID
+        );
+      else socket.emit("drag ended", curTask.id, null, curZone.id, workspaceID);
     });
   });
 
