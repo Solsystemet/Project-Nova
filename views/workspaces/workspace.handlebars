@@ -1,44 +1,65 @@
 <div class="sidebar">
-   <div class="sidebar-top">
-      <img class="app-logo" src="../img/AppLogo.png" />
-      <p class="app-name">NOVA</p>
-   </div>
+  <div class="sidebar-top">
+    <img class="app-logo" src="../img/AppLogo.png" />
+    <p class="app-name">NOVA</p>
+  </div>
 </div>
 <div class="board">
-   <form id="todo-form">
-      <input type="text" placeholder="New TODO..." id="todo-input" />
-      <button type="submit">Add +</button>
-   </form>
+  <form id="todo-form">
+    <input type="text" placeholder="New TODO..." id="todo-input" />
+    <button type="submit">Add +</button>
+  </form>
 
-   <div class="lanes">
-      <div class="swim-lane" id="todo-lane">
-         <h3 class="heading">TODO</h3>
-      </div>
+  <div class="lanes">
+    <div class="swim-lane" id="todo-lane">
+      <h3 class="heading">TODO</h3>
+    </div>
 
-      <div class="swim-lane" id="progress-lane">
-         <h3 class="heading">In progress</h3>
-      </div>
+    <div class="swim-lane" id="progress-lane">
+      <h3 class="heading">In progress</h3>
+    </div>
 
-      <div class="swim-lane" id="done-lane">
-         <h3 class="heading">Done</h3>
-      </div>
-   </div>
+    <div class="swim-lane" id="done-lane">
+      <h3 class="heading">Done</h3>
+    </div>
+  </div>
 </div>
 
 <button data-modal-target="#modal">Open Modal</button>
 <div class="modal" id="modal">
-   <div class="modal-header">
-      <div class="modal-title">Example Modal</div>
-      <button data-close-button class="close-button">&times;</button>
-   </div>
-   <div class="modal-body">
-      <h5>Description</h5>
-      <div class="issue-description" contenteditable="plaintext-only"></div>
-      <button>Status</button>
-      <button>Assign</button>
-      <button>Label</button>
-   </div>
-   <button id="btn-issue-create" type="submit">Create Issue</button>
+  <div class="modal-header">
+    <div class="modal-title">Example Modal</div>
+    <button data-close-button class="close-button">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label>Description</label>
+      <br />
+      <input
+        class="issue-description"
+        type="text"
+        placeholder="Describe issue here!"
+        contenteditable="plaintext-only"
+      />
+      <br />
+      <select class="modal-priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+        <option value="urgent">Urgent</option>
+      </select>
+      <select class="modal-lead-responsibility">
+      </select>
+      <select class="modal-label">
+        <option value="Analysis">Analysis</option>
+        <option value="Writing">Writing</option>
+        <option value="Review">Review</option>
+        <option value="Production">Production</option>
+      </select>
+      <button id="btn-issue-create" type="submit">Create Issue</button>
+    </form>
+
+  </div>
 </div>
 
 <div id="overlay"></div>

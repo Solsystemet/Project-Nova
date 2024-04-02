@@ -110,13 +110,16 @@ io.on("connection", (socket) => {
   GetIssues();
   console.log("a user connected");
 
-  socket.on("new task", (value, description) => {
+  socket.on("new task", (value, description, prio, label, assignee) => {
     console.log("New task With: " + value);
     const createDate = `Created at ${GetCurrentTime()}`;
     const issue = new Issue({
       title: value,
       description: description,
       createdData: createDate,
+      label: label,
+      assignee: assignee,
+      priority: prio,
     });
 
     async function SaveIssue() {
