@@ -5,8 +5,7 @@ const GetCurrentTime = require("./utils/Dates.js");
 module.exports = (socket, io) => {
   console.log("a user connected");
 
-  socket.on("init workspace", (workspaceID) => {
-    async function InitWorkSpace() {
+  socket.on("init workspace", async (workspaceID) => {
       console.log("Init workspace: " + workspaceID);
       const workspace = await Workspace.findById(workspaceID);
       if (!workspace) return;
@@ -19,8 +18,6 @@ module.exports = (socket, io) => {
           issue.status
         );
       });
-    }
-    InitWorkSpace();
   });
 
   socket.on(
