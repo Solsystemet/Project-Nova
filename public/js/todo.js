@@ -43,30 +43,44 @@ socket.on("new task", (title, id, createDate) => {
   createdDate.textContent = createDate; // Task creation date
   newTask.appendChild(createdDate); // Append creation date to task element
 
-  //priority
-  const createdPriority = document.createElement("p");
-  createdPriority.classList.add("create-priority");
-
-  //! Add connection to database & creation of the task
-  //? This is a test solution
-  createdPriority.textContent = "High";
-  newTask.appendChild(createdPriority);
-
-  //Due date
-  const createdDue = document.createElement("p");
-  createdDue.classList.add("create-due");
-  //! Add connection to database & creation of the task
-  //? This is a test solution
-  createdDue.textContent = "03/04/2024";
-  newTask.appendChild(createdDue);
-
   //Assignee
-  const createdAssignee = document.createElement("p");
+  const createdAssignee = document.createElement("img");
   createdAssignee.classList.add("create-assignee");
   //! Add connection to database & creation of the task
   //? This is a test solution
-  createdAssignee.textContent = "John Doe";
+  createdAssignee.src = "../img/User/emptyPicture.png";
   newTask.appendChild(createdAssignee);
+
+  // Issue footer
+  const issueFooter = document.createElement("div");
+  issueFooter.classList.add("issue-footer");
+  newTask.appendChild(issueFooter);
+
+  // Priority
+  const priority = document.createElement("div");
+  priority.classList.add("priority");
+  issueFooter.appendChild(priority);
+
+  //priority text
+  const priorityText = document.createElement("p");
+  priorityText.classList.add("priority-text");
+  //! Add connection to database & creation of the task
+  //? This is a test solution
+  priorityText.textContent = "High";
+  issueFooter.appendChild(priorityText);
+
+  // Due date
+  const dueDate = document.createElement("div");
+  dueDate.classList.add("due-date");
+  issueFooter.appendChild(dueDate);
+
+  //Due date text
+  const dueDateText = document.createElement("p");
+  dueDateText.classList.add("due-date-text");
+  //! Add connection to database & creation of the task
+  //? This is a test solution
+  dueDateText.textContent = "03/04/2024";
+  dueDate.appendChild(dueDateText);
 
   //Tag
   const createdTag = document.createElement("p");
@@ -74,7 +88,7 @@ socket.on("new task", (title, id, createDate) => {
   //! Add connection to database & creation of the task
   //? This is a test solution
   createdTag.textContent = "Bug";
-  newTask.appendChild(createdTag);
+  issueFooter.appendChild(createdTag);
 
   // Add drag and drop event listeners to the new task element
   newTask.addEventListener("dragstart", () => {
@@ -107,41 +121,56 @@ socket.on("create board", (title, id, createDate) => {
   newTask.classList.add("card");
   newTask.setAttribute("draggable", true);
 
-  // Create task lane title element and set its content
+  // Create task title element and set its content
   const taskTitle = document.createElement("p");
   taskTitle.classList.add("taskTitle");
-  taskTitle.textContent = title; // Task lane title
-  newTask.appendChild(taskTitle);
+  taskTitle.textContent = title; // Task description/title
+  newTask.appendChild(taskTitle); // Append task title to task element
 
-  // Create task lane creation date element and set its content
+  // Create task creation date element and set its content
   const createdDate = document.createElement("p");
   createdDate.classList.add("create-date");
-  createdDate.textContent = createDate; // Task lane creation date
-  newTask.appendChild(createdDate);
-
-  const createdPriority = document.createElement("p");
-  createdPriority.classList.add("create-priority");
-
-  //! Add connection to database & creation of the task
-  //? This is a test solution
-  createdPriority.textContent = "High";
-  newTask.appendChild(createdPriority);
-
-  //Due date
-  const createdDue = document.createElement("p");
-  createdDue.classList.add("create-due");
-  //! Add connection to database & creation of the task
-  //? This is a test solution
-  createdDue.textContent = "03/04/2024";
-  newTask.appendChild(createdDue);
+  createdDate.textContent = createDate; // Task creation date
+  newTask.appendChild(createdDate); // Append creation date to task element
 
   //Assignee
-  const createdAssignee = document.createElement("p");
+  const createdAssignee = document.createElement("img");
   createdAssignee.classList.add("create-assignee");
   //! Add connection to database & creation of the task
   //? This is a test solution
-  createdAssignee.textContent = "John Doe";
+  createdAssignee.src = "../img/User/emptyPicture.png";
   newTask.appendChild(createdAssignee);
+
+  // Issue footer
+  const issueFooter = document.createElement("div");
+  issueFooter.classList.add("issue-footer");
+  newTask.appendChild(issueFooter);
+
+  // Priority
+  const priority = document.createElement("div");
+  priority.classList.add("priority");
+  issueFooter.appendChild(priority);
+
+  //priority text
+  const priorityText = document.createElement("p");
+  priorityText.classList.add("priority-text");
+  //! Add connection to database & creation of the task
+  //? This is a test solution
+  priorityText.textContent = "High";
+  issueFooter.appendChild(priorityText);
+
+  // Due date
+  const dueDate = document.createElement("div");
+  dueDate.classList.add("due-date");
+  issueFooter.appendChild(dueDate);
+
+  //Due date text
+  const dueDateText = document.createElement("p");
+  dueDateText.classList.add("due-date-text");
+  //! Add connection to database & creation of the task
+  //? This is a test solution
+  dueDateText.textContent = "03/04/2024";
+  dueDate.appendChild(dueDateText);
 
   //Tag
   const createdTag = document.createElement("p");
@@ -149,7 +178,7 @@ socket.on("create board", (title, id, createDate) => {
   //! Add connection to database & creation of the task
   //? This is a test solution
   createdTag.textContent = "Bug";
-  newTask.appendChild(createdTag);
+  issueFooter.appendChild(createdTag);
 
   // Add drag and drop event listeners to the new task lane element
   newTask.addEventListener("dragstart", () => {

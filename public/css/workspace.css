@@ -27,9 +27,9 @@ body {
   height: 100vh;
   overflow: scroll;
   margin-left: 300px;
-  border-top-left-radius: 66px;
-  border-bottom-left-radius: 66px;
-  background: #1a1531;
+  border-top-left-radius: 10px;
+  background: linear-gradient(to bottom right, #673581, #37306b);
+  border-bottom-left-radius: 10px;
   z-index: 5;
 }
 
@@ -94,24 +94,31 @@ body {
 /* ---- Card ---- */
 .card {
   /* Grid */
+  position: relative;
   display: grid;
-  grid-template-rows: 0.7fr 1.3fr 1fr;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: 0.7fr 1.3fr 1fr 0.5fr;
+  grid-template-columns: 0.4fr repeat(3, minmax(0, 1fr));
   /* Styling */
   border-radius: 7px;
   border: 3px solid rgba(255, 255, 255, 0.5);
-  background: rgba(19, 20, 21, 0.1);
+  background: rgba(19, 20, 21, 0.3);
   backdrop-filter: blur(17.5px);
   margin: 5px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   min-height: 120px;
   padding: 12px;
   border-radius: 0.5cap;
+  backdrop-filter: blur(20px);
 }
 .taskTitle {
+  /* Layout */
+  display: flex;
   grid-row: 1 / 1;
-  grid-column: span 4;
+  grid-column: 2/4;
+  flex-direction: column;
+  justify-content: top;
 
+  /* Styling */
   color: #f2e9e4;
   font-family: Geist;
   font-size: 13px;
@@ -120,9 +127,15 @@ body {
   line-height: normal;
 }
 .create-date {
-  grid-row: 2 / 2;
-  grid-column: span 4;
+  /* Layout */
+  display: flex;
+  grid-row: 1 / 1;
+  grid-column: 2/4;
+  flex-direction: column;
+  justify-content: bottom;
+  margin-top: 15px;
 
+  /* Styling */
   opacity: 0.22;
   color: #fff;
   font-family: Geist;
@@ -132,35 +145,43 @@ body {
   line-height: normal;
 }
 
-.create-priority {
-  grid-row: 4 / -1;
-  grid-column: span 1;
-
-  color: #d56062;
-  font-family: Geist;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-
-.create-due {
-  grid-row: 4 / -1;
-  grid-column: span 1;
-
-  color: #d56062;
-  font-family: Geist;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-
 .create-assignee {
-  grid-row: 4 / -1;
-  grid-column: span 1;
+  /* Layout */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
 
-  color: #f9f4ef;
+.issue-footer {
+  display: flex;
+  grid-row: 4 / -1;
+  grid-column: 1/-1;
+  flex-direction: row;
+  margin-top: 15px;
+}
+.priority {
+  margin-left: 10px;
+}
+
+.priority-text {
+  /* Layout */
+  position: relative;
+  /* Styling */
+  color: #d56062;
+  font-family: Geist;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.due-date {
+  margin-left: 25px;
+}
+.due-date-text {
+  /* Layout */
+  position: relative;
+  /* Styling */
+  color: #d56062;
   font-family: Geist;
   font-size: 10px;
   font-style: normal;
@@ -169,21 +190,30 @@ body {
 }
 
 .create-tag {
-  grid-row: 4 / -1;
-  grid-column: span 1;
+  /* Layout */
+  position: relative;
+  width: fit-content;
+  margin-left: 25px;
+  bottom: 4px;
 
+  /* Styling */
   color: yellow;
   font-family: Geist;
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
+  align-self: top;
   line-height: normal;
-
   border: 2px solid yellow;
   border-radius: 0.5cap;
-  width: fit-content + 1px;
-  height: fit-content;
-  text-align: center;
+  padding: 2px 8px;
+}
+
+.create-tag:hover {
+  border-radius: 4px;
+
+  background-color: yellow;
+  color: black;
 }
 
 /* ---- Classes that are used with JS ---- */
