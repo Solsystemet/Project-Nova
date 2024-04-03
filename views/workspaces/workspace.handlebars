@@ -32,7 +32,7 @@
     <button data-close-button class="close-button">&times;</button>
   </div>
   <div class="modal-body">
-    <form>
+    <form id="todo-form">
       <label>Description</label>
       <br />
       <input
@@ -48,8 +48,7 @@
         <option value="high">High</option>
         <option value="urgent">Urgent</option>
       </select>
-      <select class="modal-lead-responsibility">
-      </select>
+      <select class="modal-lead-responsibility"></select>
       <select class="modal-label">
         <option value="Analysis">Analysis</option>
         <option value="Writing">Writing</option>
@@ -58,11 +57,10 @@
       </select>
       <button id="btn-issue-create" type="submit">Create Issue</button>
     </form>
-
   </div>
 </div>
 
 <div id="overlay"></div>
 <script>
-  const workspaceID = "{{workspaceID}}"
+  const workspaceID = "{{workspaceID}}";
 </script>
