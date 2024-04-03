@@ -88,6 +88,8 @@ socket.on("create board", (title, id, createDate, laneID) => {
 
   // Appending the new board element to the todoLane container
   const lane = document.getElementById(laneID);
+  console.log(newTask);
+  console.log(lane);
   lane.appendChild(newTask);
   UpdateDragAndDrop();
 });
