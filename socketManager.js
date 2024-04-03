@@ -1,26 +1,28 @@
 const Issue = require("./models/issue.js");
+const Workspace = require("./models/workspace.js");
 const GetCurrentTime = require("./utils/Dates.js");
 
 module.exports = (socket, io) => {
-  async function GetIssues() {
-    const issues = await Issue.find();
-    if (!issues) return;
-    issues.forEach((issue) => {
-      socket.emit(
-        "create board",
-        issue.title,
-        issue._id,
-        issue.createdData,
-        issue.status
-      );
-    });
-  }
-  GetIssues();
   console.log("a user connected");
+
+  socket.on("init workspace", async (workspaceID) => {
+      console.log("Init workspace: " + workspaceID);
+      const workspace = await Workspace.findById(workspaceID);
+      if (!workspace) return;
+      workspace.issues.forEach((issue) => {
+        socket.emit(
+          "create board",
+          issue.title,
+          issue._id,
+          issue.createdData,
+          issue.status
+        );
+      });
+  });
 
   socket.on(
     "new task",
-    (value, description, priority, label, assignee, laneID) => {
+    (value, description, priority, label, assignee, laneID, workspaceID) => {
       console.log("New task With: " + value);
       const createDate = `Created at ${GetCurrentTime()}`;
       const issue = new Issue({
@@ -33,21 +35,26 @@ module.exports = (socket, io) => {
         status: laneID,
       });
 
-      async function SaveIssue() {
-        await issue.save();
+      async function SaveIssueToWorkspace() {
+        const workspace = await Workspace.findById(workspaceID);
+        workspace.issues.push(issue);
+        await workspace.save();
       }
-      SaveIssue();
+      SaveIssueToWorkspace();
       io.emit("new task", value, issue._id, createDate);
     }
   );
 
-  socket.on("drag ended", (curTask, bottomTask, curZoneID) => {
+  socket.on("drag ended", (curTask, bottomTask, curZoneID, workspaceID) => {
     async function UpdateIssueStatus() {
-      const issue = await Issue.findById(curTask);
+      const workspace = await Workspace.findById(workspaceID);
+      const issue = workspace.issues.filter((issue) => (issue._id = curTask));
+      console.log(issue);
       if (!issue) return;
 
-      issue.status = curZoneID;
-      issue.save();
+      issue[0].status = curZoneID;
+      console.log(curZoneID);
+      workspace.save();
     }
     UpdateIssueStatus();
     io.emit("drag ended", curTask, bottomTask, curZoneID);

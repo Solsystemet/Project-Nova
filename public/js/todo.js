@@ -35,7 +35,8 @@ btnCreateIssue.addEventListener("click", (e) => {
     priority.value,
     label.value,
     selectionUserResponsibility.value,
-    todoLane.id
+    todoLane.id,
+    workspaceID
   );
 });
 
