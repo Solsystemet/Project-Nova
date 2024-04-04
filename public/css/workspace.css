@@ -1,18 +1,15 @@
 /* ---- Custom Fonts ---- */
 @font-face {
-  font-family: "IBM";
-  src: url("../fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf");
+  font-family: "Geist";
+  src: url("../fonts/Geist/Geist-Regular.ttf");
   font-weight: normal;
   font-style: normal;
-}
-body {
-  background-color: #0a061e;
 }
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "IBM";
+  font-family: "Geist";
   -ms-text-overflow: none;
   text-overflow: none;
   scrollbar-width: none;
@@ -23,14 +20,12 @@ body {
 }
 
 .board {
-  width: 100%;
-  height: 100vh;
-  overflow: scroll;
+  display: flex;
+  width: cover-300px;
+  height: 100%;
   margin-left: 300px;
-  border-top-left-radius: 10px;
+  overflow: scroll;
   background: linear-gradient(to bottom right, #673581, #37306b);
-  border-bottom-left-radius: 10px;
-  z-index: 5;
 }
 
 /* ---- FORM ---- */
@@ -93,20 +88,23 @@ body {
 
 /* ---- Card ---- */
 .card {
-  /* Grid */
+  /*Layout*/
   position: relative;
   display: grid;
-  grid-template-rows: 0.7fr 1.3fr 1fr 0.5fr;
+  grid-template-rows: 0.7fr 1fr 0.5fr;
   grid-template-columns: 0.4fr repeat(3, minmax(0, 1fr));
+  min-height: 90px;
+  padding-top: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 7px;
+  margin: 5px;
   /* Styling */
   border-radius: 7px;
   border: 3px solid rgba(255, 255, 255, 0.5);
   background: rgba(19, 20, 21, 0.3);
   backdrop-filter: blur(17.5px);
-  margin: 5px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-  min-height: 120px;
-  padding: 12px;
   border-radius: 0.5cap;
   backdrop-filter: blur(20px);
 }
@@ -123,10 +121,10 @@ body {
   font-family: Geist;
   font-size: 13px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
 }
-.create-date {
+.issue-date {
   /* Layout */
   display: flex;
   grid-row: 1 / 1;
@@ -137,7 +135,7 @@ body {
 
   /* Styling */
   opacity: 0.22;
-  color: #fff;
+  color: #f2e9e4;
   font-family: Geist;
   font-size: 10px;
   font-style: normal;
@@ -145,7 +143,7 @@ body {
   line-height: normal;
 }
 
-.create-assignee {
+.issue-assignee {
   /* Layout */
   border-radius: 50%;
   width: 30px;
@@ -154,9 +152,10 @@ body {
 
 .issue-footer {
   display: flex;
-  grid-row: 4 / -1;
+  grid-row: 3 / -1;
   grid-column: 1/-1;
   flex-direction: row;
+
   margin-top: 15px;
 }
 .priority {
@@ -189,7 +188,7 @@ body {
   line-height: normal;
 }
 
-.create-tag {
+.issue-tag {
   /* Layout */
   position: relative;
   width: fit-content;
@@ -197,23 +196,23 @@ body {
   bottom: 4px;
 
   /* Styling */
-  color: yellow;
+  color: #a04786;
   font-family: Geist;
   font-size: 10px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   align-self: top;
   line-height: normal;
-  border: 2px solid yellow;
+  border: 3px solid #a04786;
   border-radius: 0.5cap;
   padding: 2px 8px;
 }
 
-.create-tag:hover {
+.issue-tag:hover {
   border-radius: 4px;
 
-  background-color: yellow;
-  color: black;
+  background-color: #a04786;
+  color: 131415;
 }
 
 /* ---- Classes that are used with JS ---- */
@@ -300,7 +299,9 @@ body {
   left: 0;
   height: 100%;
   width: 300px;
+  border-right: 3px solid rgba(255, 255, 255, 0.5);
   background-color: #0a061e;
+  box-shadow: 8px 0px 20px rgba(0, 0, 0, 0.25);
   padding: 0.4rem 0.8rem;
   transition: all 0.5s ease;
   z-index: 1;
