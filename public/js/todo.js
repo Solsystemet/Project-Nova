@@ -18,7 +18,7 @@ form.addEventListener("submit", (e) => {
   if (!value) return;
 
   // we get the users
-  fetch("/get-users")
+  fetch("/get-users/" + workspaceID)
     .then((res) => res.json())
     .then((data) => CreateUserOptions(data));
   openModal(modal, value); // popup for create issue
@@ -28,12 +28,19 @@ form.addEventListener("submit", (e) => {
 
 btnCreateIssue.addEventListener("click", (e) => {
   const value = input.value;
+
+  const labels = document.querySelectorAll(".option");
+  let checkedlabels = [];
+  labels.forEach((label) => {
+    if (label.checked == true) checkedlabels.push(label.value);
+  });
+
   socket.emit(
     "new task",
     value,
     description.value,
     priority.value,
-    label.value,
+    checkedlabels,
     selectionUserResponsibility.value,
     todoLane.id,
     workspaceID
