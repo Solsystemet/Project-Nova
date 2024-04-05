@@ -19,7 +19,7 @@ router.post(
     const { title } = req.body;
 
     const workspace = new Workspace({
-      title: title,
+      title: "title",
       date: "420/69",
       owner: req.user.id,
       members: [req.user.id],

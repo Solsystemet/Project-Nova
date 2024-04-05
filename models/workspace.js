@@ -5,7 +5,7 @@ const issueSchema = new mongoose.Schema({
   description: String,
   createdData: String,
   status: String,
-  label: String,
+  labels: [String],
   assignee: String,
   priority: String,
 });
