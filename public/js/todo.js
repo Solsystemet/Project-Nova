@@ -77,16 +77,28 @@ function createTaskElement(title, id, createDate) {
   priority.classList.add("priority");
   issueFooter.appendChild(priority);
 
+  //Priority icon
+  const priorityIcon = document.createElement("img");
+  priorityIcon.classList.add("priority-icon");
+  priorityIcon.src = "../img/(NameofIcon)"; // Default priority icon
+  priority.appendChild(priorityIcon);
+
   // Priority text
   const priorityText = document.createElement("p");
   priorityText.classList.add("priority-text");
   priorityText.textContent = "High"; // Default priority
-  issueFooter.appendChild(priorityText);
+  priority.appendChild(priorityText);
 
   // Due date
   const dueDate = document.createElement("div");
   dueDate.classList.add("due-date");
   issueFooter.appendChild(dueDate);
+
+  // Due date icon
+  const dueDateIcon = document.createElement("img");
+  dueDateIcon.classList.add("due-date-icon");
+  dueDateIcon.src = "../img/(NameofIcon)"; // Default due date icon
+  dueDate.appendChild(dueDateIcon);
 
   // Due date text
   const dueDateText = document.createElement("p");
