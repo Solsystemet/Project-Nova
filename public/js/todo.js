@@ -18,11 +18,16 @@ form.addEventListener("submit", (e) => {
   const value = input.value; // Get the value of the input field
   if (!value) return; // If input value is empty, do nothing
 
-  // we get the users
+  // Fetch users and open modal
   fetch("/get-users/" + workspaceID)
     .then((res) => res.json())
-    .then((data) => CreateUserOptions(data));
-  openModal(modal, value); // popup for create issue
+    .then((data) => {
+      CreateUserOptions(data);
+      openModal(modal, value); // popup for create issue
+    })
+    .catch((error) => {
+      console.error("Error fetching users:", error);
+    });
 });
 
 // Event listener for creating a new task when a button is clicked
@@ -48,8 +53,6 @@ btnCreateIssue.addEventListener("click", (e) => {
   );
 });
 
-// Function to create a new task or task lane element
-
 // Socket event listener for new tasks
 socket.on("new task", (title, id, createDate) => {
   const newTaskElement = createTaskElement(title, id, createDate);
@@ -57,7 +60,7 @@ socket.on("new task", (title, id, createDate) => {
   UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
   const modal = document.getElementById("modal");
   closeModal(modal); // Close modal after task creation
-  description.textContent = ""; // Reset task description input field
+  description.value = ""; // Reset task description input field
 });
 
 // Socket event listener for creating a new board (task lane)
@@ -98,38 +101,38 @@ function createTaskElement(title, id, createDate) {
   newTask.appendChild(issueFooter);
 
   // Priority
-  const priority = document.createElement("div");
-  priority.classList.add("priority");
-  issueFooter.appendChild(priority);
+  const priorityDiv = document.createElement("div");
+  priorityDiv.classList.add("priority");
+  issueFooter.appendChild(priorityDiv);
 
   //Priority icon
   const priorityIcon = document.createElement("img");
   priorityIcon.classList.add("priority-icon");
   priorityIcon.src = "../img/(NameofIcon)"; // Default priority icon
-  priority.appendChild(priorityIcon);
+  priorityDiv.appendChild(priorityIcon);
 
   // Priority text
   const priorityText = document.createElement("p");
   priorityText.classList.add("priority-text");
   priorityText.textContent = "High"; // Default priority
-  priority.appendChild(priorityText);
+  priorityDiv.appendChild(priorityText);
 
   // Due date
-  const dueDate = document.createElement("div");
-  dueDate.classList.add("due-date");
-  issueFooter.appendChild(dueDate);
+  const dueDateDiv = document.createElement("div");
+  dueDateDiv.classList.add("due-date");
+  issueFooter.appendChild(dueDateDiv);
 
   // Due date icon
   const dueDateIcon = document.createElement("img");
   dueDateIcon.classList.add("due-date-icon");
   dueDateIcon.src = "../img/(NameofIcon)"; // Default due date icon
-  dueDate.appendChild(dueDateIcon);
+  dueDateDiv.appendChild(dueDateIcon);
 
   // Due date text
   const dueDateText = document.createElement("p");
   dueDateText.classList.add("due-date-text");
   dueDateText.textContent = "03/04/2024"; // Default due date
-  dueDate.appendChild(dueDateText);
+  dueDateDiv.appendChild(dueDateText);
 
   // Tag
   const createdTag = document.createElement("p");
@@ -146,14 +149,10 @@ function createTaskElement(title, id, createDate) {
     newTask.classList.remove("is-dragging");
   });
 
-  const lane = document.getElementById(laneID);
-  lane.appendChild(newTask);
   return newTask; // Return the created task or task lane element
 }
-//Thx Chatgpt for comment
 
 function CreateUserOptions(users) {
-  //console.log("users: " + users);
   selectionUserResponsibility.innerHTML = "";
   users.forEach((user) => {
     const option = document.createElement("option");
