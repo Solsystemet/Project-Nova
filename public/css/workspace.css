@@ -9,6 +9,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+
   font-family: "Geist";
   -ms-text-overflow: none;
   text-overflow: none;
@@ -342,6 +343,7 @@ body {
   left: 0;
   height: 100%;
   width: 300px;
+
   border-right: 2px solid rgba(255, 255, 255, 0.5);
   background: rgba(19, 20, 21, 0.32);
   backdrop-filter: blur(17.5px);
@@ -359,16 +361,25 @@ body {
 
 .sidebar-top {
   display: flex;
+
   width: 75%;
   margin: 0 auto;
-}
-.app-name {
-  color: #f9f4ef;
-  margin-top: 25px;
-  margin-left: 5px;
-  font-family: Geist;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+
+  .app-name {
+    color: #f9f4ef;
+    margin-top: 25px;
+    margin-left: 5px;
+
+    font-family: Geist;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+    font-family: Manrope;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
 }
