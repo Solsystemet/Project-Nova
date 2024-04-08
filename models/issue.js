@@ -5,6 +5,9 @@ const issueSchema = new mongoose.Schema({
   description: String,
   createdData: String,
   status: String,
+  labels: [String],
+  assignee: String,
+  priority: String,
 });
 
 module.exports = mongoose.model("Issue", issueSchema);

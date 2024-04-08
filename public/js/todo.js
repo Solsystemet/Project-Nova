@@ -1,9 +1,15 @@
-// Get references to necessary elements in the HTML DOM
-const form = document.getElementById("todo-form"); // Form for adding tasks
-const input = document.getElementById("todo-input"); // Input field for task description
-const todoLane = document.getElementById("todo-lane"); // Container for tasks on the board
-const btnCreateIssue = document.getElementById("btn-issue-create"); // Button for creating a new task
-const description = document.querySelector(".issue-description"); // Description of the task
+const form = document.getElementById("todo-form");
+const input = document.getElementById("todo-input");
+const todoLane = document.getElementById("todo-lane");
+
+// Modal
+const description = document.querySelector(".issue-description");
+const priority = document.querySelector(".modal-priority");
+const label = document.querySelector(".modal-label");
+const btnCreateIssue = document.getElementById("btn-issue-create");
+const selectionUserResponsibility = document.querySelector(
+  ".modal-lead-responsibility"
+);
 
 // Event listener for form submission (adding a new task)
 form.addEventListener("submit", (e) => {
@@ -12,15 +18,34 @@ form.addEventListener("submit", (e) => {
   const value = input.value; // Get the value of the input field
   if (!value) return; // If input value is empty, do nothing
 
-  openModal(modal, value); // Call a function to open a modal for creating the task
-  // Additional actions can be added here if needed
+  // we get the users
+  fetch("/get-users/" + workspaceID)
+    .then((res) => res.json())
+    .then((data) => CreateUserOptions(data));
+  openModal(modal, value); // popup for create issue
 });
 
 // Event listener for creating a new task when a button is clicked
 btnCreateIssue.addEventListener("click", (e) => {
-  const value = input.value; // Get the value of the input field
-  // Emit a socket event to create a new task with the task description and additional description
-  socket.emit("new task", value, description.textContent);
+  const value = input.value;
+
+  const labels = document.querySelectorAll(".option");
+  let checkedlabels = [];
+
+  labels.forEach((label) => {
+    if (label.checked == true) checkedlabels.push(label.value);
+  });
+
+  socket.emit(
+    "new task",
+    value,
+    description.value,
+    priority.value,
+    checkedlabels,
+    selectionUserResponsibility.value,
+    todoLane.id,
+    workspaceID
+  );
 });
 
 // Function to create a new task or task lane element
@@ -121,6 +146,19 @@ function createTaskElement(title, id, createDate) {
     newTask.classList.remove("is-dragging");
   });
 
+  const lane = document.getElementById(laneID);
+  lane.appendChild(newTask);
   return newTask; // Return the created task or task lane element
 }
 //Thx Chatgpt for comment
+
+function CreateUserOptions(users) {
+  //console.log("users: " + users);
+  selectionUserResponsibility.innerHTML = "";
+  users.forEach((user) => {
+    const option = document.createElement("option");
+    option.value = user;
+    option.innerText = user;
+    selectionUserResponsibility.appendChild(option);
+  });
+}

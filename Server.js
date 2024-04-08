@@ -21,8 +21,8 @@ const MongoStore = require("connect-mongo");
 const { Server } = require("socket.io");
 const io = new Server(server);
 const port = 3000;
+const socketManager = require("./socketManager.js");
 const staticPath = __dirname + "/public";
-const GetCurrentTime = require("./utils/Dates.js");
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
@@ -99,40 +99,7 @@ app.use("/workspaces", workspaces);
 // Connect to MongoDB
 connectDB();
 
-io.on("connection", (socket) => {
-  async function GetIssues() {
-    const issues = await Issue.find();
-    if (!issues) return;
-    issues.forEach((issue) => {
-      socket.emit("create board", issue.title, issue._id, issue.createdData);
-    });
-  }
-  GetIssues();
-  console.log("a user connected");
-
-  socket.on("new task", (value, description) => {
-    console.log("New task With: " + value);
-    const createDate = `Created at ${GetCurrentTime()}`;
-    const issue = new Issue({
-      title: value,
-      description: description,
-      createdData: createDate,
-    });
-
-    async function SaveIssue() {
-      await issue.save();
-    }
-    SaveIssue();
-    io.emit("new task", value, issue._id, createDate);
-  });
-
-  socket.on("drag ended", (curTask, bottomTask, curZoneID) => {
-    console.log(curTask);
-    console.log(bottomTask);
-    console.log(curZoneID);
-    io.emit("drag ended", curTask, bottomTask, curZoneID);
-  });
-});
+io.on("connection", (socket) => socketManager(socket, io));
 
 // Delete all issues in collection (only use after you have gotten greenlight from the group)
 async function EmptyIssues() {

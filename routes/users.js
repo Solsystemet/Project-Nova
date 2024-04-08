@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");
+const Workspace = require("../models/workspace.js");
 const passport = require("passport");
 
 router.get("/register", (req, res) => {
@@ -24,6 +25,23 @@ router.get("/login", (req, res) => {
   res.render("users/login", {
     title: "Login",
   });
+});
+
+router.get("/get-users/:id", async (req, res) => {
+  const users = [];
+  // TODO: When workspaces are in DB use filter
+  const workspace = await Workspace.findById(req.params.id);
+  await Promise.all(
+    workspace.members.map(async (member) => {
+      const user = await User.findById(member);
+      console.log(user.username);
+      users.push(user.username);
+    })
+  );
+
+  console.log(users);
+  res.json(users);
+  res.end();
 });
 
 router.post(
