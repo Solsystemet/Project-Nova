@@ -67,22 +67,11 @@ body {
   height: 100%;
 }
 
-.heading {
-  color: #f2e9e4;
-  font-family: Geist;
-  font-size: 25px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
 .swim-lane {
   display: flex;
   flex-direction: column;
   gap: 12;
-
   fill: white;
-
   padding: 12px;
   border-radius: 4px;
   width: 450px;
@@ -91,13 +80,51 @@ body {
   flex-shrink: 0;
 }
 
+/* !Bug becouse of making the div  */
+.swim-lane > div {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.swim-lane > div > .heading {
+  color: #f2e9e4;
+  font-family: Geist;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-right: auto;
+}
+.swim-lane > div > .add-card {
+  float: right;
+  margin-left: auto;
+  padding: 0px 8px;
+  border-radius: 8px;
+  width: min-content;
+  height: min-content;
+  justify-content: right;
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+  background: none;
+  color: #f2e9e4;
+  opacity: 0.8;
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+.swim-lane > div > .add-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* ---- Card ---- */
 .card {
   /*Layout*/
   position: relative;
   display: grid;
   grid-template-rows: 0.7fr 0.3fr 0.5fr;
-  grid-template-columns: 0.4fr 1fr repeat(2, minmax(0, 1fr));
+  grid-template-columns: 02fr 1fr repeat(2, minmax(0, 1fr));
   min-height: 90px;
   padding-top: 12px;
   padding-left: 12px;
@@ -132,7 +159,6 @@ body {
 
 .card > .issue-date {
   /* Layout */
-  display: flex;
   grid-row: 1 / 1;
   grid-column: 2/4;
   flex-direction: column;
@@ -153,6 +179,7 @@ body {
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  cursor: pointer;
 }
 
 .card > .issue-footer {
@@ -171,6 +198,7 @@ body {
   border: 2px solid #d56062;
   padding: 4px 6px 4px 4px;
   border-radius: 1cap;
+  cursor: pointer;
 }
 
 .card > .issue-footer > .priority:hover {
@@ -208,6 +236,7 @@ body {
   border: 2px solid #d56062;
   padding: 4px 6px 4px 4px;
   border-radius: 1cap;
+  cursor: pointer;
 }
 
 .card > .issue-footer > .due-date:hover {
@@ -244,6 +273,7 @@ body {
   position: relative;
   width: fit-content;
   margin-left: 15px;
+  cursor: pointer;
 
   /* Styling */
   border: 2px solid #a04786;

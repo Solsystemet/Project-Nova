@@ -8,23 +8,33 @@
 <div class="board">
   <form id="todo-form">
     <input type="text" placeholder="New TODO..." id="todo-input" />
-    <button type="submit">Add +</button>
+    <button class="add-card" ="submit">+</button>
   </form>
 
   <div class="lanes">
     <div class="swim-lane" id="todo-lane">
-      <h3 class="heading">To-do</h3>
+      <div>
+        <h3 class="heading">To-do</h3>
+        <button class="add-card" ="submit">+</button>
+      </div>
     </div>
 
     <div class="swim-lane" id="progress-lane">
-      <h3 class="heading">In progress</h3>
+      <div>
+        <h3 class="heading">In progress</h3>
+        <button class="add-card" ="submit">+</button>
+      </div>
     </div>
 
     <div class="swim-lane" id="done-lane">
-      <h3 class="heading">Done</h3>
+      <div>
+        <h3 class="heading">Done</h3>
+        <button class="add-card" ="submit">+</button>
+      </div>
     </div>
   </div>
 </div>
+s
 
 <button data-modal-target="#modal">Open Modal</button>
 <div class="modal" id="modal">
