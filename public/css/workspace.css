@@ -19,6 +19,7 @@
 *::-webkit-scrollbar {
   display: none;
 }
+
 body {
   background-repeat: no-repeat;
   background-size: cover;
@@ -179,7 +180,13 @@ body {
   }
 }
 
-.card > .issue-footer > .priority > .priority-text {
+.card > .issue-footer > .priority > img {
+  opacity: 0.9;
+  width: 15px;
+  height: 15px;
+}
+
+.card > .issue-footer > .priority > p {
   /* Layout */
   position: relative;
   align-self: center;
@@ -193,12 +200,7 @@ body {
   line-height: normal;
 }
 
-.card > .issue-footer > .priority > .priority-icon {
-  opacity: 0.9;
-  width: 15px;
-  height: 15px;
-}
-
+/* Due date */
 .card > .issue-footer > .due-date {
   display: flex;
   flex-direction: row;
@@ -210,19 +212,20 @@ body {
 
 .card > .issue-footer > .due-date:hover {
   background-color: #d56062;
-  .due-date-text {
+
+  p {
     color: #131415;
   }
 }
 
-.due-date-icon > .card > .issue-footer > .due-date > .due-date-text {
+.card > .issue-footer > .due-date > img {
   margin-right: 5px;
   opacity: 0.9;
   width: 15px;
   height: 15px;
 }
 
-.due-date-icon > .card > .issue-footer > .due-date > .due-date-text {
+.card > .issue-footer > .due-date > p {
   /* Layout */
   position: relative;
   align-self: center;
@@ -235,6 +238,7 @@ body {
   line-height: normal;
 }
 
+/* issue tag */
 .issue-tag {
   /* Layout */
   position: relative;
@@ -354,74 +358,70 @@ body {
   z-index: 1;
 }
 
-.app-logo {
-  width: 85px;
-  height: 85px;
+.sidebar-top {
+  display: flex;
+  position: relative;
+  top: 2%;
+  align-items: center;
+  text-align: center;
+  width: min-content;
+  margin: 0 auto;
+}
+
+.sidebar-top > img {
+  width: 50px;
+  height: 50px;
   flex-shrink: 0;
 }
 
-.sidebar-top {
-  display: flex;
+.sidebar-top > p {
+  color: #f9f4ef;
+  margin-left: 5px;
 
-  width: 75%;
-  margin: 0 auto;
+  font-family: Geist;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
 
-  .app-name {
-    color: #f9f4ef;
-    margin-top: 25px;
-    margin-left: 5px;
+#dropdownButton.dropdown-button {
+  width: fit-content;
 
-    font-family: Geist;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-
-    font-family: Manrope;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-  }
-
-  #dropdownButton.dropdown-button {
-    width: fit-content;
-    /*
   background-color: #312857;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  */
-    cursor: pointer;
-  }
 
-  .dropdown {
-    width: fit-content;
-  }
+  cursor: pointer;
+}
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
+.dropdown {
+  width: fit-content;
+}
 
-  .dropdown-content input[type="checkbox"] {
-    margin: 8px;
-  }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
 
-  .dropdown-content label {
-    margin-left: 8px;
-  }
+.dropdown-content input[type="checkbox"] {
+  margin: 8px;
+}
 
-  #options.active {
-    display: block;
-  }
+.dropdown-content label {
+  margin-left: 8px;
+}
 
-  #option.option {
-    width: 25px;
-  }
+#options.active {
+  display: block;
+}
+
+#option.option {
+  width: 25px;
 }
