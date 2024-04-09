@@ -1,4 +1,6 @@
 const modalEdit = document.getElementById("modal-edit");
-const title = document.querySelector(".modal-title-edit");
-console.log(title);
-openModal(modalEdit, title, "Issue title: " + "Placeholder");
+const btnCloseModal = document.querySelector(".close-button-edit");
+
+btnCloseModal.addEventListener("click", () => {
+  closeModal(modalEdit);
+});

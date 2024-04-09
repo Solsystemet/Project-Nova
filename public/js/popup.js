@@ -17,7 +17,7 @@ function closeModal(modal) {
 function openModal(modal, title, value) {
   if (!modal) return;
 
-  title.innerHTML = value;
+  title.textContent = value;
   modal.classList.add("active");
   overlay.classList.add("active");
 }

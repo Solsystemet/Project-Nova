@@ -181,6 +181,16 @@ body {
   transform: translate(-50%, -50%) scale(1);
 }
 
+.modal-header .close-button-edit {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  justify-content: right;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 #overlay {
   position: fixed;
   opacity: 0;

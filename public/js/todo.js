@@ -68,6 +68,15 @@ socket.on("new task", (value, id, createDate) => {
     newTask.classList.remove("is-dragging");
   });
 
+  const modalEdit = document.getElementById("modal-edit");
+  const title = document.querySelector(".modal-title-edit ");
+  const btnCloseModal = document.querySelector(".close-button-edit");
+  const titleInput = document.querySelector(".modal-title-edit-input");
+  titleInput.value = value;
+  newTask.addEventListener("click", () => {
+    openModal(modalEdit, title, "Issue title: ");
+  });
+
   todoLane.appendChild(newTask);
   UpdateDragAndDrop();
   const modal = document.getElementById("modal");
@@ -93,6 +102,15 @@ socket.on("create board", (title, id, createDate, laneID) => {
 
   newTask.addEventListener("dragend", () => {
     newTask.classList.remove("is-dragging");
+  });
+
+  const modalEdit = document.getElementById("modal-edit");
+  const modalTitle = document.querySelector(".modal-title-edit ");
+  const btnCloseModal = document.querySelector(".close-button-edit");
+  const titleInput = document.querySelector(".modal-title-edit-input");
+  titleInput.value = title;
+  newTask.addEventListener("click", () => {
+    openModal(modalEdit, modalTitle, "Issue title: ");
   });
 
   // Appending the new board element to the todoLane container
