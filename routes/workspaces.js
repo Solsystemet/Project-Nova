@@ -17,6 +17,7 @@ router.get("/:id", isLoggedIn, (req, res) => {
       { src: "../js/todo.js", attributes: ["defer"] },
       { src: "../js/userConnect.js", attributes: ["defer"] },
       { src: "../js/dropdownMultiple.js", attributes: ["defer"] },
+      { src: "../js/issueEdit.js", attributes: ["defer"] },
     ],
   });
 });

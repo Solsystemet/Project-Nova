@@ -14,6 +14,7 @@ const selectionUserResponsibility = document.querySelector(
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const modal = document.getElementById("modal");
+  const title = document.querySelector(".modal-title");
   const value = input.value;
   if (!value) return;
 
@@ -21,7 +22,7 @@ form.addEventListener("submit", (e) => {
   fetch("/get-users/" + workspaceID)
     .then((res) => res.json())
     .then((data) => CreateUserOptions(data));
-  openModal(modal, value); // popup for create issue
+  openModal(modal, title, value); // popup for create issue
 
   //
 });
