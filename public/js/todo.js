@@ -18,7 +18,7 @@ form.addEventListener("submit", (e) => {
   if (!value) return;
 
   // we get the users
-  fetch("/get-users")
+  fetch("/get-users/" + workspaceID)
     .then((res) => res.json())
     .then((data) => CreateUserOptions(data));
   openModal(modal, value); // popup for create issue
@@ -28,13 +28,22 @@ form.addEventListener("submit", (e) => {
 
 btnCreateIssue.addEventListener("click", (e) => {
   const value = input.value;
+
+  const labels = document.querySelectorAll(".option");
+  let checkedlabels = [];
+  labels.forEach((label) => {
+    if (label.checked == true) checkedlabels.push(label.value);
+  });
+
   socket.emit(
     "new task",
     value,
     description.value,
     priority.value,
-    label.value,
-    selectionUserResponsibility.value
+    checkedlabels,
+    selectionUserResponsibility.value,
+    todoLane.id,
+    workspaceID
   );
 });
 
@@ -65,7 +74,7 @@ socket.on("new task", (value, id, createDate) => {
   description.textContent = "";
 });
 
-socket.on("create board", (title, id, createDate) => {
+socket.on("create board", (title, id, createDate, laneID) => {
   const newTask = document.createElement("p");
   newTask.id = id;
   newTask.classList.add("task");
@@ -85,7 +94,9 @@ socket.on("create board", (title, id, createDate) => {
     newTask.classList.remove("is-dragging");
   });
 
-  todoLane.appendChild(newTask);
+  // Appending the new board element to the todoLane container
+  const lane = document.getElementById(laneID);
+  lane.appendChild(newTask);
   UpdateDragAndDrop();
 });
 

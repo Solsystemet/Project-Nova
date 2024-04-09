@@ -32,7 +32,7 @@
     <button data-close-button class="close-button">&times;</button>
   </div>
   <div class="modal-body">
-    <form>
+    <div id="todo-form">
       <label>Description</label>
       <br />
       <input
@@ -48,18 +48,36 @@
         <option value="high">High</option>
         <option value="urgent">Urgent</option>
       </select>
-      <select class="modal-lead-responsibility">
-      </select>
-      <select class="modal-label">
-        <option value="Analysis">Analysis</option>
-        <option value="Writing">Writing</option>
-        <option value="Review">Review</option>
-        <option value="Production">Production</option>
-      </select>
+      <select class="modal-lead-responsibility"></select>
+      <div class="dropdown">
+        <input
+          id="dropdownButton"
+          type="button"
+          class="dropdown-button"
+          value="Dropdown"
+        />
+        <div id="options" class="dropdown-content">
+          <input class="option" type="checkbox" id="option" value="Analysis" />
+          <label for="Analysis">Analysis</label><br />
+          <input class="option" type="checkbox" id="option" value="Writing" />
+          <label for="Writing">Writing</label><br />
+          <input class="option" type="checkbox" id="option" value="Review" />
+          <label for="Review">Review</label><br />
+          <input
+            class="option"
+            type="checkbox"
+            id="option"
+            value="Production"
+          />
+          <label for="Production">Production</label><br />
+        </div>
+      </div>
       <button id="btn-issue-create" type="submit">Create Issue</button>
-    </form>
-
+    </div>
   </div>
 </div>
 
 <div id="overlay"></div>
+<script>
+  const workspaceID = "{{workspaceID}}";
+</script>

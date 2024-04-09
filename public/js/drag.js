@@ -5,9 +5,6 @@ let curTask = null;
 let curZone = null;
 
 function UpdateDragAndDrop() {
-  //console.log(draggables);
-  //console.log(document.querySelectorAll(".task"));
-  //console.log(droppabls);
   draggables = document.querySelectorAll(".task");
   droppabls = document.querySelectorAll(".swim-lane");
 
@@ -22,8 +19,14 @@ function UpdateDragAndDrop() {
       //console.log(curTask.id);
 
       if (bottomTask)
-        socket.emit("drag ended", curTask.id, bottomTask.id, curZone.id);
-      else socket.emit("drag ended", curTask.id, null, curZone.id);
+        socket.emit(
+          "drag ended",
+          curTask.id,
+          bottomTask.id,
+          curZone.id,
+          workspaceID
+        );
+      else socket.emit("drag ended", curTask.id, null, curZone.id, workspaceID);
     });
   });
 
