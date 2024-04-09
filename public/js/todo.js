@@ -11,6 +11,26 @@ const selectionUserResponsibility = document.querySelector(
   ".modal-lead-responsibility"
 );
 
+const adds = document.querySelectorAll(".add-card");
+
+adds.forEach((add) => {
+  add.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    const modal = document.getElementById("modal"); // Get reference to a modal element
+
+    // Fetch users and open modal
+    fetch("/get-users/" + workspaceID)
+      .then((res) => res.json())
+      .then((data) => {
+        CreateUserOptions(data);
+        openModal(modal); // popup for create issue
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
+  });
+});
+
 // Event listener for form submission (adding a new task)
 form.addEventListener("submit", (e) => {
   e.preventDefault(); // Prevent default form submission behavior
@@ -32,7 +52,7 @@ form.addEventListener("submit", (e) => {
 
 // Event listener for creating a new task when a button is clicked
 btnCreateIssue.addEventListener("click", (e) => {
-  const value = input.value;
+  const issueTitle = document.querySelector(".issue-title");
 
   const labels = document.querySelectorAll(".option");
   let checkedlabels = [];
@@ -43,7 +63,7 @@ btnCreateIssue.addEventListener("click", (e) => {
 
   socket.emit(
     "new task",
-    value,
+    issueTitle.value,
     description.value,
     priority.value,
     checkedlabels,
@@ -54,8 +74,17 @@ btnCreateIssue.addEventListener("click", (e) => {
 });
 
 // Socket event listener for new tasks
-socket.on("new task", (title, id, createDate) => {
-  const newTaskElement = createTaskElement(title, id, createDate);
+socket.on("new task", (title, id, createDate, priority, labels, assignee) => {
+  const newTaskElement = createTaskElement(
+    title,
+    id,
+    createDate,
+    priority,
+    labels,
+    assignee
+  );
+  console.log(priority);
+
   todoLane.appendChild(newTaskElement); // Append the new task element to the task lane/container
   UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
   const modal = document.getElementById("modal");
@@ -64,13 +93,23 @@ socket.on("new task", (title, id, createDate) => {
 });
 
 // Socket event listener for creating a new board (task lane)
-socket.on("create board", (title, id, createDate) => {
-  const newTaskLaneElement = createTaskElement(title, id, createDate);
-  todoLane.appendChild(newTaskLaneElement); // Append the new task lane element to the task lane/container
-  UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
-});
+socket.on(
+  "create board",
+  (title, id, createDate, priority, labels, assignee) => {
+    const newTaskElement = createTaskElement(
+      title,
+      id,
+      createDate,
+      priority,
+      labels,
+      assignee
+    );
+    todoLane.appendChild(newTaskElement); // Append the new task lane element to the task lane/container
+    UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
+  }
+);
 
-function createTaskElement(title, id, createDate) {
+function createTaskElement(title, id, createDate, priority, labels, assignee) {
   // Create a new task or task lane element with provided data
   const newTask = document.createElement("div");
   newTask.id = id; // Set task or task lane ID
@@ -112,7 +151,7 @@ function createTaskElement(title, id, createDate) {
 
   // Priority text
   const priorityText = document.createElement("p");
-  priorityText.textContent = "High"; // Default priority
+  priorityText.innerText = priority;
   priorityDiv.appendChild(priorityText);
 
   // Due date
@@ -131,11 +170,12 @@ function createTaskElement(title, id, createDate) {
   dueDateDiv.appendChild(dueDateText);
 
   // Tag
-  const createdTag = document.createElement("p");
-  createdTag.classList.add("issue-tag");
-  createdTag.textContent = "Bug"; // Default tag
-  issueFooter.appendChild(createdTag);
-
+  const createdLabels = document.createElement("p");
+  if (labels.length > 0) {
+    createdLabels.textContent = labels; // Default tag
+    createdLabels.classList.add("created-labels");
+    issueFooter.appendChild(createdLabels);
+  }
   // Add drag and drop event listeners to the new task or task lane element
   newTask.addEventListener("dragstart", () => {
     newTask.classList.add("is-dragging");

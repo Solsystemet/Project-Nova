@@ -15,6 +15,9 @@ module.exports = (socket, io) => {
         issue.title,
         issue._id,
         issue.createdData,
+        issue.priority,
+        issue.labels,
+        issue.assignee,
         issue.status
       );
     });
@@ -33,14 +36,21 @@ module.exports = (socket, io) => {
         status: laneID,
         labels: labels,
       });
-
       async function SaveIssueToWorkspace() {
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
         await workspace.save();
       }
       SaveIssueToWorkspace();
-      io.emit("new task", value, issue._id, createDate);
+      io.emit(
+        "new task",
+        value,
+        issue._id,
+        createDate,
+        priority,
+        labels,
+        assignee
+      );
     }
   );
 

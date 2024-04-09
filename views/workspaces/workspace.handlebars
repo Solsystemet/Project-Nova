@@ -6,40 +6,36 @@
   </div>
 </div>
 <div class="board">
-  <form id="todo-form">
-    <input type="text" placeholder="New TODO..." id="todo-input" />
-    <button class="add-card" ="submit">+</button>
-  </form>
-
   <div class="lanes">
     <div class="swim-lane" id="todo-lane">
-      <div>
+      <div class="lane-header">
         <h3 class="heading">To-do</h3>
-        <button class="add-card" ="submit">+</button>
+        <button class="add-card">+</button>
       </div>
     </div>
-
     <div class="swim-lane" id="progress-lane">
-      <div>
+      <div class="lane-header">
         <h3 class="heading">In progress</h3>
-        <button class="add-card" ="submit">+</button>
+        <button class="add-card">+</button>
       </div>
     </div>
 
     <div class="swim-lane" id="done-lane">
-      <div>
+      <div class="lane-header">
         <h3 class="heading">Done</h3>
-        <button class="add-card" ="submit">+</button>
+        <button class="add-card">+</button>
       </div>
     </div>
   </div>
 </div>
-s
-
-<button data-modal-target="#modal">Open Modal</button>
 <div class="modal" id="modal">
   <div class="modal-header">
-    <div class="modal-title">Example Modal</div>
+    <input
+      class="issue-title"
+      type="text"
+      placeholder="Enter issue title!"
+      contenteditable="plaintext-only"
+    />
     <button data-close-button class="close-button">&times;</button>
   </div>
   <div class="modal-body">
@@ -47,7 +43,7 @@ s
       <label>Description</label>
       <br />
       <input
-        class="issue-description"
+        class="modal-description"
         type="text"
         placeholder="Describe issue here!"
         contenteditable="plaintext-only"
