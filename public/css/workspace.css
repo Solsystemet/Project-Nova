@@ -335,8 +335,8 @@ body {
 .modal {
   display: grid;
 
-  /* grid-template-rows: 1fr;
-  grid-template-columns: 1fr; */
+  grid-template-rows: 0.2fr 0.6fr 0.2fr 0.2fr;
+  /* grid-template-columns: 0.5fr 0.5fr 0.5fr; */
 
   position: fixed;
   top: 50%;
@@ -356,6 +356,8 @@ body {
 }
 
 .modal > .modal-header {
+  grid-row: 1/1;
+  grid-column: 1/-1;
   padding: 10px 15px;
   display: flex;
   justify-content: space-between;
@@ -371,10 +373,12 @@ body {
 }
 
 .modal > .modal-body {
-  padding: 10px 15px;
+  padding: 5px 0px;
 }
 
 .modal > .modal-body > .modal-description {
+  grid-row: 2/2;
+  grid-column: 1/-1;
   min-height: 50px;
 }
 
@@ -419,6 +423,9 @@ body {
 
 .modal > .dropdown-content label {
   margin-left: 8px;
+}
+#btn-issue-create {
+  grid-row: 4/4;
 }
 
 .modal > #options.active {
