@@ -60,7 +60,6 @@ btnCreateIssue.addEventListener("click", (e) => {
   labels.forEach((label) => {
     if (label.checked == true) checkedlabels.push(label.value);
   });
-
   socket.emit(
     "new task",
     issueTitle.value,
