@@ -22,6 +22,11 @@
   scrollbar-width: none;
 }
 
+div:empty:not(:focus):before {
+  content: attr(data-text);
+  color: #999999;
+}
+
 *::-webkit-scrollbar {
   display: none;
 }
@@ -334,21 +339,19 @@ body {
 /* ---- Card Creation ---- */
 .modal {
   display: grid;
-
-  grid-template-rows: 0.2fr 0.6fr 0.2fr 0.2fr;
-  /* grid-template-columns: 0.5fr 0.5fr 0.5fr; */
-
+  grid-template-rows: 0.2fr 3fr;
   position: fixed;
   top: 50%;
   left: 50%;
+  width: 500px;
+  max-width: 80%;
   transform: translate(-50%, -50%) scale(0);
+
   transition: 200ms ease-in-out;
-  border: 1px solid black;
+  border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   z-index: 10;
   background-color: white;
-  width: 500px;
-  max-width: 80%;
 }
 
 .modal.active {
@@ -356,34 +359,56 @@ body {
 }
 
 .modal > .modal-header {
+  display: flex;
   grid-row: 1/1;
   grid-column: 1/-1;
   padding: 10px 15px;
-  display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
 }
 
 .modal > .modal-header > .modal-title {
-  font-size: 1.25rem;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  outline: none;
+  overflow: hidden;
+  font-size: 1.5rem;
   font-weight: bold;
-}
-.modal > .modal-body > .modal-priority {
 }
 
 .modal > .modal-body {
-  padding: 5px 0px;
+  grid-row: 2/-1;
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr 0.5fr;
+  grid-template-rows: 1fr 0.5fr 0.5fr;
+  padding: 15px 15px;
 }
 
 .modal > .modal-body > .modal-description {
-  grid-row: 2/2;
+  grid-row: 1/1;
   grid-column: 1/-1;
+  width: 100%;
+  outline: none;
   min-height: 50px;
+}
+
+.modal > .modal-body > .modal-priority {
+  height: fit-content;
+  grid-row: 2/2;
+}
+
+.modal > .modal-body > .modal-lead-responsibility {
+  height: fit-content;
+  grid-row: 2/2;
 }
 
 /* Dropdown menu */
 .modal > .modal-body > .dropdown {
+  grid-row: 2/2;
+
   width: fit-content;
 }
 
@@ -396,7 +421,7 @@ body {
   font-size: 1.25rem;
   font-weight: bold;
 }
-.modal > #dropdownButton.dropdown-button {
+.modal > .modal-body > #dropdownButton.dropdown-button {
   width: fit-content;
 
   background-color: #312857;
@@ -408,7 +433,7 @@ body {
   cursor: pointer;
 }
 
-.modal > .dropdown-content {
+.modal > .modal-body > .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -417,22 +442,25 @@ body {
   z-index: 1;
 }
 
-.modal > .dropdown-content input[type="checkbox"] {
+.modal > .modal-body > .dropdown-content input[type="checkbox"] {
   margin: 8px;
 }
 
-.modal > .dropdown-content label {
+.modal > .modal-body > .dropdown-content label {
   margin-left: 8px;
 }
-#btn-issue-create {
+
+.modal > .modal-body > #btn-issue-create {
+  float: right;
+  grid-column: 3/3;
   grid-row: 4/4;
 }
 
-.modal > #options.active {
+.modal > .modal-body > #options.active {
   display: block;
 }
 
-.modal > #option.option {
+.modal > .modal-body > #option.option {
   width: 25px;
 }
 
