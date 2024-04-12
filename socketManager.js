@@ -22,7 +22,15 @@ module.exports = (socket, io) => {
 
   socket.on(
     "new task",
-    (value, description, priority, labels, assignee, laneID, workspaceID) => {
+    async (
+      value,
+      description,
+      priority,
+      labels,
+      assignee,
+      laneID,
+      workspaceID
+    ) => {
       const createDate = `Created at ${GetCurrentTime()}`;
       const issue = new Issue({
         title: value,
@@ -33,27 +41,24 @@ module.exports = (socket, io) => {
         status: laneID,
         labels: labels,
       });
-
-      async function SaveIssueToWorkspace() {
-        const workspace = await Workspace.findById(workspaceID);
-        workspace.issues.push(issue);
-        await workspace.save();
-      }
-      SaveIssueToWorkspace();
+      const workspace = await Workspace.findById(workspaceID);
+      workspace.issues.push(issue);
+      await workspace.save();
       io.emit("new task", value, issue._id, createDate);
     }
   );
 
-  socket.on("drag ended", (curTask, bottomTask, curZoneID, workspaceID) => {
-    async function UpdateIssueStatus() {
+  socket.on(
+    "drag ended",
+    async (curTask, bottomTask, curZoneID, workspaceID) => {
       const workspace = await Workspace.findById(workspaceID);
       const issue = workspace.issues.filter((issue) => issue._id == curTask);
       if (!issue) return;
 
       issue[0].status = curZoneID;
       workspace.save();
+
+      io.emit("drag ended", curTask, bottomTask, curZoneID);
     }
-    UpdateIssueStatus();
-    io.emit("drag ended", curTask, bottomTask, curZoneID);
-  });
+  );
 };
