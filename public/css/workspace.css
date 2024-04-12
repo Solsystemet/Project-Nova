@@ -1,10 +1,12 @@
-/* ---- Custom Fonts ---- */
+/* Custom Fonts */
 @font-face {
   font-family: "Geist";
   src: url("../fonts/Geist/Geist-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
+
+/* Form Styles */
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -13,17 +15,18 @@ select {
   border: none;
 }
 
+/* Global Styles */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-
   font-family: "Geist";
   -ms-text-overflow: none;
   text-overflow: none;
   scrollbar-width: none;
 }
 
+/* Empty Div Placeholder */
 div:empty:not(:focus):before {
   content: attr(data-text);
   color: #999999;
@@ -33,20 +36,23 @@ div:empty:not(:focus):before {
   display: none;
 }
 
+/* Body Styles */
 body {
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("../img/kanbanBackground.svg");
 }
+
+/* Board Styles */
 .board {
   display: flex;
-  width: cover-300px;
+  width: calc(100% - 300px);
   height: 100%;
   margin-left: 300px;
   overflow: scroll;
 }
 
-/* ---- FORM ---- */
+/* Form Styles */
 #todo-form {
   padding: 32px 32px 0;
 }
@@ -55,27 +61,21 @@ body {
   padding: 12px;
   margin-right: 12px;
   width: 225px;
-
   border-radius: 4px;
   border: none;
-
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
   background: white;
-
   font-size: 14px;
   outline: none;
 }
 
-/* ---- BOARD / LANES ---- */
-
+/* Lanes Styles */
 .lanes {
   display: flex;
   align-items: flex-start;
   justify-content: start;
   gap: 16px;
-
   padding: 24px 32px;
-
   overflow: scroll;
   height: 100%;
 }
@@ -83,15 +83,15 @@ body {
 .swim-lane {
   display: flex;
   flex-direction: column;
-  gap: 12;
+  gap: 12px;
   fill: white;
   padding: 12px;
   border-radius: 4px;
   width: 450px;
   min-height: 120px;
-
   flex-shrink: 0;
 }
+
 .swim-lane .lane-header {
   display: flex;
   flex-direction: row;
@@ -99,10 +99,9 @@ body {
   align-items: center;
 }
 
-.swim-lane div .heading {
+.swim-lane .heading {
   width: fit-content;
   margin-right: auto;
-
   color: #f2e9e4;
   font-family: Geist;
   font-size: 25px;
@@ -111,7 +110,7 @@ body {
   line-height: normal;
 }
 
-.swim-lane div .add-card {
+.swim-lane .add-card {
   float: right;
   margin-left: auto;
   padding: 0px 8px;
@@ -119,7 +118,6 @@ body {
   width: min-content;
   height: min-content;
   justify-content: right;
-
   border: none;
   outline: none;
   background: none;
@@ -129,26 +127,22 @@ body {
   font-weight: normal;
 }
 
-.swim-lane div .add-card:hover {
+.swim-lane .add-card:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* ---- Card ---- */
+/* Card Styles */
 .card {
-  /*Layout*/
+  /* Layout */
   position: relative;
   display: grid;
   grid-template-rows: 0.7fr 0.3fr 0.5fr;
   grid-template-columns: 0.45fr 1fr repeat(2, minmax(0, 1fr));
   min-height: 90px;
-  padding-top: 12px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-bottom: 7px;
+  padding: 12px;
   margin: 5px;
   /* Styling */
   border: 2px solid rgba(255, 255, 255, 0.5);
-
   background: rgba(19, 20, 21, 0.2);
   backdrop-filter: blur(20%);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
@@ -156,9 +150,7 @@ body {
   backdrop-filter: blur(20px);
 }
 
-/* ------- ISSUE DESCRIPTION ------- */
-
-/* ---- Title ---- */
+/* Issue Description Styles */
 .card .taskTitle {
   /* Layout */
   display: flex;
@@ -166,7 +158,6 @@ body {
   grid-column: 2/4;
   flex-direction: column;
   margin-top: 5px;
-
   /* Styling */
   color: #f2e9e4;
   font-family: Geist;
@@ -176,15 +167,12 @@ body {
   line-height: normal;
 }
 
-/* ---- Issue date ---- */
-
 .card .issue-date {
   /* Layout */
   grid-row: 1 / 1;
   grid-column: 2/4;
   flex-direction: column;
   margin-top: 23px;
-
   /* Styling */
   opacity: 0.22;
   color: #f2e9e4;
@@ -195,7 +183,6 @@ body {
   line-height: normal;
 }
 
-/* ---- Assignee ---- */
 .card .issue-assignee {
   /* Layout */
   border-radius: 50%;
@@ -204,7 +191,6 @@ body {
   cursor: pointer;
 }
 
-/* ------- FOOTER ------- */
 .card .issue-footer {
   /* Layout */
   display: flex;
@@ -215,12 +201,10 @@ body {
   margin-top: 15px;
 }
 
-/* ---- priority ----  */
 .card .issue-footer .priority {
   /* Layout */
   display: flex;
   flex-direction: row;
-
   /* Design */
   border: 2px solid #d56062;
   padding: 4px 6px 4px 4px;
@@ -256,13 +240,11 @@ body {
   line-height: normal;
 }
 
-/* ---- Due date ---- */
 .card .issue-footer .due-date {
   /* Layout   */
   display: flex;
   flex-direction: row;
   margin-left: 15px;
-
   /* Design */
   border: 2px solid #d56062;
   padding: 4px 6px 4px 4px;
@@ -273,7 +255,6 @@ body {
 .card .issue-footer .due-date:hover {
   /* Design */
   background-color: #d56062;
-
   p {
     color: #131415;
   }
@@ -300,14 +281,12 @@ body {
   line-height: normal;
 }
 
-/* ---- issue tag ---- */
 .card .issue-footer .created-labels {
   /* Layout */
   position: relative;
   width: fit-content;
   margin-left: 15px;
   cursor: pointer;
-
   /* Styling */
   border: 2px solid #a04786;
   padding: 2px 8px;
@@ -327,7 +306,7 @@ body {
   color: #131415;
 }
 
-/* ---- Classes that are used with JS ---- */
+/* Classes used with JS */
 .is-dragging {
   scale: 1.05;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
@@ -335,9 +314,7 @@ body {
   color: #f2e9e4;
 }
 
-/* ------- POP-UP ------- */
-
-/* ---- Card Creation ---- */
+/* Pop-up Styles */
 .modal {
   display: grid;
   grid-template-rows: 0.2fr 3fr;
@@ -347,7 +324,6 @@ body {
   width: 500px;
   max-width: 80%;
   transform: translate(-50%, -50%) scale(0);
-
   background: rgba(19, 20, 21, 0.3);
   backdrop-filter: blur(17.5px);
   transition: 200ms ease-in-out;
@@ -382,9 +358,10 @@ body {
 }
 
 .modal .modal-body {
+  display: grid;
+  justify-content: space-between;
   grid-row: 2/-1;
   grid-column: 1/-1;
-  display: grid;
   color: #f2e9e4;
   grid-template-columns: 0.5fr 0.5fr 0.5fr;
   grid-template-rows: 1fr 0.3fr 0.2fr;
@@ -399,34 +376,21 @@ body {
   min-height: 50px;
 }
 
-.modal .modal-body .modal-priority {
-  width: fit-content;
-  height: fit-content;
-  background: rgba(255, 255, 255, 0.15);
-  border: none;
-  padding: 2px 15px;
-  border-radius: 0.5cap;
-  color: #f2e9e4; /* Use hex color code for consistency */
-  font-size: 15px;
-  cursor: pointer;
-  text-align: center;
-  height: fit-content;
-  grid-row: 2/2;
-}
-
+.modal .modal-body .modal-priority,
 .modal .modal-body .modal-lead-responsibility {
   width: fit-content;
   height: fit-content;
-  background: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
   border: none;
   padding: 2px 15px;
   border-radius: 0.5cap;
-  color: #f2e9e4; /* Use hex color code for consistency */
+  color: #f2e9e4;
   font-size: 15px;
   cursor: pointer;
   text-align: center;
   height: fit-content;
   grid-row: 2/2;
+  grid-column: 1/-1;
 }
 
 .modal .modal-header .close-button {
@@ -440,47 +404,44 @@ body {
   font-weight: bold;
 }
 
-/* Dropdown menu */
-.modal .modal-body .dropdown-button {
+/* Dropdown Menu Styles */
+.dropdown {
   display: flex;
-  height: fit-content;
-  align-items: center;
+  position: relative;
+  margin-left: 200px;
+  width: auto;
+  grid-row: 2/2;
+  grid-column: 1/-1;
   justify-content: space-between;
+}
+
+.dropdown .dropdown-button {
+  display: flex;
+  position: relative;
+  height: fit-content;
   padding: 0px 16px;
   border-radius: 3px;
   cursor: pointer;
 }
-.modal .modal-body .dropdown-button:open ~ .dropdown-content {
+
+.dropdown .dropdown-button:open ~ .dropdown-content {
   display: block;
 }
 
-.modal .modal-body .dropdown-content {
+.dropdown .dropdown-content {
   display: none;
-  position: relative;
-  margin-top: 8px;
+  position: absolute;
+  top: 100%;
   border-radius: 5px;
   padding: 10px;
 }
 
-.modal .modal-body #dropdownButton.dropdown-button {
-  width: auto; /* Use auto instead of fit-content for better browser compatibility */
-  background: rgba(255, 255, 255, 0.15);
-  border: none;
-  padding: 2px 15px;
-  border-radius: 0.5cap;
-  color: #f2e9e4; /* Use hex color code for consistency */
-  font-size: 15px;
-  cursor: pointer;
+.dropdown .dropdown-content .item:hover {
+  background-color: rgba(53, 56, 59, 0.5);
 }
 
-.modal .modal-body .dropdown {
-  display: inline-block;
-  position: relative;
-  width: auto; /* Use auto instead of fit-content for better browser compatibility */
-}
-
-.modal .modal-body .dropdown-content .item,
-.modal .modal-body .dropdown-content .item label {
+.dropdown .dropdown-content .item,
+.dropdown .dropdown-content .item label {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -488,39 +449,26 @@ body {
   transition: 0, 3s;
 }
 
-.modal .modal-body .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgba(19, 20, 21, 0.5);
-  backdrop-filter: blur(5px);
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.modal .modal-body .dropdown-content .item:hover {
-  background-color: rgba(53, 56, 59, 0.5);
-}
-
-.modal .modal-body .dropdown-content input[type="checkbox"],
-.modal .modal-body .dropdown-content .item label {
+.dropdown .dropdown-content input[type="checkbox"],
+.dropdown .dropdown-content .item label {
   margin: 8px;
 }
 
 .modal .modal-body #btn-issue-create {
   display: flex;
-  padding: 0px 10px;
+  padding: 5px 20px;
   grid-row: 3/3;
   grid-column: 3/3;
   justify-self: end;
   align-self: end;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(131, 107, 254, 0.65);
   color: #f2e9e4;
-  border-radius: 0.3cap;
+  font-size: 20px;
+  border-radius: 0.5cap;
   border: none;
   cursor: pointer;
-  width: fit-content;
-  height: fit-content;
+  width: auto;
+  height: auto;
 }
 
 .modal .modal-body #options.active {
@@ -531,6 +479,7 @@ body {
   width: 25px;
 }
 
+/* Overlay Styles */
 #overlay {
   position: fixed;
   opacity: 0;
@@ -548,7 +497,8 @@ body {
   pointer-events: all;
   opacity: 1;
 }
-/* ------- SIDEBAR ------- */
+
+/* Sidebar Styles */
 .sidebar {
   position: absolute;
   z-index: 5;
@@ -556,7 +506,6 @@ body {
   left: 0;
   height: 100%;
   width: 300px;
-
   border-right: 2px solid rgba(255, 255, 255, 0.5);
   background: rgba(19, 20, 21, 0.32);
   backdrop-filter: blur(17.5px);
@@ -584,7 +533,6 @@ body {
 .sidebar .sidebar-top p {
   color: #f2e9e4;
   margin-left: 5px;
-
   font-family: Geist;
   font-size: 36px;
   font-style: normal;

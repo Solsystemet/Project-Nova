@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const dropdownButton = document.getElementById("dropdownButton");
-  const options = document.getElementById("options");
+  const dropdownButton = document.getElementById("multipleDropdownButton");
+  const options = document.getElementById("multipleOptions");
   const selectedItems = document.querySelector(".selected-items");
 
   dropdownButton.addEventListener("click", toggleDropdown);
