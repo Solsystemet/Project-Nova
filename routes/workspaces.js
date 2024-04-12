@@ -1,6 +1,38 @@
 const express = require("express");
 const { isLoggedIn } = require("../middleware");
+const User = require("../models/user");
+const Workspace = require("../models/workspace");
 const router = express.Router();
+
+router.get("/", async (req, res) => {
+  const user = await User.findById(req.user.id).populate("workspaces");
+  console.log(user);
+  res.render("workspaces/index", {
+    title: "Workspaces",
+  });
+});
+
+router.post(
+  "/",
+  isLoggedIn,
+
+  async (req, res) => {
+    const { title } = req.body;
+    const user = await User.findById(req.user.id);
+    const workspace = new Workspace({
+      title: title,
+      date: "22/22",
+      owner: req.user.id,
+      members: [req.user.id],
+    });
+
+    await workspace.save();
+    user.workspaces.push(workspace.id);
+    await user.save();
+
+    res.redirect(`workspaces/${workspace._id}`);
+  }
+);
 
 router.get("/:id", isLoggedIn, (req, res) => {
   console.log(req.params.id);
