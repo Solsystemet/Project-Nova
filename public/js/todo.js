@@ -11,10 +11,12 @@ const selectionUserResponsibility = document.querySelector(
   ".modal-lead-responsibility"
 );
 
+const issueMap = new Map();
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const modal = document.getElementById("modal");
-  const title = document.querySelector(".modal-title");
+  const modalTitle = document.querySelector(".modal-title");
   const value = input.value;
   if (!value) return;
 
@@ -22,7 +24,7 @@ form.addEventListener("submit", (e) => {
   fetch("/get-users/" + workspaceID)
     .then((res) => res.json())
     .then((data) => CreateUserOptions(data));
-  openModal(modal, title, value); // popup for create issue
+  openModal(modal, modalTitle, value); // popup for create issue
 
   //
 });
@@ -48,76 +50,108 @@ btnCreateIssue.addEventListener("click", (e) => {
   );
 });
 
-socket.on("new task", (value, id, createDate) => {
-  const newTask = document.createElement("p");
-  newTask.id = id;
-  newTask.classList.add("task");
-  newTask.setAttribute("draggable", true);
-  newTask.innerText = value;
+socket.on(
+  "new task",
+  (id, title, description, createDate, laneID, labels, assignee, priority) => {
+    const issue = new Issue(
+      id,
+      title,
+      description,
+      createDate,
+      laneID,
+      labels,
+      assignee,
+      priority
+    );
 
-  const createdDate = document.createElement("p");
-  createdDate.classList.add("create-date");
-  createdDate.textContent = createDate;
-  newTask.appendChild(createdDate);
+    issueMap.set(id, issue);
 
-  newTask.addEventListener("dragstart", () => {
-    newTask.classList.add("is-dragging");
-  });
+    const newTask = document.createElement("p");
+    newTask.id = id;
+    newTask.classList.add("task");
+    newTask.setAttribute("draggable", true);
+    newTask.innerText = title;
 
-  newTask.addEventListener("dragend", () => {
-    newTask.classList.remove("is-dragging");
-  });
+    const createdDate = document.createElement("p");
+    createdDate.classList.add("create-date");
+    createdDate.textContent = createDate;
+    newTask.appendChild(createdDate);
 
-  const modalEdit = document.getElementById("modal-edit");
-  const title = document.querySelector(".modal-title-edit ");
-  const btnCloseModal = document.querySelector(".close-button-edit");
-  const titleInput = document.querySelector(".modal-title-edit-input");
-  titleInput.value = value;
-  newTask.addEventListener("click", () => {
-    openModal(modalEdit, title, "Issue title: ");
-  });
+    newTask.addEventListener("dragstart", () => {
+      newTask.classList.add("is-dragging");
+    });
 
-  todoLane.appendChild(newTask);
-  UpdateDragAndDrop();
-  const modal = document.getElementById("modal");
-  closeModal(modal);
-  description.textContent = "";
-});
+    newTask.addEventListener("dragend", () => {
+      newTask.classList.remove("is-dragging");
+    });
 
-socket.on("create board", (title, id, createDate, laneID) => {
-  const newTask = document.createElement("p");
-  newTask.id = id;
-  newTask.classList.add("task");
-  newTask.setAttribute("draggable", true);
-  newTask.innerText = title;
+    const modalEdit = document.getElementById("modal-edit");
+    const modalTitleEdit = document.querySelector(".modal-title-edit ");
+    const btnCloseModal = document.querySelector(".close-button-edit");
+    const titleInput = document.querySelector(".modal-title-edit-input");
+    titleInput.value = title;
+    newTask.addEventListener("click", () => {
+      openModal(modalEdit, modalTitleEdit, "Issue title: ");
+    });
 
-  const createdDate = document.createElement("p");
-  createdDate.classList.add("create-date");
-  createdDate.textContent = createDate;
-  newTask.appendChild(createdDate);
+    todoLane.appendChild(newTask);
+    UpdateDragAndDrop();
+    const modal = document.getElementById("modal");
+    closeModal(modal);
+    description.textContent = "";
+  }
+);
 
-  newTask.addEventListener("dragstart", () => {
-    newTask.classList.add("is-dragging");
-  });
+socket.on(
+  "create board",
+  (id, title, description, createDate, laneID, labels, assignee, priority) => {
+    const issue = new Issue(
+      id,
+      title,
+      description,
+      createDate,
+      laneID,
+      labels,
+      assignee,
+      priority
+    );
 
-  newTask.addEventListener("dragend", () => {
-    newTask.classList.remove("is-dragging");
-  });
+    issueMap.set(id, issue);
 
-  const modalEdit = document.getElementById("modal-edit");
-  const modalTitle = document.querySelector(".modal-title-edit ");
-  const btnCloseModal = document.querySelector(".close-button-edit");
-  const titleInput = document.querySelector(".modal-title-edit-input");
-  titleInput.value = title;
-  newTask.addEventListener("click", () => {
-    openModal(modalEdit, modalTitle, "Issue title: ");
-  });
+    console.log("Issue with title: " + issue.title);
 
-  // Appending the new board element to the todoLane container
-  const lane = document.getElementById(laneID);
-  lane.appendChild(newTask);
-  UpdateDragAndDrop();
-});
+    const newTask = document.createElement("p");
+    newTask.id = id;
+    newTask.classList.add("task");
+    newTask.setAttribute("draggable", true);
+    newTask.innerText = title;
+
+    const createdDate = document.createElement("p");
+    createdDate.classList.add("create-date");
+    createdDate.id = "nopointer";
+    createdDate.textContent = createDate;
+    newTask.appendChild(createdDate);
+
+    newTask.addEventListener("dragstart", () => {
+      newTask.classList.add("is-dragging");
+    });
+
+    newTask.addEventListener("dragend", () => {
+      newTask.classList.remove("is-dragging");
+    });
+
+    newTask.addEventListener("click", async (e) => {
+      console.log(e.target);
+      const issue = await issueMap.get(e.target.id);
+      openModalEdit(issue);
+    });
+
+    // Appending the new board element to the todoLane container
+    const lane = document.getElementById(laneID);
+    lane.appendChild(newTask);
+    UpdateDragAndDrop();
+  }
+);
 
 function CreateUserOptions(users) {
   //console.log("users: " + users);

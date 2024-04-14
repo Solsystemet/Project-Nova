@@ -5,6 +5,11 @@
   font-weight: normal;
   font-style: normal;
 }
+
+#nopointer {
+  pointer-events: none;
+}
+
 body {
   background-color: #0a061e;
 }

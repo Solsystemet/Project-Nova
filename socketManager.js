@@ -12,20 +12,24 @@ module.exports = (socket, io) => {
     workspace.issues.forEach((issue) => {
       socket.emit(
         "create board",
-        issue.title,
         issue._id,
+        issue.title,
+        issue.description,
         issue.createdData,
-        issue.status
+        issue.status,
+        issue.labels,
+        issue.assignee,
+        issue.priority
       );
     });
   });
 
   socket.on(
     "new task",
-    (value, description, priority, labels, assignee, laneID, workspaceID) => {
+    (title, description, priority, labels, assignee, laneID, workspaceID) => {
       const createDate = `Created at ${GetCurrentTime()}`;
       const issue = new Issue({
-        title: value,
+        title: title,
         description: description,
         createdData: createDate,
         assignee: assignee,
@@ -40,7 +44,17 @@ module.exports = (socket, io) => {
         await workspace.save();
       }
       SaveIssueToWorkspace();
-      io.emit("new task", value, issue._id, createDate);
+      io.emit(
+        "new task",
+        issue._id,
+        issue.title,
+        issue.description,
+        issue.createdData,
+        issue.status,
+        issue.labels,
+        issue.assignee,
+        issue.priority
+      );
     }
   );
 

@@ -79,15 +79,9 @@
 
 <div class="modal-edit" id="modal-edit">
   <div class="modal-header">
-    <div>
-      <p class="modal-title-edit">Example Modal</p>
-      <input
-        class="modal-title-edit-input"
-        type="text"
-        contenteditable="plaintext-only"
-        value=""
-      />
-    </div>
+    <p class="modal-title-edit" contenteditable="plaintext-only">
+      Example Modal
+    </p>
     <button data-close-button class="close-button-edit">&times;</button>
   </div>
   <div class="modal-body">
@@ -95,19 +89,19 @@
       <label>Description</label>
       <br />
       <input
-        class="issue-description"
+        class="issue-description-edit"
         type="text"
         placeholder="Describe issue here!"
         contenteditable="plaintext-only"
       />
       <br />
-      <select class="modal-priority">
+      <select class="modal-priority-edit">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
         <option value="urgent">Urgent</option>
       </select>
-      <select class="modal-lead-responsibility"></select>
+      <select class="modal-lead-responsibility-edit"></select>
       <div class="dropdown">
         <input
           id="dropdownButton"
