@@ -1,7 +1,7 @@
 const Issue = require("./models/issue.js");
 const Workspace = require("./models/workspace.js");
 const GetCurrentTime = require("./utils/Dates.js");
-
+const mongoose = require("mongoose");
 module.exports = (socket, io) => {
   console.log("a user connected");
 
@@ -70,4 +70,22 @@ module.exports = (socket, io) => {
     UpdateIssueStatus();
     io.emit("drag ended", curTask, bottomTask, curZoneID);
   });
+
+  socket.on(
+    "modify issue",
+    async (id, title, description, priority, labels, assignee, workspaceID) => {
+      const workspace = await Workspace.findById(workspaceID);
+      const issue = workspace.issues.filter((issue) => issue._id == id);
+      if (!issue) return;
+
+      console.log(title);
+      issue[0].title = title;
+      issue[0].description = description;
+      issue[0].priority = priority;
+      issue[0].labels = labels;
+      issue[0].assignee = assignee;
+
+      workspace.save();
+    }
+  );
 };

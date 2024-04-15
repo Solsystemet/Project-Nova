@@ -88,8 +88,6 @@ socket.on(
     const modalEdit = document.getElementById("modal-edit");
     const modalTitleEdit = document.querySelector(".modal-title-edit ");
     const btnCloseModal = document.querySelector(".close-button-edit");
-    const titleInput = document.querySelector(".modal-title-edit-input");
-    titleInput.value = title;
     newTask.addEventListener("click", () => {
       openModal(modalEdit, modalTitleEdit, "Issue title: ");
     });
