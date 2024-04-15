@@ -2,7 +2,7 @@ const modalEdit = document.getElementById("modal-edit");
 const modalTitle = document.querySelector(".modal-title-edit");
 const btnCloseModal = document.querySelector(".close-button-edit");
 const modalEditDescription = document.querySelector(".issue-description-edit");
-const modalEditLabels = document.querySelectorAll("#options > input ");
+const modalEditLabels = document.querySelectorAll("#options-edit > input ");
 const modalEditPrio = document.querySelector(".modal-priority-edit");
 const selectionEditUserResponsibility = document.querySelector(
   ".modal-lead-responsibility-edit"
@@ -17,7 +17,7 @@ btnConfirm.addEventListener("click", function () {
   modalEditLabels.forEach((label) => {
     if (label.checked == true) checkedlabels.push(label.value);
   });
-
+  console.log(checkedlabels);
   socket.emit(
     "modify issue",
     curIssue.id,
@@ -74,3 +74,20 @@ function CreateUserOptionsEdit(users) {
     selectionEditUserResponsibility.appendChild(option);
   });
 }
+
+socket.on(
+  "modify issue",
+  (id, title, description, priority, labels, assignee) => {
+    const issue = issueMap.get(id);
+
+    const el = document.getElementById(id);
+
+    const arr = el.innerHTML.split('<p class="create-date" id="nopointer">');
+    el.innerHTML = title + '<p class="create-date" id="nopointer">' + arr[1];
+    issue.title = title;
+    issue.description = description;
+    issue.priority = priority;
+    issue.labels = labels;
+    issue.assignee = assignee;
+  }
+);

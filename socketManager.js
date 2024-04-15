@@ -86,6 +86,16 @@ module.exports = (socket, io) => {
       issue[0].assignee = assignee;
 
       workspace.save();
+
+      io.emit(
+        "modify issue",
+        id,
+        title,
+        description,
+        priority,
+        labels,
+        assignee
+      );
     }
   );
 };

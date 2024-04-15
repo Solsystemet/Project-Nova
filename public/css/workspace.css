@@ -288,6 +288,10 @@ body {
   display: block;
 }
 
+#options-edit.active {
+  display: block;
+}
+
 #option.option {
   width: 25px;
 }
