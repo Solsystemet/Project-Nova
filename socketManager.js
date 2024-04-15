@@ -1,7 +1,7 @@
 const Issue = require("./models/issue.js");
 const Workspace = require("./models/workspace.js");
 const GetCurrentTime = require("./utils/Dates.js");
-
+const mongoose = require("mongoose");
 module.exports = (socket, io) => {
   console.log("a user connected");
 
@@ -12,20 +12,24 @@ module.exports = (socket, io) => {
     workspace.issues.forEach((issue) => {
       socket.emit(
         "create board",
-        issue.title,
         issue._id,
+        issue.title,
+        issue.description,
         issue.createdData,
-        issue.status
+        issue.status,
+        issue.labels,
+        issue.assignee,
+        issue.priority
       );
     });
   });
 
   socket.on(
     "new task",
-    (value, description, priority, labels, assignee, laneID, workspaceID) => {
+    (title, description, priority, labels, assignee, laneID, workspaceID) => {
       const createDate = `Created at ${GetCurrentTime()}`;
       const issue = new Issue({
-        title: value,
+        title: title,
         description: description,
         createdData: createDate,
         assignee: assignee,
@@ -40,7 +44,17 @@ module.exports = (socket, io) => {
         await workspace.save();
       }
       SaveIssueToWorkspace();
-      io.emit("new task", value, issue._id, createDate);
+      io.emit(
+        "new task",
+        issue._id,
+        issue.title,
+        issue.description,
+        issue.createdData,
+        issue.status,
+        issue.labels,
+        issue.assignee,
+        issue.priority
+      );
     }
   );
 
@@ -56,4 +70,32 @@ module.exports = (socket, io) => {
     UpdateIssueStatus();
     io.emit("drag ended", curTask, bottomTask, curZoneID);
   });
+
+  socket.on(
+    "modify issue",
+    async (id, title, description, priority, labels, assignee, workspaceID) => {
+      const workspace = await Workspace.findById(workspaceID);
+      const issue = workspace.issues.filter((issue) => issue._id == id);
+      if (!issue) return;
+
+      console.log(title);
+      issue[0].title = title;
+      issue[0].description = description;
+      issue[0].priority = priority;
+      issue[0].labels = labels;
+      issue[0].assignee = assignee;
+
+      workspace.save();
+
+      io.emit(
+        "modify issue",
+        id,
+        title,
+        description,
+        priority,
+        labels,
+        assignee
+      );
+    }
+  );
 };
