@@ -53,8 +53,8 @@
     </select>
     <select class="modal-lead-responsibility"></select>
 
-    <div class="dropdown-wrapper">
-      <div class="dropdown-btn" btnText="low">
+    <div class="dropdown-wrapper" id="priorityDropdown">
+      <div class="dropdown-btn" btnText="Priority">
         <span class="selected-item">Priority</span>
       </div>
       <div class="dropdown-menu">
@@ -65,39 +65,17 @@
       </div>
     </div>
 
-    {{!--
-    <div class="dropdown">
-      <input
-        id="multipleDropdownButton"
-        type="button"
-        class="dropdown-button"
-        value="Tags "
-      />
-      <div id="multipleOptions" class="dropdown-content">
-        <div class="item">
-          <input class="option" type="checkbox" id="option" value="Analysis" />
-          <label for="Analysis">Analysis</label>
-        </div>
-        <div class="item">
-          <input class="option" type="checkbox" id="option" value="Writing" />
-          <label for="Writing">Writing</label>
-        </div>
-        <div class="item">
-          <input class="option" type="checkbox" id="option" value="Review" />
-          <label for="Review">Review</label>
-        </div>
-        <div class="item">
-          <input
-            class="option"
-            type="checkbox"
-            id="option"
-            value="Production"
-          />
-          <label for="Production">Production</label>
-        </div>
+    <div class="dropdown-wrapper" id="assignDropdown">
+      <div class="dropdown-btn" btnText="Assignee">
+        <span class="selected-item">Assignee</span>
+      </div>
+      <div class="dropdown-menu">
+        <div class="item">tempUser1</div>
+        <div class="item">tempUser2</div>
+        <div class="item">tempUser3</div>
+        <div class="item">tempUser4</div>
       </div>
     </div>
-    --}}
     <button id="btn-issue-create" type="submit">Create</button>
   </div>
 </div>
