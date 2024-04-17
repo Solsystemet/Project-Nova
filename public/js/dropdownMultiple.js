@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Get references to the dropdown buttons and menus
   var dropdownBtns = document.querySelectorAll(".dropdown-btn");
   var dropdownMenus = document.querySelectorAll(".dropdown-menu");
+  var multipleBtns = document.querySelectorAll(".multiple-choice-btn");
+  var multipleMenus = document.querySelectorAll(".multiple-choice-menu");
 
   // Loop through each dropdown button
   dropdownBtns.forEach((dropdownBtn, index) => {
@@ -42,6 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Close the menu
       dropdownMenus[index].classList.remove("open");
     }
+
+    // !Make this work for multiple choice dropdowns
+    // multipleBtns.forEach((multipleBtn, index) => {
   });
 
   // Add a click event listener to the window to close the menu when clicking outside of it
