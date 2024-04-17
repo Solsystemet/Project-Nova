@@ -1,6 +1,9 @@
 {{> navbar}}
 <h1 class="header">Workspaces</h1>
 
-{{#each workspace}}
-<li>{{ this }}</li>
+{{#each workspaces}}
+<div>
+  <h2>{{ this.title }}</h2>
+  <a href="/workspaces/{{ this._id }}"> Enter {{ this.title }}</a>
+</div>
 {{/each}}

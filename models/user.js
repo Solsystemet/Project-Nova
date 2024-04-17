@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   workspaces: [
     {
       type: mongoose.Schema.Types.ObjectID,
-      ref: "workspace",
+      ref: "Workspace",
     },
   ],
 });

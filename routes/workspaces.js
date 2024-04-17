@@ -5,9 +5,10 @@ const Workspace = require("../models/workspace");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const user = await User.findById(req.user.id).populate("workspaces");
+  const user = await User.findById(req.user.id).populate("workspaces").lean();
   console.log(user);
   res.render("workspaces/index", {
+    workspaces: user.workspaces,
     title: "Workspaces",
   });
 });
@@ -18,6 +19,7 @@ router.post(
 
   async (req, res) => {
     const { title } = req.body;
+    console.log(req.body);
     const user = await User.findById(req.user.id);
     const workspace = new Workspace({
       title: title,
