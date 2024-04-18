@@ -1,23 +1,27 @@
 const express = require("express");
 const { isLoggedIn } = require("../middleware");
+const catchAsync = require("../Utils/catchAsync");
 const User = require("../models/user");
 const Workspace = require("../models/workspace");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const user = await User.findById(req.user.id).populate("workspaces").lean();
-  console.log(user);
-  res.render("workspaces/index", {
-    workspaces: user.workspaces,
-    title: "Workspaces",
-  });
-});
+router.get(
+  "/",
+  catchAsync(async (req, res) => {
+    const user = await User.findById(req.user.id).populate("workspaces").lean();
+    console.log(user);
+    res.render("workspaces/index", {
+      workspaces: user.workspaces,
+      title: "Workspaces",
+    });
+  })
+);
 
 router.post(
   "/",
   isLoggedIn,
 
-  async (req, res) => {
+  catchAsync(async (req, res) => {
     const { title } = req.body;
     console.log(req.body);
     const user = await User.findById(req.user.id);
@@ -33,7 +37,7 @@ router.post(
     await user.save();
 
     res.redirect(`workspaces/${workspace._id}`);
-  }
+  })
 );
 
 router.get("/:id", isLoggedIn, (req, res) => {

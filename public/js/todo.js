@@ -163,3 +163,8 @@ function CreateUserOptions(users) {
     selectionUserResponsibility.appendChild(option);
   });
 }
+
+socket.on("error", (err) => {
+  alert(`Socket error: ${err.message}`);
+  console.error(err);
+});
