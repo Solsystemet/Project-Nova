@@ -6,61 +6,71 @@ const mongoose = require("mongoose");
 module.exports = (socket, io) => {
   console.log("a user connected");
 
-
-  
-  socket.on("init workspace", catchSocketAsync(io, async (workspaceID) => {
-    console.log("Init workspace: " + workspaceID);
-    const workspace = await Workspace.findById(workspaceID);
-    if (!workspace) return;
-    workspace.issues.forEach((issue) => {
-      socket.emit(
-        "create board",
-        issue._id,
-        issue.title,
-        issue.description,
-        issue.createdData,
-        issue.status,
-        issue.labels,
-        issue.assignee,
-        issue.priority
-      );
-    });
-  }));
-
+  socket.on(
+    "init workspace",
+    catchSocketAsync(io, async (workspaceID) => {
+      console.log("Init workspace: " + workspaceID);
+      const workspace = await Workspace.findById(workspaceID);
+      if (!workspace) return;
+      workspace.issues.forEach((issue) => {
+        socket.emit(
+          "create board",
+          issue._id,
+          issue.title,
+          issue.description,
+          issue.createdData,
+          issue.status,
+          issue.labels,
+          issue.assignee,
+          issue.priority
+        );
+      });
+    })
+  );
 
   socket.on(
     "new task",
     catchSocketAsync(
       io,
-      async (title, description, priority, labels, assignee, laneID, workspaceID) => {
-      const createDate = `Created at ${GetCurrentTime()}`;
-      const issue = new Issue({
-        title: title,
-        description: description,
-        createdData: createDate,
-        assignee: assignee,
-        priority: priority,
-        status: laneID,
-        labels: labels,
+      async (
+        title,
+        description,
+        priority,
+        labels,
+        assignee,
+        laneID,
+        workspaceID
+      ) => {
+        const createDate = `Created at ${GetCurrentTime()}`;
+        const issue = new Issue({
+          title: title,
+          description: description,
+          createdData: createDate,
+          assignee: assignee,
+          priority: priority,
+          status: laneID,
+          labels: labels,
         });
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
         await workspace.save();
         io.emit("new task", value, issue._id, createDate);
-      
-      SaveIssueToWorkspace();
-      io.emit(
-        "new task",
-        issue._id,
-        issue.title,
-        issue.description,
-        issue.createdData,
-        issue.status,
-        issue.labels,
-        issue.assignee,
-        issue.priority
-      );
-    });
+
+        SaveIssueToWorkspace();
+        io.emit(
+          "new task",
+          issue._id,
+          issue.title,
+          issue.description,
+          issue.createdData,
+          issue.status,
+          issue.labels,
+          issue.assignee,
+          issue.priority
+        );
+      }
+    )
+  );
 
   socket.on(
     "drag ended",
@@ -70,12 +80,14 @@ module.exports = (socket, io) => {
         const workspace = await Workspace.findById(workspaceID);
         const issue = workspace.issues.filter((issue) => issue._id == curTask);
         if (!issue) return;
-      issue[0].status = curZoneID;
-      workspace.save();
-    }
-    UpdateIssueStatus();
-    io.emit("drag ended", curTask, bottomTask, curZoneID);
-  });
+        issue[0].status = curZoneID;
+        workspace.save();
+
+        UpdateIssueStatus();
+        io.emit("drag ended", curTask, bottomTask, curZoneID);
+      }
+    )
+  );
 
   socket.on(
     "modify issue",
