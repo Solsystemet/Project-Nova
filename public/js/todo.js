@@ -88,8 +88,10 @@ socket.on(
     const modalEdit = document.getElementById("modal-edit");
     const modalTitleEdit = document.querySelector(".modal-title-edit ");
     const btnCloseModal = document.querySelector(".close-button-edit");
-    newTask.addEventListener("click", () => {
-      openModal(modalEdit, modalTitleEdit, "Issue title: ");
+    newTask.addEventListener("click", async (e) => {
+      console.log(e.target);
+      const issue = await issueMap.get(e.target.id);
+      openModalEdit(issue);
     });
 
     todoLane.appendChild(newTask);
