@@ -1,13 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const dropdownButton = document.getElementById("dropdownButton");
-  const options = document.getElementById("options");
+  const dropdownButton = document.querySelectorAll(".dropdown-button");
+  const options = document.querySelectorAll(".dropdown-content");
   const selectedItems = document.querySelector(".selected-items");
 
-  dropdownButton.addEventListener("click", toggleDropdown);
+  dropdownButton.forEach((btn) => {
+    btn.addEventListener("click", toggleDropdown);
+  });
+
   window.addEventListener("click", closeDropdownOutsideClick);
 
   function toggleDropdown() {
-    options.classList.toggle("active");
+    options.forEach((option) => {
+      option.classList.toggle("active");
+    });
   }
 
   function closeDropdownOutsideClick(event) {
