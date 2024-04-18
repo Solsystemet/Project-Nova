@@ -54,9 +54,7 @@ module.exports = (socket, io) => {
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
         await workspace.save();
-        io.emit("new task", value, issue._id, createDate);
 
-        SaveIssueToWorkspace();
         io.emit(
           "new task",
           issue._id,
@@ -82,8 +80,6 @@ module.exports = (socket, io) => {
         if (!issue) return;
         issue[0].status = curZoneID;
         workspace.save();
-
-        UpdateIssueStatus();
         io.emit("drag ended", curTask, bottomTask, curZoneID);
       }
     )
