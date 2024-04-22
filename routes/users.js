@@ -15,7 +15,7 @@ router.get("/register", (req, res) => {
 
 router.post("/register", upload.single("profilePicture"), async (req, res) => {
   const { username, email, password } = req.body;
-  console.log(req.files);
+  console.log(req);
   const user = new User({
     username,
     email,
