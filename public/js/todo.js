@@ -3,8 +3,8 @@ const input = document.getElementById("todo-input");
 const todoLane = document.getElementById("todo-lane");
 
 // Modal
-const description = document.querySelector(".issue-description");
-const priority = document.querySelector(".modal-priority");
+const description = document.getElementById("todo-description");
+const priority = document.querySelector(".dropdown-menu");
 const label = document.querySelector(".modal-label");
 const btnCreateIssue = document.getElementById("btn-issue-create");
 const selectionUserResponsibility = document.querySelector(
@@ -54,7 +54,7 @@ form.addEventListener("submit", (e) => {
 
 // Event listener for creating a new task when a button is clicked
 btnCreateIssue.addEventListener("click", (e) => {
-  const issueTitle = document.querySelector(".issue-title");
+  const issueTitle = document.querySelector(".modal-title");
 
   const labels = document.querySelectorAll(".option");
   let checkedlabels = [];
@@ -64,8 +64,8 @@ btnCreateIssue.addEventListener("click", (e) => {
   });
   socket.emit(
     "new task",
-    issueTitle.value,
-    description.value,
+    issueTitle.innerHTML,
+    description.innerHTML,
     priority.value,
     checkedlabels,
     selectionUserResponsibility.value,
@@ -109,7 +109,7 @@ socket.on(
     UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
     const modal = document.getElementById("modal");
     closeModal(modal); // Close modal after task creation
-    description.value = ""; // Reset task description input field
+    description.innerHTML = ""; // Reset task description input field
   }
 );
 
