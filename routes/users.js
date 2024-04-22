@@ -44,6 +44,49 @@ router.get("/get-users/:id", async (req, res) => {
   res.end();
 });
 
+router.get("/search-users/:filter", async (req, res) => {
+  const users = [];
+  const usersDB = await (
+    await User.find().where("username")
+  ).filter((user) => user.username.includes(req.params.filter));
+
+  console.log(usersDB);
+  usersDB.forEach((user) => {
+    users.push(user.username);
+  });
+
+  res.json(users);
+  res.end();
+});
+router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
+  console.log(req.params.usernames);
+  const workspace = await Workspace.findById(req.params.workspaceID);
+  if (req.params.usernames.includes(",")) {
+    let usernames = req.params.usernames.split(",");
+    usernames.forEach(async (username) => {
+      const user = await User.findOne({ username: username }).exec();
+
+      if (!user.workspaces.includes(workspace._id)) {
+        user.workspaces.push(workspace._id);
+        workspace.members.push(user._id);
+        await user.save();
+      }
+    });
+  } else {
+    const user = await User.findOne({ username: req.params.usernames }).exec();
+
+    if (!user.workspaces.includes(workspace._id)) {
+      user.workspaces.push(workspace._id);
+      workspace.members.push(user._id);
+      await user.save();
+    }
+  }
+
+  await workspace.save();
+  res.json("gey");
+  res.end();
+});
+
 router.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/login" }),
