@@ -1,3 +1,69 @@
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist/Geist-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geist black";
+  src: url("../fonts/Geist/Geist-black.ttf");
+  font-weight: black;
+  font-style: black;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Geist";
+  -ms-text-overflow: none;
+  text-overflow: none;
+  scrollbar-width: none;
+}
+
 body {
-  background-color: red;
+  background: rgb(25, 32, 51);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.topbar {
+  width: cover;
+  height: 50px;
+
+  background-color: rgb(1, 0, 20);
+}
+
+.toppage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.titlebar {
+  margin: 150px 75px;
+  display: flex;
+  grid-column: 1/1;
+  flex-direction: column;
+  height: 100vh;
+  color: #f9f4ef;
+}
+
+.titlebar .intro-tex {
+  font-size: 1rem;
+  font-weight: 200;
+}
+.titlebar h1 {
+  font-family: "Geist black";
+  width: 75%;
+  font-size: 4rem;
+  font-weight: 900;
+}
+.titlebar .outro-text {
+  font-size: 1rem;
+  font-weight: 500;
+  width: 75%;
+  color: rgba(249, 244, 239, 0.6);
 }

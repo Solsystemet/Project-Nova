@@ -1,7 +1,7 @@
 /* ---- Custom Fonts ---- */
 @font-face {
-  font-family: "IBM";
-  src: url("../fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf");
+  font-family: "Geist";
+  src: url("../fonts/Geist/Geist-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "IBM";
+  font-family: "Geist";
   -ms-text-overflow: none;
   text-overflow: none;
   scrollbar-width: none;
