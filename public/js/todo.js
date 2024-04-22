@@ -17,7 +17,21 @@ adds.forEach((add) => {
   add.addEventListener("click", (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     const modal = document.getElementById("modal"); // Get reference to a modal element
+  });
+  const issueMap = new Map();
 
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const modal = document.getElementById("modal");
+    const modalTitle = document.querySelector(".modal-title");
+    const value = input.value;
+    if (!value) return;
+
+    // we get the users
+    fetch("/get-users/" + workspaceID)
+      .then((res) => res.json())
+      .then((data) => CreateUserOptions(data));
+    openModal(modal, modalTitle, value); // popup for create issue
     // Fetch users and open modal
     fetch("/get-users/" + workspaceID)
       .then((res) => res.json())
@@ -73,28 +87,21 @@ btnCreateIssue.addEventListener("click", (e) => {
 });
 
 // Socket event listener for new tasks
-socket.on("new task", (title, id, createDate, priority, labels, assignee) => {
-  const newTaskElement = createTaskElement(
-    title,
-    id,
-    createDate,
-    priority,
-    labels,
-    assignee
-  );
-  console.log(priority);
-
-  todoLane.appendChild(newTaskElement); // Append the new task element to the task lane/container
-  UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
-  const modal = document.getElementById("modal");
-  closeModal(modal); // Close modal after task creation
-  description.value = ""; // Reset task description input field
-});
-
-// Socket event listener for creating a new board (task lane)
 socket.on(
-  "create board",
-  (title, id, createDate, priority, labels, assignee) => {
+  "new task",
+  (id, title, description, createDate, laneID, labels, assignee, priority) => {
+    const issue = new Issue(
+      id,
+      title,
+      description,
+      createDate,
+      laneID,
+      labels,
+      assignee,
+      priority
+    );
+    issueMap.set(id, issue);
+
     const newTaskElement = createTaskElement(
       title,
       id,
@@ -103,6 +110,50 @@ socket.on(
       labels,
       assignee
     );
+    console.log(priority);
+
+    newTaskElement.addEventListener("click", async (e) => {
+      console.log(e.target);
+      const issue = await issueMap.get(e.target.id);
+      openModalEdit(issue);
+    });
+    todoLane.appendChild(newTaskElement); // Append the new task element to the task lane/container
+    UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
+    const modal = document.getElementById("modal");
+    closeModal(modal); // Close modal after task creation
+    description.value = ""; // Reset task description input field
+  }
+);
+
+// Socket event listener for creating a new board (task lane)
+socket.on(
+  "create board",
+  (id, title, description, createDate, laneID, labels, assignee, priority) => {
+    const issue = new Issue(
+      id,
+      title,
+      description,
+      createDate,
+      laneID,
+      labels,
+      assignee,
+      priority
+    );
+    const newTaskElement = createTaskElement(
+      title,
+      id,
+      createDate,
+      priority,
+      labels,
+      assignee
+    );
+    issueMap.set(id, issue);
+
+    newTaskElement.addEventListener("click", async (e) => {
+      console.log(e.target);
+      const issue = await issueMap.get(e.target.id);
+      openModalEdit(issue);
+    });
     todoLane.appendChild(newTaskElement); // Append the new task lane element to the task lane/container
     UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
   }
@@ -180,10 +231,6 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
     newTask.classList.add("is-dragging");
   });
 
-  newTask.addEventListener("dragend", () => {
-    newTask.classList.remove("is-dragging");
-  });
-
   return newTask; // Return the created task or task lane element
 }
 
@@ -196,3 +243,8 @@ function CreateUserOptions(users) {
     selectionUserResponsibility.appendChild(option);
   });
 }
+
+socket.on("error", (err) => {
+  alert(`Socket error: ${err.message}`);
+  console.error(err);
+});

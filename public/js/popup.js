@@ -14,8 +14,11 @@ function closeModal(modal) {
   overlay.classList.remove("active");
   description.textContent = "";
 }
-function openModal(modal) {
+
+function openModal(modal, title, value) {
   if (!modal) return;
+  title.textContent = value;
+
   modal.classList.add("active");
   overlay.classList.add("active");
 }
