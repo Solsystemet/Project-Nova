@@ -27,6 +27,10 @@ body {
   display: none;
 }
 
+.sidebar-content {
+  color: white;
+}
+
 .board {
   width: 100%;
   height: 100vh;
@@ -187,6 +191,34 @@ body {
 }
 
 .modal-header .close-button-edit {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  justify-content: right;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-share {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal-share.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header .close-button-share {
   cursor: pointer;
   border: none;
   outline: none;
