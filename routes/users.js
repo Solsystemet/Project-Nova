@@ -3,6 +3,9 @@ const router = express.Router();
 const User = require("../models/user.js");
 const Workspace = require("../models/workspace.js");
 const passport = require("passport");
+const multer = require("multer");
+const { profilePictureStorage } = require("../cloudinary");
+const upload = multer({ profilePictureStorage });
 
 router.get("/register", (req, res) => {
   res.render("users/register", {
@@ -10,9 +13,15 @@ router.get("/register", (req, res) => {
   });
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single("profilePicture"), async (req, res) => {
   const { username, email, password } = req.body;
-  const user = new User({ username, email });
+  console.log(req.files);
+  const user = new User({
+    username,
+    email,
+    profilePicture: { url: req.file.path, filename: req.file.filename },
+  });
+  console.log(user);
   const registeredUser = await User.register(user, password);
   console.log(registeredUser);
   req.login(registeredUser, (err) => {

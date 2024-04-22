@@ -1,6 +1,5 @@
-import { v2 as cloudinary } from "cloudinary";
+const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-
 cloudinary.config({
   cloud_name: "dvemlk9tg",
   api_key: "311233453821727",

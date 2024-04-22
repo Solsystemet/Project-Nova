@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
       ref: "Workspace",
     },
   ],
+  profilePicture: {
+    url: { type: String, required: true },
+    filename: { type: String, required: true },
+  },
 });
 userSchema.plugin(passportLocalMongoose);
 
