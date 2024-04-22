@@ -18,10 +18,6 @@ select {
   pointer-events: none;
 }
 
-body {
-  background-color: #0a061e;
-}
-
 /* Global Styles */
 * {
   padding: 0;
@@ -48,21 +44,9 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("../img/kanbanBackground.svg");
-
+}
 .sidebar-content {
   color: white;
-}
-
-.board {
-  width: 100%;
-  height: 100vh;
-  overflow: scroll;
-  margin-left: 300px;
-  border-top-left-radius: 66px;
-  border-bottom-left-radius: 66px;
-  background: #1a1531;
-  z-index: 5;
-
 }
 
 /* Board Styles */
@@ -369,6 +353,7 @@ body {
 
 .modal .modal-header .modal-title {
   width: 100%;
+  height: 100%;
   max-width: 450px;
   white-space: nowrap;
   color: #f2e9e4;

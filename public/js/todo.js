@@ -10,34 +10,22 @@ const btnCreateIssue = document.getElementById("btn-issue-create");
 const selectionUserResponsibility = document.querySelector(
   ".modal-lead-responsibility"
 );
+const issueMap = new Map();
 
 const adds = document.querySelectorAll(".add-card");
 
 adds.forEach((add) => {
   add.addEventListener("click", (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-    const modal = document.getElementById("modal"); // Get reference to a modal element
-  });
-  const issueMap = new Map();
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
     const modal = document.getElementById("modal");
-    const modalTitle = document.querySelector(".modal-title");
-    const value = input.value;
-    if (!value) return;
+    const modalTitle = document.querySelector(".modal-title"); // Get reference to a modal element
 
-    // we get the users
-    fetch("/get-users/" + workspaceID)
-      .then((res) => res.json())
-      .then((data) => CreateUserOptions(data));
-    openModal(modal, modalTitle, value); // popup for create issue
     // Fetch users and open modal
     fetch("/get-users/" + workspaceID)
       .then((res) => res.json())
       .then((data) => {
         CreateUserOptions(data);
-        openModal(modal); // popup for create issue
+        openModal(modal, modalTitle, ""); // popup for create issue
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
