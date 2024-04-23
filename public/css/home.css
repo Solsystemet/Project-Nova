@@ -12,6 +12,15 @@
   font-style: black;
 }
 
+:root {
+  --textColor: #f9f4ef;
+  --buttonColor: #866bfe;
+  --buttonHover: #8f78f8;
+  --blobBackground: #005;
+  --blobPrimary: #88d5bf;
+  --blobSecondary: #5d6bf8;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -20,6 +29,7 @@
   -ms-text-overflow: none;
   text-overflow: none;
   scrollbar-width: none;
+  box-sizing: border-box;
 }
 
 body {
@@ -38,32 +48,110 @@ body {
 }
 
 .toppage {
+  height: fit-content;
+  margin: 100px 100px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 0.8fr;
 }
 
 .titlebar {
-  margin: 150px 75px;
+  height: fit-content;
+
+  margin-top: 100px;
   display: flex;
   grid-column: 1/1;
   flex-direction: column;
-  height: 100vh;
-  color: #f9f4ef;
+  height: auto;
+  color: var(--textColor);
 }
 
 .titlebar .intro-tex {
+  height: fit-content;
+
   font-size: 1rem;
   font-weight: 200;
 }
 .titlebar h1 {
+  height: fit-content;
   font-family: "Geist black";
   width: 75%;
   font-size: 4rem;
   font-weight: 900;
 }
-.titlebar .outro-text {
+
+.container {
+  height: fit-content;
+
+  grid-column: 2/2;
+  display: flex;
+  height: auto;
+  justify-content: center;
+}
+
+.shape {
+  background: linear-gradient(
+    45deg,
+    var(--blobPrimary) 0%,
+    var(--blobSecondary) 100%
+  );
+  animation: morph 8s ease-in-out infinite; /* Corrected here */
+  height: 500px;
+  width: 500px;
+  transition: all 1s ease-in-out;
+  z-index: 5;
+  box-shadow: rgba(72, 135, 202, 0.8) 0 0 90px 33px;
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    background: linear-gradient(
+      45deg,
+      var(--blobPrimary) 0%,
+      var(--blobSecondary) 100%
+    );
+  }
+
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    background: linear-gradient(
+      45deg,
+      var(--blobPrimary) 0%,
+      var(--blobSecondary) 100%
+    );
+  }
+
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    background: linear-gradient(
+      45deg,
+      var(--blobPrimary) 0%,
+      var(--blobSecondary) 100%
+    );
+  }
+}
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Change this line */
+}
+
+.button-wrapper > button {
+  transition: ease-in-out 0.2s;
+  background-color: var(--buttonColor);
+  color: var(--textColor);
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
   font-size: 1rem;
-  font-weight: 500;
-  width: 75%;
-  color: rgba(249, 244, 239, 0.6);
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.button-wrapper > button:hover {
+  transition: ease-in-out 0.2s;
+  transform: scale(1.1);
+  background-color: var(--buttonHover);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.781);
 }
