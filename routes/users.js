@@ -4,31 +4,43 @@ const User = require("../models/user.js");
 const Workspace = require("../models/workspace.js");
 const passport = require("passport");
 const multer = require("multer");
-const { profilePictureStorage } = require("../cloudinary");
-const upload = multer({ profilePictureStorage });
+const handleUpload = require("../cloudinary");
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+const catchAsync = require("../utils/catchAsync");
 
 router.get("/register", (req, res) => {
   res.render("users/register", {
     title: "Register",
   });
 });
+console.log(handleUpload);
+router.post(
+  "/register",
+  upload.single("profilePicture"),
+  catchAsync(async (req, res) => {
+    //upload image to cloudinary
+    console.log(req.file);
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    const cloudflareResponse = await handleUpload(dataURI);
 
-router.post("/register", upload.single("profilePicture"), async (req, res) => {
-  const { username, email, password } = req.body;
-  console.log(req);
-  const user = new User({
-    username,
-    email,
-    profilePicture: { url: req.file.path, filename: req.file.filename },
-  });
-  console.log(user);
-  const registeredUser = await User.register(user, password);
-  console.log(registeredUser);
-  req.login(registeredUser, (err) => {
-    if (err) return console.log(err);
-    res.redirect("/workspaces/69");
-  });
-});
+    const { username, email, password } = req.body;
+    const user = new User({
+      username,
+      email,
+      profilePicture: {
+        url: cloudflareResponse.url,
+        filename: req.file.originalname,
+      },
+    });
+    const registeredUser = await User.register(user, password);
+    req.login(registeredUser, (err) => {
+      if (err) return console.log(err);
+      res.redirect("/workspaces");
+    });
+  })
+);
 
 router.get("/login", (req, res) => {
   res.render("users/login", {

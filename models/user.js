@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
     },
   ],
   profilePicture: {
-    url: { type: String, required: true },
-    filename: { type: String, required: true },
+    url: String,
+    filename: String,
   },
 });
 userSchema.plugin(passportLocalMongoose);
