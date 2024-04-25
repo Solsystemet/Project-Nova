@@ -12,9 +12,17 @@ const catchAsync = require("../utils/catchAsync");
 router.get("/register", (req, res) => {
   res.render("users/register", {
     title: "Register",
+    css: [
+      "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css",
+    ],
+    js: [
+      {
+        src: "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js",
+      },
+    ],
   });
 });
-console.log(handleUpload);
+
 router.post(
   "/register",
   upload.single("profilePicture"),
@@ -24,6 +32,8 @@ router.post(
     const b64 = Buffer.from(req.file.buffer).toString("base64");
     let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
     const cloudflareResponse = await handleUpload(dataURI);
+
+    console.log(cloudflareResponse.url);
 
     const { username, email, password } = req.body;
     const user = new User({
@@ -50,7 +60,6 @@ router.get("/login", (req, res) => {
 
 router.get("/get-users/:id", async (req, res) => {
   const users = [];
-  // TODO: When workspaces are in DB use filter
   const workspace = await Workspace.findById(req.params.id);
   await Promise.all(
     workspace.members.map(async (member) => {
