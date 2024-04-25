@@ -14,11 +14,13 @@ router.get("/register", (req, res) => {
     title: "Register",
     css: [
       "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css",
+      "../css/circleCrop.css",
     ],
     js: [
       {
         src: "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js",
       },
+      { src: "../js/circleCrop.js" },
     ],
   });
 });
