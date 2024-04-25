@@ -23,7 +23,7 @@ var scrollTriggers = document.querySelectorAll(".scroll-trigger");
 
 window.addEventListener("scroll", function () {
   scrollTriggers.forEach(function (scrollTrigger) {
-    if (isInViewport(scrollTrigger, 1)) {
+    if (isInViewport(scrollTrigger, 0.7)) {
       scrollTrigger.classList.add("visible");
     } else {
       console.log("Element is not visible");
