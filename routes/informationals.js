@@ -7,7 +7,8 @@ const router = express.Router();
 router.get("/", (req, res) => {
   res.render("informationals/home", {
     title: "Home",
-    css: ["css/home.css"],
+    css: ["../css/home.css"],
+    js: [{ src: "../js/isVisible.js", attributes: ["defer"] }],
   });
 });
 
