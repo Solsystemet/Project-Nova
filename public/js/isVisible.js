@@ -19,12 +19,14 @@ function isInViewport(element, visibilityThreshold = 1) {
   return vertInView && horInView && vertVisible && horVisible;
 }
 
-var scrollTrigger = document.getElementById("scrollTrigger");
+var scrollTriggers = document.querySelectorAll(".scroll-trigger");
 
 window.addEventListener("scroll", function () {
-  if (isInViewport(scrollTrigger, 0.8)) {
-    scrollTrigger.classList.add("visible");
-  } else {
-    console.log("Element is not visible");
-  }
+  scrollTriggers.forEach(function (scrollTrigger) {
+    if (isInViewport(scrollTrigger, 1)) {
+      scrollTrigger.classList.add("visible");
+    } else {
+      console.log("Element is not visible");
+    }
+  });
 });

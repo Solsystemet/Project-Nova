@@ -49,7 +49,7 @@ body {
 
 .toppage {
   height: fit-content;
-  margin: 100px 100px;
+  margin: 10% 10%;
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
 }
@@ -57,7 +57,7 @@ body {
 .titlebar {
   height: fit-content;
 
-  margin-top: 100px;
+  margin-top: 10vh;
   display: flex;
   grid-column: 1/1;
   flex-direction: column;
@@ -131,6 +131,7 @@ body {
   }
 }
 .button-wrapper {
+  margin-top: 20%;
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Change this line */
@@ -142,9 +143,8 @@ body {
   color: var(--textColor);
   border: none;
   padding: 10px 20px;
-  margin: 10px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   border-radius: 5px;
 }
@@ -158,7 +158,7 @@ body {
 
 .kanban-screenshot-container {
   display: flex;
-  margin-top: 150px;
+  margin-top: 10%;
   justify-content: center;
   align-items: center;
   perspective: 1000px;
@@ -168,9 +168,9 @@ body {
 
 .kanban-screenshot-container img {
   aspect-ratio: 16/9;
-  transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 1s;
+  transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 1.2s;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
-  width: 60%;
+  width: 50%;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 1.5cap;
   transform: rotate3d(1, 0, 0, 90deg);
@@ -181,7 +181,65 @@ body {
   box-shadow: none;
   transform: scale(1.1);
 }
+.information {
+  margin-top: 10%;
+  margin-bottom: 40%;
+}
+#splitter {
+  position: relative;
+  width: 200px;
+  height: 15px;
+  background-color: #090b13;
+  border-radius: 0.3cap;
+  margin: auto;
+  z-index: 2; /* This ensures that the #splitter line is always on top */
+  transition: 1s ease-out;
+  box-shadow: -4px -4px 10px rgba(0, 0, 0, 0.7);
+}
 
-.splitter {
-  overflow: hidden;
+#splitter.visible {
+  width: 600px;
+}
+
+#splitter::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  bottom: -10%;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  z-index: 1; /* This ensures that the pseudo-element is always below the #splitter line */
+  filter: blur(30px); /* Increase the blur radius */
+  background: none;
+}
+
+#splitter.visible::after {
+  background: linear-gradient(
+    rgba(72, 135, 202, 0.1),
+    rgba(72, 135, 202, 0.5),
+    transparent
+  );
+}
+
+#our-value-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  align-items: center;
+  opacity: 0;
+  margin-top: 15%;
+  transition: 1.5s ease-out;
+}
+#our-value-wrapper.visible {
+  margin-top: 6%;
+  opacity: 100;
+}
+
+#our-value-wrapper h2 {
+  color: rgba(0, 0, 0, 0.7);
+  font-family: "Geist black";
+  font-size: 3rem;
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
 }
