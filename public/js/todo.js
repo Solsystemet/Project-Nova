@@ -1,25 +1,42 @@
 const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
-const todoLane = document.getElementById("todo-lane");
-
+//const todoLane = document.getElementById("todo-lane");
+let currentLane = null;
+let leadResponsibility = null;
+let selectedLabels = [];
 // Modal
 const description = document.getElementById("todo-description");
-const priority = document.querySelector(".dropdown-menu");
-const label = document.querySelector(".modal-label");
+const priorityElement = document.getElementById("selected-priority");
+const selectLabels = document.getElementById("labelMultipleChoice");
+const labels = selectLabels.querySelectorAll(".option");
 const btnCreateIssue = document.getElementById("btn-issue-create");
-const selectionUserResponsibility = document.querySelector(
-  ".modal-lead-responsibility"
+const selectionUserResponsibility = document.getElementById("select-user");
+const selectedUserResponsibility = document.getElementById(
+  "selected-responsibility"
 );
 const issueMap = new Map();
 
-const adds = document.querySelectorAll(".add-card");
+console.log(labels);
 
+labels.forEach((label) => {
+  label.addEventListener("click", () => {
+    const labelSelect = label.querySelector("label");
+    if (selectedLabels.includes(labelSelect.textContent)) {
+      const index = selectedLabels.indexOf(labelSelect.textContent);
+      selectedLabels.splice(index, 1);
+    } else selectedLabels.push(labelSelect.textContent);
+    console.log(selectedLabels);
+  });
+});
+
+const adds = document.querySelectorAll(".add-card");
 adds.forEach((add) => {
   add.addEventListener("click", (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     const modal = document.getElementById("modal");
     const modalTitle = document.querySelector(".modal-title"); // Get reference to a modal element
 
+    currentLane = document.getElementById(add.value);
     // Fetch users and open modal
     fetch("/get-users/" + workspaceID)
       .then((res) => res.json())
@@ -33,43 +50,29 @@ adds.forEach((add) => {
   });
 });
 
-// Event listener for form submission (adding a new task)
-form.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent default form submission behavior
-  const modal = document.getElementById("modal"); // Get reference to a modal element
-  const value = input.value; // Get the value of the input field
-  if (!value) return; // If input value is empty, do nothing
-
-  // Fetch users and open modal
-  fetch("/get-users/" + workspaceID)
-    .then((res) => res.json())
-    .then((data) => {
-      CreateUserOptions(data);
-      openModal(modal, value); // popup for create issue
-    })
-    .catch((error) => {
-      console.error("Error fetching users:", error);
-    });
-});
-
 // Event listener for creating a new task when a button is clicked
 btnCreateIssue.addEventListener("click", (e) => {
   const issueTitle = document.querySelector(".modal-title");
 
-  const labels = document.querySelectorAll(".option");
-  let checkedlabels = [];
+  console.log(selectedLabels);
 
-  labels.forEach((label) => {
-    if (label.checked == true) checkedlabels.push(label.value);
-  });
+  // This is a safe guard that returns so issue can't be created if these values are the defaults
+  // In future make function that makes a popup that tells user to fill out the contents before returning
+  if (
+    issueTitle.innerText == "" ||
+    priorityElement.innerText == "Priority" ||
+    leadResponsibility == null
+  )
+    return;
+
   socket.emit(
     "new task",
-    issueTitle.innerHTML,
-    description.innerHTML,
-    priority.value,
-    checkedlabels,
-    selectionUserResponsibility.value,
-    todoLane.id,
+    issueTitle.innerText,
+    description.innerText,
+    priorityElement.innerText,
+    selectedLabels,
+    leadResponsibility,
+    currentLane.id,
     workspaceID
   );
 });
@@ -98,18 +101,21 @@ socket.on(
       labels,
       assignee
     );
-    console.log(priority);
 
     newTaskElement.addEventListener("click", async (e) => {
       console.log(e.target);
       const issue = await issueMap.get(e.target.id);
       openModalEdit(issue);
     });
-    todoLane.appendChild(newTaskElement); // Append the new task element to the task lane/container
+    const laneParent = document.getElementById(laneID);
+    laneParent.appendChild(newTaskElement); // Append the new task element to the task lane/container
     UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
     const modal = document.getElementById("modal");
     closeModal(modal); // Close modal after task creation
     description.innerHTML = ""; // Reset task description input field
+    priorityElement.innerText = "Priority";
+    selectedUserResponsibility.innerText = "Assignee";
+    leadResponsibility = null;
   }
 );
 
@@ -142,7 +148,8 @@ socket.on(
       const issue = await issueMap.get(e.target.id);
       openModalEdit(issue);
     });
-    todoLane.appendChild(newTaskElement); // Append the new task lane element to the task lane/container
+    const lane = document.getElementById(laneID);
+    lane.appendChild(newTaskElement); // Append the new task lane element to the task lane/container
     UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
   }
 );
@@ -225,9 +232,13 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
 function CreateUserOptions(users) {
   selectionUserResponsibility.innerHTML = "";
   users.forEach((user) => {
-    const option = document.createElement("option");
-    option.value = user;
-    option.innerText = user;
+    const option = document.createElement("div");
+    option.classList.add("item");
+    option.textContent = user;
+    option.addEventListener("click", () => {
+      leadResponsibility = option.textContent;
+      selectedUserResponsibility.textContent = leadResponsibility;
+    });
     selectionUserResponsibility.appendChild(option);
   });
 }
