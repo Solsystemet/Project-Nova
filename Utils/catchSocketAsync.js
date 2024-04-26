@@ -1,8 +1,8 @@
-module.exports = (io, func) => {
+module.exports = (socket, func) => {
   return (...args) => {
     func(...args).catch((err) => {
       console.log(err);
-      io.emit("error", err);
+      socket.emit("error", err);
     });
   };
 };

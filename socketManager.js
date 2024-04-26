@@ -8,8 +8,9 @@ module.exports = (socket, io) => {
 
   socket.on(
     "init workspace",
-    catchSocketAsync(io, async (workspaceID) => {
-      console.log("Init workspace: " + workspaceID);
+    catchSocketAsync(socket, async (workspaceID) => {
+      socket.join(workspaceID);
+
       const workspace = await Workspace.findById(workspaceID);
       if (!workspace) return;
       workspace.issues.forEach((issue) => {
@@ -31,7 +32,7 @@ module.exports = (socket, io) => {
   socket.on(
     "new task",
     catchSocketAsync(
-      io,
+      socket,
       async (
         title,
         description,
@@ -51,11 +52,12 @@ module.exports = (socket, io) => {
           status: laneID,
           labels: labels,
         });
+
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
         await workspace.save();
 
-        io.emit(
+        io.to(workspaceID).emit(
           "new task",
           issue._id,
           issue.title,
@@ -73,14 +75,14 @@ module.exports = (socket, io) => {
   socket.on(
     "drag ended",
     catchSocketAsync(
-      io,
+      socket,
       async (curTask, bottomTask, curZoneID, workspaceID) => {
         const workspace = await Workspace.findById(workspaceID);
         const issue = workspace.issues.filter((issue) => issue._id == curTask);
         if (!issue) return;
         issue[0].status = curZoneID;
         workspace.save();
-        io.emit("drag ended", curTask, bottomTask, curZoneID);
+        io.to(workspaceID).emit("drag ended", curTask, bottomTask, curZoneID);
       }
     )
   );
@@ -101,7 +103,7 @@ module.exports = (socket, io) => {
 
       workspace.save();
 
-      io.emit(
+      io.to(workspaceID).emit(
         "modify issue",
         id,
         title,
