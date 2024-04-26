@@ -281,6 +281,7 @@ body {
   display: grid;
   grid-gap: 30px;
   margin-top: 20%;
+  backdrop-filter: blur(20px);
   justify-content: center;
   align-content: center;
   justify-items: center;
@@ -369,23 +370,41 @@ body {
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
 
-.neon-container {
-  display: relative;
-  top: -700px;
+.blur-container {
+  position: relative;
+  height: 1200px;
+  margin-top: -700px;
+  margin-bottom: -300px;
 }
-.neon-blur {
+
+.blur-container .neon-blur {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: all ease-out 1.5s;
+  transition-delay: 0.5s;
+  border-radius: 100%;
+
   background: linear-gradient(
     267.51393318944565deg,
-    #1785e2 0%,
-    rgba(239, 128, 164, 1) 60.552942752838135%,
-    rgba(145, 110, 248, 1) 100%
+    rgba(72, 135, 202, 0.8) 0%,
+    rgba(52, 152, 219, 0.8) 25%,
+    rgba(21, 101, 192, 0.8) 50%,
+    rgba(72, 135, 202, 0.6) 75%,
+    rgba(174, 214, 241, 0.5) 100%
   );
-  position: absolute;
   filter: blur(150px);
-  border-radius: 100%;
-  opacity: 0.6;
-  width: 100%;
-  height: 1000px;
-  padding: auto;
+  opacity: 0;
   z-index: -1;
+}
+
+.blur-container .neon-blur.visible {
+  opacity: 0.6;
+}
+
+.unnamed {
+  display: flex;
+  height: 500px;
+  width: cover;
+  background-color: rgba(16, 21, 34, 1);
 }
