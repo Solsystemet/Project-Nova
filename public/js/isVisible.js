@@ -1,3 +1,5 @@
+// Making is in viewport function, becouse it is not a standard function in JS
+
 function isInViewport(element, visibilityThreshold = 1) {
   const rect = element.getBoundingClientRect();
   const windowHeight =
@@ -19,6 +21,7 @@ function isInViewport(element, visibilityThreshold = 1) {
   return vertInView && horInView && vertVisible && horVisible;
 }
 
+// Finding elements with class scroll-trigger and adding class visible to them when they are in viewport
 var scrollTriggers = document.querySelectorAll(".scroll-trigger");
 
 window.addEventListener("scroll", function () {
@@ -30,3 +33,8 @@ window.addEventListener("scroll", function () {
     }
   });
 });
+
+//Scroll to the top of the page when the page is refreshed
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
