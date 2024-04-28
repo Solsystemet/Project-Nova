@@ -33,7 +33,7 @@
 }
 
 body {
-  background: rgb(25, 32, 51);
+  background: #202020;
   height: 100%;
   margin: 0;
   background-repeat: no-repeat;
@@ -46,94 +46,65 @@ body {
   width: cover;
   height: 50px;
 
-  background-color: rgba(1, 0, 20, 0.5);
+  background-color: rgba(0, 0, 3, 0.5);
 }
 
 .toppage {
   height: fit-content;
   margin: 5% 10%;
   margin-bottom: 0%;
-  display: grid;
   grid-template-columns: 1.2fr 0.8fr;
 }
 
 .titlebar {
   height: fit-content;
-
   margin-top: 10vh;
+  margin-bottom: 270px;
   display: flex;
-  grid-column: 1/1;
   flex-direction: column;
+  text-align: center;
   height: auto;
   color: var(--textColor);
 }
 
-.titlebar .intro-tex {
-  height: fit-content;
-
-  font-size: 1rem;
-  font-weight: 200;
-}
 .titlebar h1 {
   height: fit-content;
-  font-family: "Geist black";
-  width: 75%;
-  font-size: 4rem;
+  font-family: "Geist";
+  font-size: 3rem;
   font-weight: 900;
 }
 
 .container {
-  height: fit-content;
-
-  grid-column: 2/2;
-  display: flex;
-  height: auto;
+  z-index: 1;
   justify-content: center;
+  height: 1000px;
+  width: 1000px;
+  margin: auto;
+  margin-bottom: -33%;
 }
 
-.shape {
+.container .circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
   background: linear-gradient(
-    45deg,
-    var(--blobPrimary) 0%,
-    var(--blobSecondary) 100%
+    267.51393318944565deg,
+    rgba(72, 135, 202, 0.8) 0%,
+    rgba(52, 152, 219, 0.8) 25%,
+    rgba(21, 101, 192, 0.8) 50%,
+    rgba(72, 135, 202, 0.6) 75%,
+    rgba(174, 214, 241, 0.5) 100%
   );
-  animation: morph 8s ease-in-out infinite;
-  height: 500px;
-  width: 500px;
-  transition: all 1s ease-in-out;
-  z-index: 5;
-  box-shadow: rgba(72, 135, 202, 0.8) 0 0 90px 33px;
 }
 
-@keyframes morph {
-  0% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    background: linear-gradient(
-      45deg,
-      var(--blobPrimary) 0%,
-      var(--blobSecondary) 100%
-    );
-  }
-
-  50% {
-    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-    background: linear-gradient(
-      45deg,
-      var(--blobPrimary) 0%,
-      var(--blobSecondary) 100%
-    );
-  }
-
-  100% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    background: linear-gradient(
-      45deg,
-      var(--blobPrimary) 0%,
-      var(--blobSecondary) 100%
-    );
-  }
+.screenshot {
+  background: rgba(1, 0, 20, 1);
+  z-index: 2;
+  height: 1000px;
+  width: 100%;
+  margin: auto;
+  transform: translateY(-15px);
 }
-
 /* ---Try now button--- */
 .button-wrapper {
   margin-top: 0%;
@@ -191,7 +162,6 @@ body {
 .information {
   padding: 10% 10% 0% 10%;
   padding-bottom: 0;
-  margin-top: 10%;
   background-color: rgba(16, 21, 34, 0.2);
 }
 
