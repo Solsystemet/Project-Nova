@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   scroll.forEach((element) => {
     gsap.from(element, {
       scrollTrigger: {
-        start: "top bottom",
+        start: "top bottom-=20%",
         trigger: element,
         onEnter: () => {
           element.classList.add("visible");
