@@ -23,7 +23,7 @@
 
 * {
   padding: 0;
-  margin: 0px;
+  margin: 0;
   box-sizing: border-box;
   font-family: "Geist";
   -ms-text-overflow: none;
@@ -43,23 +43,20 @@ body {
 /* ---Toppage--- */
 
 .topbar {
-  width: cover;
-  height: 50px;
-
+  width: 100%;
+  height: 5vh;
   background-color: rgba(0, 0, 3, 0.5);
 }
 
 .toppage {
   height: fit-content;
-  margin: 5% 10%;
   margin-bottom: 0%;
-  grid-template-columns: 1.2fr 0.8fr;
 }
 
 .titlebar {
   height: fit-content;
   margin-top: 10vh;
-  margin-bottom: 270px;
+  margin-bottom: 15vh;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -70,47 +67,60 @@ body {
 .titlebar h1 {
   height: fit-content;
   font-family: "Geist";
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 900;
 }
 
 .container {
-  z-index: 1;
+  position: relative; /* Add this line */
+}
+
+.circle {
+  z-index: 2;
+  position: relative;
+  top: 0;
+  left: 50%; /* Add this line */
+  transform: translate(-50%, 0); /* Add this line */
+  display: flex;
   justify-content: center;
-  height: 1000px;
-  width: 1000px;
+  align-items: center;
+  height: 80vw;
+  width: 80vw;
+  border-radius: 50%;
+  background: url(../img/circle.svg);
+}
+.reveal-wrapper {
+  top: -20vh;
+  position: relative;
+  height: 150vh;
+}
+.reveal {
+  z-index: 1;
+  padding-top: 20vh;
+  position: sticky;
+  top: 0;
+  width: 75%;
+  text-align: center;
   margin: auto;
-  margin-bottom: -33%;
+  color: var(--textColor);
+  font-family: "Geist black";
+  font-size: 5rem;
+  font-weight: 900;
 }
 
-.container .circle {
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  background: linear-gradient(
-    267.51393318944565deg,
-    rgba(72, 135, 202, 0.8) 0%,
-    rgba(52, 152, 219, 0.8) 25%,
-    rgba(21, 101, 192, 0.8) 50%,
-    rgba(72, 135, 202, 0.6) 75%,
-    rgba(174, 214, 241, 0.5) 100%
-  );
-}
-
+/* ---Try now button--- */
 .screenshot {
   background: rgba(1, 0, 20, 1);
   z-index: 2;
-  height: 1000px;
   width: 100%;
   margin: auto;
-  transform: translateY(-15px);
+  padding: 20vh;
 }
-/* ---Try now button--- */
+
 .button-wrapper {
-  margin-top: 0%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .button-wrapper > button {
@@ -118,7 +128,7 @@ body {
   background-color: var(--buttonColor);
   color: var(--textColor);
   border: none;
-  padding: 10px 20px;
+  padding: 1vh 2vh;
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 600;
@@ -135,7 +145,8 @@ body {
 /* ---Screenshot 3d--- */
 .kanban-screenshot-container {
   display: flex;
-  margin-top: 20%;
+  margin-top: 20vh;
+  transition: 1s ease-out;
   justify-content: center;
   align-items: center;
   perspective: 1000px;
@@ -159,17 +170,18 @@ body {
   box-shadow: none;
   transform: scale(1.1);
 }
+
+/* ---Splitter--- */
+
 .information {
   padding: 10% 10% 0% 10%;
   padding-bottom: 0;
   background-color: rgba(16, 21, 34, 0.2);
 }
-
-/* ---Splitter--- */
 #splitter {
   position: relative;
-  width: 200px;
-  height: 8px;
+  width: 20vw;
+  height: 0.8vh;
   background-color: #090b13;
   border-radius: 0.3cap;
   margin: auto;
@@ -180,7 +192,7 @@ body {
 }
 
 #splitter.visible {
-  width: 600px;
+  width: 40vw;
 }
 #splitter::before {
   content: "";
@@ -188,9 +200,9 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 75px;
+  height: 7.5vh;
   z-index: -1;
-  filter: blur(10px);
+  filter: blur(1vh);
   background: linear-gradient(
     transparent,
     rgba(0, 0, 0, 0.2),
@@ -209,9 +221,9 @@ body {
   width: 100%;
   transition: 1s ease-out;
   transition-delay: 0.5s;
-  height: 50px;
+  height: 5vh;
   z-index: 1; /* This ensures that the pseudo-element is always below the #splitter line */
-  filter: blur(30px); /* Increase the blur radius */
+  filter: blur(3vh); /* Increase the blur radius */
   background: linear-gradient(
     rgba(72, 135, 202, 0.4),
     rgba(72, 135, 202, 0.2),
@@ -220,7 +232,7 @@ body {
 }
 
 #splitter.visible::after {
-  height: 300px;
+  height: 30vh;
 }
 
 #our-value-wrapper {
@@ -230,12 +242,12 @@ body {
   z-index: 3;
   align-items: center;
   opacity: 0;
-  margin-top: 15%;
+  margin-top: 15vh;
   transition: 1s ease-out;
   transition-delay: 0.6s;
 }
 #our-value-wrapper.visible {
-  margin-top: 6%;
+  margin-top: 6vh;
   opacity: 100;
 }
 
@@ -243,15 +255,15 @@ body {
   color: var(--textColor);
   font-family: "Geist black";
   font-size: 3rem;
-  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0px 1vh 1vh rgba(0, 0, 0, 0.6);
 }
 
 /* ---Infromation frames--- */
 .value-frame {
   display: grid;
-  grid-gap: 30px;
-  margin-top: 20%;
-  backdrop-filter: blur(20px);
+  grid-gap: 3vh;
+  margin-top: 30vh;
+  backdrop-filter: blur(2vh);
   justify-content: center;
   align-content: center;
   justify-items: center;
@@ -261,13 +273,13 @@ body {
 .value-frame .value-img:nth-child(1) {
   grid-row: 1/1;
   grid-column: 1/1;
-  width: 375px;
-  height: 300px;
+  width: 25vw;
+  height: 35vh;
 }
 .value-frame .value-img:nth-child(1) p {
   display: block; /* Add this line */
   width: 80%;
-  padding: 20px;
+  padding: 2vh;
   color: white;
   font-size: 2rem;
   font-family: "Geist black";
@@ -277,14 +289,14 @@ body {
 .value-frame .value-img:nth-child(2) {
   grid-row: 1/1;
   grid-column: 2/2;
-  width: 375px;
-  height: 300px;
+  width: 25vw;
+  height: 35vh;
   transition-delay: 0.2s;
 }
 .value-frame .value-img:nth-child(2) p {
   display: block; /* Add this line */
   width: 80%;
-  padding: 20px;
+  padding: 2vh;
   color: white;
   font-size: 2rem;
   font-family: "Geist black";
@@ -293,14 +305,14 @@ body {
 .value-frame .value-img:nth-child(3) {
   grid-row: 1/1;
   grid-column: 3/3;
-  width: 375px;
-  height: 300px;
+  width: 25vw;
+  height: 35vh;
   transition-delay: 0.4s;
 }
 .value-frame .value-img:nth-child(3) p {
   display: block; /* Add this line */
   width: 80%;
-  padding: 20px;
+  padding: 2vh;
   color: white;
   font-size: 2rem;
   font-family: "Geist black";
@@ -309,13 +321,13 @@ body {
 .value-frame .value-img:nth-child(4) {
   grid-row: 2/2;
   grid-column: 1 / span 3;
-  width: 1185px;
-  height: 400px;
+  width: vw;
+  height: 40vh;
 }
 .value-frame .value-img:nth-child(4) p {
   display: block; /* Add this line */
   width: 80%;
-  padding: 20px;
+  padding: 2vh;
   color: white;
   font-size: 2rem;
   font-family: "Geist black";
@@ -324,11 +336,11 @@ body {
 
 .value-frame .value-img {
   background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(1vh);
   border: 0.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 1cap;
   opacity: 0;
-  filter: blur(10px);
+  filter: blur(1vh);
   transform: translateX(-30%);
   transition: all 1s;
 }
@@ -342,9 +354,9 @@ body {
 
 .blur-container {
   position: relative;
-  height: 1200px;
-  margin-top: -700px;
-  margin-bottom: -300px;
+  height: 120vh;
+  margin-top: -70vh;
+  margin-bottom: -30vh;
 }
 
 .blur-container .neon-blur {
@@ -363,7 +375,7 @@ body {
     rgba(72, 135, 202, 0.6) 75%,
     rgba(174, 214, 241, 0.5) 100%
   );
-  filter: blur(150px);
+  filter: blur(15vh);
   opacity: 0;
   z-index: -1;
 }
@@ -374,7 +386,7 @@ body {
 
 .unnamed {
   display: flex;
-  height: 500px;
-  width: cover;
+  height: 50vh;
+  width: 100%;
   background-color: rgba(16, 21, 34, 1);
 }

@@ -8,10 +8,9 @@ router.get("/", (req, res) => {
   res.render("informationals/home", {
     title: "Home",
     css: ["../css/home.css"],
-    js: [{ src: "../js/isVisible.js", attributes: ["defer"] }],
+    js: [{ src: "../js/homeAnimation.js", attributes: ["defer"] }],
   });
 });
-
 router.get("/about", (req, res) => {
   res.render("informationals/about", {
     title: "About",
