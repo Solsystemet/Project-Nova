@@ -1,8 +1,7 @@
-// import Cropper from "cropperjs";
 const cropImage = document.querySelector(".circle-crop");
 
 // Options: https://github.com/fengyuanchen/cropperjs/blob/main/README.md#options
-new Cropper(cropImage, {
+const cropper = new Cropper(cropImage, {
   aspectRatio: 1,
   guides: false,
   center: false,

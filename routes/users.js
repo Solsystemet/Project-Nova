@@ -6,7 +6,17 @@ const passport = require("passport");
 const multer = require("multer");
 const handleUpload = require("../cloudinary");
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  fileFilter: function (req, file, cb) {
+    let ext = path.extname(file.originalname);
+    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
+      req.fileValidationError = "Forbidden extension";
+      return cb(null, false, req.fileValidationError);
+    }
+    cb(null, true);
+  },
+});
 const catchAsync = require("../utils/catchAsync");
 
 router.get("/register", (req, res) => {
@@ -21,6 +31,7 @@ router.get("/register", (req, res) => {
         src: "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js",
       },
       { src: "../js/circleCrop.js" },
+      { src: "../js/register.js", attributes: ["defer"] },
     ],
   });
 });
@@ -30,27 +41,27 @@ router.post(
   upload.single("profilePicture"),
   catchAsync(async (req, res) => {
     //upload image to cloudinary
-    console.log(req.file);
-    const b64 = Buffer.from(req.file.buffer).toString("base64");
-    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-    const cloudflareResponse = await handleUpload(dataURI);
+    console.log(req);
+    // const b64 = Buffer.from(req.file.buffer).toString("base64");
+    // let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    // const cloudflareResponse = await handleUpload(dataURI);
 
-    console.log(cloudflareResponse.url);
+    // console.log(cloudflareResponse.url);
 
-    const { username, email, password } = req.body;
-    const user = new User({
-      username,
-      email,
-      profilePicture: {
-        url: cloudflareResponse.url,
-        filename: req.file.originalname,
-      },
-    });
-    const registeredUser = await User.register(user, password);
-    req.login(registeredUser, (err) => {
-      if (err) return console.log(err);
-      res.redirect("/workspaces");
-    });
+    // const { username, email, password } = req.body;
+    // const user = new User({
+    //   username,
+    //   email,
+    //   profilePicture: {
+    //     url: cloudflareResponse.url,
+    //     filename: req.file.originalname,
+    //   },
+    // });
+    // const registeredUser = await User.register(user, password);
+    // req.login(registeredUser, (err) => {
+    //   if (err) return console.log(err);
+    //   res.redirect("/workspaces");
+    // });
   })
 );
 
