@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   gsap.from(".reveal", {
-    opacity: 0, // start from fully transparent
-    y: -100, // start from 50px below the original position
-    stagger: 0.5, // delay of 0.5 seconds between each element
+    opacity: 0,
+    y: -100,
+    stagger: 0.5,
     scrollTrigger: {
-      trigger: ".reveal-wrapper", // use the wrapper as the trigger
+      trigger: ".reveal-wrapper",
       start: "top 25%",
       end: "bottom 75%",
       scrub: 1,
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   scroll.forEach((element) => {
     gsap.from(element, {
       scrollTrigger: {
-        start: "top bottom", // Changed this line
+        start: "top bottom",
         trigger: element,
         onEnter: () => {
           element.classList.add("visible");
