@@ -5,21 +5,15 @@ const imageElement = document.querySelector("#cropped-profile-picture");
 
 // Event listener for file input change
 fileInput.addEventListener("change", (event) => {
-  const cropperImageMaskElement =
-    document.querySelector(".cropper-view-box").children[0];
-  const cropperImageElement =
-    document.querySelector(".cropper-canvas").children[0];
-  console.log(cropperImageElement);
   console.log(event);
   const file = event.target.files[0];
+  console.log(file);
   const reader = new FileReader();
 
   reader.onload = (e) => {
     // Set the source of the cropper to the selected image
     console.log(e.target.result);
-    imageElement.src = e.target.result;
-    cropperImageElement.src = e.target.result;
-    cropperImageMaskElement.src = e.target.result;
+    cropper.replace(e.target.result);
   };
 
   reader.readAsDataURL(file);
@@ -29,14 +23,24 @@ fileInput.addEventListener("change", (event) => {
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // Prevent form submission
   // Get the cropped image data
-  const cropperImageData = cropper.getData();
+  const cropperImageData = cropper.getData(true);
   console.log(cropperImageData);
 
   let formData = new FormData(form);
-
   formData.append("cropperImageData", JSON.stringify(cropperImageData));
 
-  form.formData = formData;
-  // Submit the form
-  form.submit();
+  // Add the form data to the request body
+  fetch("/register", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the response from the server
+      console.log(data);
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error(error);
+    });
 });
