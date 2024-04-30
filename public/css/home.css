@@ -108,30 +108,6 @@ body {
     inset 2.5em 2.5em 2.5em rgba(255, 255, 255, 0.2);
 }
 
-@-webkit-keyframes Animation {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
-  }
-}
-
-@-moz-keyframes Animation {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
-  }
-}
-
 @keyframes Animation {
   0% {
     background-position: 0% 0%;
@@ -192,22 +168,30 @@ body {
 }
 
 .button-wrapper > button {
-  transition: ease-in-out 0.2s;
-  background-color: var(--buttonColor);
+  transition: 0.5s ease-in-out;
+  background-image: linear-gradient(
+    to right,
+    #0077b6,
+    #25aae1,
+    #40e495,
+    #30dd8a,
+    #2bb673
+  );
+  background-size: 300% 100%;
   color: var(--textColor);
   border: none;
   padding: 1.5vh 2.5vh;
   cursor: pointer;
   font-size: 2.5rem;
   font-weight: 600;
-  border-radius: 5px;
+  border-radius: 1.5cap;
+  transform: scale(1);
 }
 
 .button-wrapper > button:hover {
-  transition: ease-in-out 0.2s;
+  box-shadow: rgba(72, 135, 202, 0.8) 0.2em 0.2em 1em;
+  background-position: 100% 0;
   transform: scale(1.1);
-  background-color: var(--buttonHover);
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.781);
 }
 
 /* ---Screenshot 3d--- */
@@ -223,22 +207,40 @@ body {
 }
 
 .kanban-screenshot-container img {
+  background-color: #090b13;
   aspect-ratio: 16/9;
-  transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 1.2s;
-  transition-delay: 0.1s;
+  transition: box-shadow 1.2s;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
   width: 50%;
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 1.5cap;
-  transform: rotate3d(1, 0, 0, 75deg);
+  transform: rotate3d(1, 0, 0, 20deg);
 }
 
 .kanban-screenshot-container img.visible {
-  transform: none;
-  transform: scale(1.1);
-  box-shadow: rgba(72, 135, 202, 0.3) 0em 2em 6em;
+  animation: screenshot 1s cubic-bezier(0.41, 0.38, 0.29, 0.95) 1 normal
+    forwards;
+  animation-delay: 0.3s;
 }
 
+@keyframes screenshot {
+  0% {
+    transform: scale(1) rotate3d(1, 0, 0, 20deg);
+    filter: brightness(1) blur(0);
+  }
+
+  50% {
+    transform: scale(0.85) rotate3d(1, 0, 0, 20deg);
+    filter: brightness(0.8) blur(0.05em);
+    box-shadow: none;
+  }
+
+  100% {
+    filter: brightness(1) blur(0);
+    transform: scale(1.2) rotate3d(1, 0, 0, 0deg);
+    box-shadow: rgba(72, 135, 202, 0.5) 0em 2em 6em;
+  }
+}
 /* ---Splitter--- */
 
 .information {
