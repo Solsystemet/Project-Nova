@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   res.render("informationals/home", {
     title: "Home",
-    js: [{ src: "../js/workspace.js", attributes: ["defer"] }],
+    css: ["css/home.css"],
   });
 });
 

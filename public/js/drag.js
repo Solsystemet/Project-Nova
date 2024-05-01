@@ -1,11 +1,11 @@
-let draggables = document.querySelectorAll(".task");
+let draggables = document.querySelectorAll(".card");
 let droppabls = document.querySelectorAll(".swim-lane");
 let bottomTask = null;
 let curTask = null;
 let curZone = null;
 
 function UpdateDragAndDrop() {
-  draggables = document.querySelectorAll(".task");
+  draggables = document.querySelectorAll(".card");
   droppabls = document.querySelectorAll(".swim-lane");
 
   draggables.forEach((task) => {
