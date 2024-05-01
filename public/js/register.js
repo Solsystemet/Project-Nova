@@ -34,13 +34,12 @@ form.addEventListener("submit", (event) => {
     method: "POST",
     body: formData,
   })
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the response from the server
-      console.log(data);
+    .then((response) => {
+      if (response.redirected) {
+        window.location.href = response.url;
+      }
     })
-    .catch((error) => {
-      // Handle any errors
-      console.error(error);
+    .catch(function (err) {
+      console.info(err + " url: " + url);
     });
 });
