@@ -1,5 +1,5 @@
 const express = require("express");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, isWorkspaceMember } = require("../middleware");
 const catchAsync = require("../Utils/catchAsync");
 const User = require("../models/user");
 const Workspace = require("../models/workspace");
@@ -40,7 +40,7 @@ router.post(
   })
 );
 
-router.get("/:id", isLoggedIn, (req, res) => {
+router.get("/:id", isLoggedIn, isWorkspaceMember, (req, res) => {
   console.log(req.params.id);
   console.log(req.user);
   res.render("workspaces/workspace", {
