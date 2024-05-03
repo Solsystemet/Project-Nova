@@ -7,6 +7,7 @@ const server = createServer(app);
 const { engine } = require("express-handlebars");
 const session = require("express-session");
 app.use(express.urlencoded({ extended: true }));
+const ExpressError = require("./Utils/ExpressError.js");
 
 //Passport
 const passport = require("passport");
@@ -79,6 +80,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
+// Runs no matter what route is called
 app.use(async (req, res, next) => {
   if (req.isAuthenticated()) {
     res.locals.currentUserUsername = req.user.username;
@@ -95,6 +97,19 @@ app.use(async (req, res, next) => {
 app.use("/", informationals);
 app.use("/", users);
 app.use("/workspaces", workspaces);
+
+//throws an error if no route is found
+app.all("*", (req, res, next) => {
+  next(new ExpressError("Page not found", 404));
+});
+
+//Error handling
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Something went wrong";
+
+  res.status(statusCode).render("error", { err });
+});
 
 // Connect to MongoDB
 connectDB();
