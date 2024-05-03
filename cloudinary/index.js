@@ -1,3 +1,4 @@
+// Settings for cloudinary
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
