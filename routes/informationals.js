@@ -8,7 +8,10 @@ router.get("/", (req, res) => {
   res.render("informationals/home", {
     title: "Home",
     css: ["../css/home.css"],
-    js: [{ src: "../js/homeAnimation.js", attributes: ["defer"] }],
+    js: [
+      { src: "../js/homeAnimation.js", attributes: ["defer"] },
+      { src: "../js/star-generator.js", attributes: ["defer"] },
+    ],
   });
 });
 router.get("/about", (req, res) => {

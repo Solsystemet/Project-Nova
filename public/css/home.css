@@ -38,10 +38,10 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
 }
 
 /* ---Toppage--- */
-
 .topbar {
   width: 100%;
   height: 5vh;
@@ -49,23 +49,16 @@ body {
 }
 
 .toppage {
+  position: relative;
   height: fit-content;
   margin-bottom: 0%;
   background-color: #111111;
-  background-image: radial-gradient(
-      white,
-      rgba(255, 255, 255, 0.1) 2px,
-      transparent 40px
-    ),
-    radial-gradient(white, rgba(255, 255, 255, 0.02) 1px, transparent 15px);
-  background-size: 550px 550px, 350px 350px;
-  background-position: 10% 20%, 70% 80%;
-  box-shadow: inset -1em -1em 0.5em rgba(0, 0, 0, 0.1);
+  z-index: -1;
+  padding: 10vh;
 }
 
 .titlebar {
   height: fit-content;
-  margin-top: 10vh;
   margin-bottom: 15vh;
   display: flex;
   flex-direction: column;
@@ -81,12 +74,36 @@ body {
   font-weight: 900;
 }
 
+.star-container {
+  display: flex;
+  z-index: -2;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: auto;
+  width: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.star {
+  display: block;
+  z-index: -2;
+  position: relative;
+  background-color: #88d5bf;
+  color: #88d5bf;
+  width: 3vh;
+  height: 3vh;
+  margin: auto;
+}
+
 .container {
-  position: relative; /* Add this line */
+  position: relative;
+  z-index: 2;
 }
 
 .circle {
-  z-index: 2;
   position: relative;
   top: 0;
   left: 50%;
@@ -96,37 +113,70 @@ body {
   align-items: center;
   height: 80vw;
   width: 80vw;
+  margin-bottom: -40%;
   border-radius: 50%;
-  background: url(../img/circle.svg);
-  background-size: 200% 200%;
+  background-color: #005;
+  background: linear-gradient(
+      to bottom,
+      rgba(122, 151, 255, 0.05) 10%,
+      rgba(255, 255, 255, 0) 50%
+    ),
+    #111111;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
-  -webkit-animation: Animation 40s ease-in-out infinite;
-  -moz-animation: Animation 40s ease-out infinite;
-  animation: Animation 40s ease-in-out infinite;
-
-  box-shadow: inset -2.5em -2.5em 2.5em rgba(0, 0, 0, 0.2),
-    inset 2.5em 2.5em 2.5em rgba(255, 255, 255, 0.2);
 }
 
-@keyframes Animation {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
-  }
+.circle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0 2.5em 2.5em rgba(255, 255, 255, 0.2);
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 0) 50%
+  );
+}
+
+.button-wrapper {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  top: -50vh;
+}
+.button-wrapper > button {
+  transition: 0.5s ease-in-out;
+  color: var(--textColor);
+  padding: 1.5vh 2.5vh;
+  cursor: pointer;
+  font-size: 2vw;
+  font-weight: 600;
+  transform: scale(1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(9.6px);
+  -webkit-backdrop-filter: blur(9.6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.button-wrapper > button:hover {
+  box-shadow: rgba(122, 151, 255, 0.3) 0.2em 0.2em 1em;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
 }
 
 .reveal-wrapper {
-  top: -20vh;
+  z-index: 3;
+  top: -35vh;
   position: relative;
   height: 150vh;
 }
 .reveal {
-  z-index: 1;
   padding-top: 20vh;
   position: sticky;
   top: 0;
@@ -135,7 +185,7 @@ body {
   margin: auto;
   color: var(--textColor);
   font-family: "Geist black";
-  font-size: 4rem;
+  font-size: 3vw;
   font-weight: 900;
   cursor: pointer;
 }
@@ -159,39 +209,6 @@ body {
   margin: auto;
   padding: 20vh;
   box-shadow: inset -1em -1em 0.5em rgba(0, 0, 0, 0.1);
-}
-
-.button-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button-wrapper > button {
-  transition: 0.5s ease-in-out;
-  background-image: linear-gradient(
-    to right,
-    #0077b6,
-    #25aae1,
-    #40e495,
-    #30dd8a,
-    #2bb673
-  );
-  background-size: 300% 100%;
-  color: var(--textColor);
-  border: none;
-  padding: 1.5vh 2.5vh;
-  cursor: pointer;
-  font-size: 2.5rem;
-  font-weight: 600;
-  border-radius: 1.5cap;
-  transform: scale(1);
-}
-
-.button-wrapper > button:hover {
-  box-shadow: rgba(72, 135, 202, 0.8) 0.2em 0.2em 1em;
-  background-position: 100% 0;
-  transform: scale(1.1);
 }
 
 /* ---Screenshot 3d--- */

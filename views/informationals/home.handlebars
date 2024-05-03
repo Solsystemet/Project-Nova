@@ -2,14 +2,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
 
 <header class="topbar"></header>
-
 <main>
   <section class="toppage">
     <header class="titlebar">
       <h1>Where Every Student's Universe Unfolds!</h1>
     </header>
     <div class="container">
-      <div class="circle"></div>
+      <div class="circle" id="mask"></div>
+      <div class="button-wrapper">
+        <button>Try now</button>
+      </div>
     </div>
     <div class="reveal-wrapper">
       <div class="reveal">
@@ -21,12 +23,10 @@
         </p>
       </div>
     </div>
+    <div class="star-container"></div>
   </section>
 
   <section class="screenshot">
-    <div class="button-wrapper">
-      <button>Try now</button>
-    </div>
     <figure class="kanban-screenshot-container">
       <img
         src="/img/kanban-screenshot.png"
