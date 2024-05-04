@@ -1,26 +1,101 @@
 <div class="modal" id="modal">
   <div class="modal-header">
-    <div class="modal-title">Example Modal</div>
+    <div
+      class="modal-title"
+      contenteditable="true"
+      data-text="Enter title here"
+    ></div>
     <button data-close-button class="close-button">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <div
+      id="todo-description"
+      class="modal-description"
+      contenteditable="true"
+      data-text="Enter description"
+    ></div>
+    <select class="modal-lead-responsibility"></select>
+
+    <div class="dropdown-footer">
+      <div class="dropdown-wrapper" id="priorityDropdown">
+        <div class="dropdown-btn">
+          <span class="selected-item" id="selected-priority">Priority</span>
+        </div>
+        <div class="dropdown-menu">
+          <div class="item">low</div>
+          <div class="item">medium</div>
+          <div class="item">high</div>
+          <div class="item">urgent</div>
+        </div>
+      </div>
+      <div class="dropdown-wrapper" id="labelDropdown">
+        <div class="dropdown-btn" btnText="Assignee">
+          <span class="selected-item" id="selected-responsibility"
+            >Assignee</span
+          >
+        </div>
+        <div class="dropdown-menu" id="select-user">
+          <div class="item">tempUser1</div>
+          <div class="item">tempUser2</div>
+          <div class="item">tempUser3</div>
+          <div class="item">tempUser4</div>
+        </div>
+      </div>
+      <div class="multiple-choice-wrapper" id="labelMultipleChoice">
+        <div class="multiple-choice-btn">
+          <span>Labels</span>
+        </div>
+        <div class="multiple-choice-menu">
+          <div class="option">
+            <input type="checkbox" name="label1" id="label1" />
+            <label for="label1">Analysis</label>
+          </div>
+          <div class="option">
+            <input type="checkbox" name="label2" id="label2" />
+            <label for="label2">Writing</label>
+          </div>
+          <div class="option">
+            <input type="checkbox" name="label3" id="label3" />
+            <label for="label3">Production</label>
+          </div>
+          <div class="option">
+            <input type="checkbox" name="label4" id="label4" />
+            <label for="label4">Review</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="btn-issue-create" type="submit">Create</button>
+  </div>
+</div>
+
+<div class="modal-edit" id="modal-edit">
+  <div class="modal-header">
+    <div class="modal-title-edit" contenteditable="plaintext-only">
+      Example Modal
+    </div>
+
+    <button data-close-button class="close-button-edit">&times;</button>
   </div>
   <div class="modal-body">
     <div id="todo-form">
       <label>Description</label>
       <br />
       <input
-        class="issue-description"
+        class="issue-description-edit"
         type="text"
         placeholder="Describe issue here!"
         contenteditable="plaintext-only"
       />
       <br />
-      <select class="modal-priority">
+      <select class="modal-priority-edit">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
         <option value="urgent">Urgent</option>
       </select>
-      <select class="modal-lead-responsibility"></select>
+      <select class="modal-lead-responsibility-edit"></select>
       <div class="dropdown">
         <input
           id="dropdownButton"
@@ -28,7 +103,7 @@
           class="dropdown-button"
           value="Dropdown"
         />
-        <div id="options" class="dropdown-content">
+        <div id="options-edit" class="dropdown-content">
           <input class="option" type="checkbox" id="option" value="Analysis" />
           <label for="Analysis">Analysis</label><br />
           <input class="option" type="checkbox" id="option" value="Writing" />
@@ -44,7 +119,7 @@
           <label for="Production">Production</label><br />
         </div>
       </div>
-      <button id="btn-issue-create" type="submit">Create Issue</button>
+      <button id="btn-issue-confirm-edit" type="submit">Confirm</button>
     </div>
   </div>
 </div>

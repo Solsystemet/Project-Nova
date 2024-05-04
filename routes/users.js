@@ -90,8 +90,8 @@ router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
 router.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/login" }),
-  async (req, res) => {
-    res.redirect("/workspaces/69");
+  (req, res) => {
+    res.redirect("/");
   }
 );
 
