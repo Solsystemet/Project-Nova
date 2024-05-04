@@ -7,7 +7,6 @@ const router = express.Router();
 router.get("/", (req, res) => {
   res.render("informationals/home", {
     title: "Home",
-    css: ["css/home.css"],
   });
 });
 
