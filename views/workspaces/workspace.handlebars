@@ -4,86 +4,37 @@
     <img src="../img/AppLogo.png" />
     <p>NOVA</p>
   </div>
+  <div class="sidebar-content">
+    <button id="share-workspace">Share</button>
+  </div>
 </div>
 <div class="board">
   <div class="lanes">
     <div class="swim-lane" id="todo-lane">
       <div class="lane-header">
         <h3 class="heading">To-do</h3>
-        <button class="add-card">+</button>
+        <button class="add-card" value="todo-lane">+</button>
       </div>
     </div>
     <div class="swim-lane" id="progress-lane">
       <div class="lane-header">
         <h3 class="heading">In progress</h3>
-        <button class="add-card">+</button>
+        <button class="add-card" value="progress-lane">+</button>
       </div>
     </div>
 
     <div class="swim-lane" id="done-lane">
       <div class="lane-header">
         <h3 class="heading">Done</h3>
-        <button class="add-card">+</button>
+        <button class="add-card" value="done-lane">+</button>
       </div>
-    </div>
-  </div>
-</div>
-<div class="modal" id="modal">
-  <div class="modal-header">
-    <input
-      class="issue-title"
-      type="text"
-      placeholder="Enter issue title!"
-      contenteditable="plaintext-only"
-    />
-    <button data-close-button class="close-button">&times;</button>
-  </div>
-  <div class="modal-body">
-    <div id="todo-form">
-      <label>Description</label>
-      <br />
-      <input
-        class="modal-description"
-        type="text"
-        placeholder="Describe issue here!"
-        contenteditable="plaintext-only"
-      />
-      <br />
-      <select class="modal-priority">
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-        <option value="urgent">Urgent</option>
-      </select>
-      <select class="modal-lead-responsibility"></select>
-      <div class="dropdown">
-        <input
-          id="dropdownButton"
-          type="button"
-          class="dropdown-button"
-          value="Dropdown"
-        />
-        <div id="options" class="dropdown-content">
-          <input class="option" type="checkbox" id="option" value="Analysis" />
-          <label for="Analysis">Analysis</label><br />
-          <input class="option" type="checkbox" id="option" value="Writing" />
-          <label for="Writing">Writing</label><br />
-          <input class="option" type="checkbox" id="option" value="Review" />
-          <label for="Review">Review</label><br />
-          <input
-            class="option"
-            type="checkbox"
-            id="option"
-            value="Production"
-          />
-          <label for="Production">Production</label><br />
-        </div>
-      </div>
-      <button id="btn-issue-create" type="submit">Create Issue</button>
     </div>
   </div>
 </div>
 
+{{> issueCreatePopUp}}
+{{> issueEditPopUp}}
+{{> sharePopUp}}
 <div id="overlay"></div>
 <script>
   const workspaceID = "{{workspaceID}}";
