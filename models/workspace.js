@@ -6,7 +6,10 @@ const issueSchema = new mongoose.Schema({
   createdData: String,
   status: String,
   labels: [String],
-  assignee: String,
+  assignee: {
+    type: mongoose.Schema.Types.ObjectID,
+    ref: "User",
+  },
   priority: String,
 });
 

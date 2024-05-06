@@ -15,6 +15,7 @@ const selectedUserResponsibility = document.getElementById(
   "selected-responsibility"
 );
 const issueMap = new Map();
+const memberMap = new Map();
 
 console.log(labels);
 
@@ -120,39 +121,42 @@ socket.on(
 );
 
 // Socket event listener for creating a new board (task lane)
-socket.on(
-  "create board",
-  (id, title, description, createDate, laneID, labels, assignee, priority) => {
+socket.on("create board", (workspace) => {
+  workspace.members.forEach((member) => {
+    memberMap.set(member._id, member);
+  });
+  workspace.issues.forEach((DBIssue) => {
+    assignee = memberMap.get(DBIssue.assignee._id);
     const issue = new Issue(
-      id,
-      title,
-      description,
-      createDate,
-      laneID,
-      labels,
+      DBIssue._id,
+      DBIssue.title,
+      DBIssue.description,
+      DBIssue.createDate,
+      DBIssue.status,
+      DBIssue.labels,
       assignee,
-      priority
+      DBIssue.priority
     );
     const newTaskElement = createTaskElement(
-      title,
-      id,
-      createDate,
-      priority,
-      labels,
+      DBIssue.title,
+      DBIssue._id,
+      DBIssue.createDate,
+      DBIssue.priority,
+      DBIssue.labels,
       assignee
     );
-    issueMap.set(id, issue);
+    issueMap.set(DBIssue._id, issue);
 
     newTaskElement.addEventListener("click", async (e) => {
       console.log(e.target);
       const issue = await issueMap.get(e.target.id);
       openModalEdit(issue);
     });
-    const lane = document.getElementById(laneID);
+    const lane = document.getElementById(DBIssue.status);
     lane.appendChild(newTaskElement); // Append the new task lane element to the task lane/container
     UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
-  }
-);
+  });
+});
 
 function createTaskElement(title, id, createDate, priority, labels, assignee) {
   // Create a new task or task lane element with provided data
@@ -176,7 +180,7 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
   // Assignee
   const createdAssignee = document.createElement("img");
   createdAssignee.classList.add("issue-assignee");
-  createdAssignee.src = "../img/User/emptyPicture.png"; // Placeholder image
+  createdAssignee.src = assignee.profilePicture.url; // Placeholder image
   newTask.appendChild(createdAssignee);
 
   // Issue footer

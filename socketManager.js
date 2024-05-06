@@ -1,5 +1,4 @@
 const catchSocketAsync = require("./Utils/catchSocketAsync.js");
-const Issue = require("./models/issue.js");
 const Workspace = require("./models/workspace.js");
 const GetCurrentTime = require("./utils/Dates.js");
 const mongoose = require("mongoose");
@@ -11,21 +10,13 @@ module.exports = (socket, io) => {
     catchSocketAsync(socket, async (workspaceID) => {
       socket.join(workspaceID);
 
-      const workspace = await Workspace.findById(workspaceID);
+      const workspace = await Workspace.findById(workspaceID)
+        .populate("members")
+        .lean();
+      console.log(workspace);
       if (!workspace) return;
-      workspace.issues.forEach((issue) => {
-        socket.emit(
-          "create board",
-          issue._id,
-          issue.title,
-          issue.description,
-          issue.createdData,
-          issue.status,
-          issue.labels,
-          issue.assignee,
-          issue.priority
-        );
-      });
+
+      socket.emit("create board", workspace);
     })
   );
 
@@ -43,7 +34,7 @@ module.exports = (socket, io) => {
         workspaceID
       ) => {
         const createDate = `Created at ${GetCurrentTime()}`;
-        const issue = new Issue({
+        const issue = {
           title: title,
           description: description,
           createdData: createDate,
@@ -51,7 +42,7 @@ module.exports = (socket, io) => {
           priority: priority,
           status: laneID,
           labels: labels,
-        });
+        };
 
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
