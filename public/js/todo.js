@@ -10,7 +10,9 @@ const priorityElement = document.getElementById("selected-priority");
 const selectLabels = document.getElementById("labelMultipleChoice");
 const labels = selectLabels.querySelectorAll(".option");
 const btnCreateIssue = document.getElementById("btn-issue-create");
-const selectionUserResponsibility = document.getElementById("select-user");
+const selectionUserResponsibility = document.querySelector(
+  ".select-user-on-issue-creation-dropdown"
+);
 const selectedUserResponsibility = document.getElementById(
   "selected-responsibility"
 );
@@ -38,16 +40,8 @@ adds.forEach((add) => {
     const modalTitle = document.querySelector(".modal-title"); // Get reference to a modal element
 
     currentLane = document.getElementById(add.value);
-    // Fetch users and open modal
-    fetch("/get-users/" + workspaceID)
-      .then((res) => res.json())
-      .then((data) => {
-        CreateUserOptions(data);
-        openModal(modal, modalTitle, ""); // popup for create issue
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
-      });
+    CreateUserOptions();
+    openModal(modal, modalTitle, ""); // popup for create issue
   });
 });
 
@@ -81,7 +75,17 @@ btnCreateIssue.addEventListener("click", (e) => {
 // Socket event listener for new tasks
 socket.on(
   "new task",
-  (id, title, description, createDate, laneID, labels, assignee, priority) => {
+  (
+    id,
+    title,
+    description,
+    createDate,
+    laneID,
+    labels,
+    DBAssignee,
+    priority
+  ) => {
+    const assignee = memberMap.get(DBAssignee);
     const issue = new Issue(
       id,
       title,
@@ -235,13 +239,14 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
 
 function CreateUserOptions(users) {
   selectionUserResponsibility.innerHTML = "";
-  users.forEach((user) => {
+  memberMap.forEach((member) => {
     const option = document.createElement("div");
     option.classList.add("item");
-    option.textContent = user;
+    option.textContent = member.username;
+    option.id = member._id;
     option.addEventListener("click", () => {
-      leadResponsibility = option.textContent;
-      selectedUserResponsibility.textContent = leadResponsibility;
+      leadResponsibility = option.id;
+      selectedUserResponsibility.textContent = option.textContent;
     });
     selectionUserResponsibility.appendChild(option);
   });
