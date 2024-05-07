@@ -164,6 +164,7 @@ body {
 }
 
 .reveal-wrapper {
+  z-index: 10;
   z-index: 3;
   top: -30vh;
   position: relative;
