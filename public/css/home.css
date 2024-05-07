@@ -184,15 +184,16 @@ body {
   background: #111111;
 }
 
-.reveal > p {
+.reveal > a {
+  display: inline-block;
   transition: all 0.5s ease-in-out;
+  color: #ffffff;
+  text-decoration: none;
 }
-.reveal:hover {
-  p {
-    color: #ffffff;
-    text-shadow: #000000 10px 10px 5px;
-    transform: scale(1.1);
-  }
+.reveal:hover a {
+  color: #ffffff;
+  text-shadow: #000000 10px 10px 5px;
+  transform: scale(1.1);
 }
 
 /* ---Try now button--- */

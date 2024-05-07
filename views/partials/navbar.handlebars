@@ -5,17 +5,17 @@
   {{/if}} --}}
   <ul>
     <li class="home-btn">
-      <a href="/home"><img src="../../public/img/AppLogo.png" /></a>
+      <a href="/"><img /></a>
     </li>
     <li class="about-btn"><a href="/about">About</a></li>
     <li class="manifesto-btn"><a href="/manifesto">Manifesto</a></li>
     {{#unless isLoggedIn}}
     <li class="login-btn"><a href="/login">Login</a></li>
-    <li class="<o"><a href="/register">Register</a></li>
+    <li class="register-btn"><a href="/register">Register</a></li>
     {{/unless}}
     {{#if isLoggedIn}}
     <li class="workspace-btn"><a href="/workspaces">Workspaces</a></li>
-    <li class="logout"><a href="/logout">Logout</a></li>
+    <li class="logout-btn"><a href="/logout">Logout</a></li>
     {{/if}}
   </ul>
 </nav>

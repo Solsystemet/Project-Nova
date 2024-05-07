@@ -25,11 +25,13 @@ router.get("/", (req, res) => {
 router.get("/about", (req, res) => {
   res.render("informationals/about", {
     title: "About",
+    css: ["../css/navbar.css"],
   });
 });
 router.get("/manifesto", (req, res) => {
   res.render("informationals/manifesto", {
     title: "Manifesto",
+    css: ["../css/navbar.css"],
   });
 });
 
