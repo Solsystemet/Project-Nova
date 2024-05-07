@@ -14,11 +14,6 @@
 
 :root {
   --textColor: #f9f4ef;
-  --buttonColor: #77aad6;
-  --buttonHover: #85bcec;
-  --blobBackground: #005;
-  --blobPrimary: #88d5bf;
-  --blobSecondary: #5d6bf8;
 }
 
 * {
@@ -45,7 +40,7 @@ body {
 .topbar {
   width: 100%;
   height: 5vh;
-  background-color: rgba(0, 0, 3, 1);
+  background-color: rgba(0, 0, 3, 0.5);
 }
 
 .toppage {
@@ -53,8 +48,8 @@ body {
   height: fit-content;
   margin-bottom: 0%;
   background-color: #111111;
-  z-index: -1;
-  padding-top: 10vh;
+  z-index: 1;
+  padding: 10vh;
 }
 
 .titlebar {
@@ -70,33 +65,35 @@ body {
 .titlebar h1 {
   height: fit-content;
   font-family: "Geist";
-  font-size: 4rem;
+  font-size: 4vw;
+  background: #111111;
   font-weight: 900;
 }
 
 .star-container {
   display: flex;
   z-index: -2;
-  justify-content: center;
-  align-items: center;
   position: absolute;
-  left: 50%;
-  top: 0%;
+  height: auto;
+  width: auto;
+  top: 1vh;
   transform: translate(-50%, -50%);
+  background: linear-gradient(to bottom, #111111 0%, transparent 100%);
 }
 
 .star {
   display: block;
+  z-index: -3;
   position: absolute;
-  background-color: #88d5bf;
-  color: #88d5bf;
-  width: 20px;
-  height: 20px;
+  background-image: url("../img/star.svg");
+  fill: white;
+  width: 6vh;
+  height: 6vh;
 }
 
 .container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .circle {
@@ -143,7 +140,6 @@ body {
   position: relative;
   justify-content: center;
   align-items: center;
-  z-index: 3;
   top: -50vh;
 }
 .button-wrapper > button {
@@ -153,9 +149,11 @@ body {
   cursor: pointer;
   font-size: 2vw;
   font-weight: 600;
+  transform: scale(1);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   backdrop-filter: blur(9.6px);
+  -webkit-backdrop-filter: blur(9.6px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
@@ -167,7 +165,7 @@ body {
 
 .reveal-wrapper {
   z-index: 3;
-  top: -35vh;
+  top: -30vh;
   position: relative;
   height: 150vh;
 }
@@ -183,6 +181,7 @@ body {
   font-size: 3vw;
   font-weight: 900;
   cursor: pointer;
+  background: #111111;
 }
 
 .reveal > p {

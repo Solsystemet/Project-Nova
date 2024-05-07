@@ -9,13 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
 function generateStars(parentInfo, container, numStars) {
   for (let i = 0; i < numStars; i++) {
     const star = document.createElement("div");
+    const randomX = Math.random() * parentInfo.width;
+    const randomY = Math.random() * (parentInfo.height - 150);
+
     star.classList.add("star");
     container.appendChild(star);
     star.style.transform = `rotate(${Math.random() * 360}deg) scale(${
-      Math.random() * (1.5 - 0.2) + 0.2
-    }) translate(${Math.random() * (parentInfo.width - 1) + 1}px, ${
-      Math.random() * parentInfo.height
-    }px)`;
+      Math.random() * (1.2 - 0.2) + 0.2
+    })`;
+    star.style.left = `calc(${randomX}px - 50%)`;
+    star.style.top = `calc(${randomY}px - 50%)`;
   }
-  console.log(parentInfo.width);
 }
