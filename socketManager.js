@@ -47,10 +47,11 @@ module.exports = (socket, io) => {
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
         await workspace.save();
-
+        console.log(workspace.issues[workspace.issues.length - 1]._id);
         io.to(workspaceID).emit(
           "new task",
-          issue._id,
+          // Thank you Blach :)
+          workspace.issues[workspace.issues.length - 1]._id,
           issue.title,
           issue.description,
           issue.createdData,
