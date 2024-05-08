@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   gsap.registerPlugin(ScrollTrigger);
 
-  // window.onbeforeunload = function () {
-  //   window.scrollTo(0, 0);
-  // };
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  };
 
+  // Adding scroll reveal to elements
   gsap.from(".reveal", {
     opacity: 0,
     y: -100,
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
+  // Adding scroll trigger to elements
   const scroll = gsap.utils.toArray(".scroll-trigger");
   scroll.forEach((element) => {
     gsap.from(element, {
