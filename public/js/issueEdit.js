@@ -52,9 +52,7 @@ function openModalEdit(issue) {
     })
   );
 
-  fetch("/get-users/" + workspaceID)
-    .then((res) => res.json())
-    .then((data) => CreateUserOptionsEdit(data));
+  CreateUserOptionsEdit();
   selectionEditUserResponsibility.value = issue.assignee;
   modalEdit.classList.add("active");
   overlay.classList.add("active");
@@ -64,13 +62,13 @@ btnCloseModal.addEventListener("click", () => {
   closeModal(modalEdit);
 });
 
-function CreateUserOptionsEdit(users) {
+function CreateUserOptionsEdit() {
   //console.log("users: " + users);
   selectionEditUserResponsibility.innerHTML = "";
-  users.forEach((user) => {
+  memberMap.forEach((member) => {
     const option = document.createElement("option");
-    option.value = user;
-    option.innerText = user;
+    option.value = member._id;
+    option.innerText = member.username;
     selectionEditUserResponsibility.appendChild(option);
   });
 }

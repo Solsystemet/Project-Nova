@@ -10,11 +10,14 @@ const priorityElement = document.getElementById("selected-priority");
 const selectLabels = document.getElementById("labelMultipleChoice");
 const labels = selectLabels.querySelectorAll(".option");
 const btnCreateIssue = document.getElementById("btn-issue-create");
-const selectionUserResponsibility = document.getElementById("select-user");
+const selectionUserResponsibility = document.querySelector(
+  ".select-user-on-issue-creation-dropdown"
+);
 const selectedUserResponsibility = document.getElementById(
   "selected-responsibility"
 );
 const issueMap = new Map();
+const memberMap = new Map();
 
 console.log(labels);
 
@@ -37,16 +40,8 @@ adds.forEach((add) => {
     const modalTitle = document.querySelector(".modal-title"); // Get reference to a modal element
 
     currentLane = document.getElementById(add.value);
-    // Fetch users and open modal
-    fetch("/get-users/" + workspaceID)
-      .then((res) => res.json())
-      .then((data) => {
-        CreateUserOptions(data);
-        openModal(modal, modalTitle, ""); // popup for create issue
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
-      });
+    CreateUserOptions();
+    openModal(modal, modalTitle, ""); // popup for create issue
   });
 });
 
@@ -80,7 +75,17 @@ btnCreateIssue.addEventListener("click", (e) => {
 // Socket event listener for new tasks
 socket.on(
   "new task",
-  (id, title, description, createDate, laneID, labels, assignee, priority) => {
+  (
+    id,
+    title,
+    description,
+    createDate,
+    laneID,
+    labels,
+    DBAssignee,
+    priority
+  ) => {
+    const assignee = memberMap.get(DBAssignee);
     const issue = new Issue(
       id,
       title,
@@ -120,39 +125,48 @@ socket.on(
 );
 
 // Socket event listener for creating a new board (task lane)
-socket.on(
-  "create board",
-  (id, title, description, createDate, laneID, labels, assignee, priority) => {
-    const issue = new Issue(
-      id,
-      title,
-      description,
-      createDate,
-      laneID,
-      labels,
-      assignee,
-      priority
-    );
+socket.on("create board", (workspace) => {
+  // makes map of members
+  workspace.members.forEach((member) => {
+    memberMap.set(member._id, member);
+  });
+
+  //makes all issues
+  workspace.issues.forEach((DBIssue) => {
+    // makes html element for each issue (sets assignee to the member object from the map so the information is correct when it changes)
+    assignee = memberMap.get(DBIssue.assignee);
     const newTaskElement = createTaskElement(
-      title,
-      id,
-      createDate,
-      priority,
-      labels,
+      DBIssue.title,
+      DBIssue._id,
+      DBIssue.createDate,
+      DBIssue.priority,
+      DBIssue.labels,
       assignee
     );
-    issueMap.set(id, issue);
+
+    // makes issue object and adds it to the map
+    const issue = new Issue(
+      DBIssue._id,
+      DBIssue.title,
+      DBIssue.description,
+      DBIssue.createDate,
+      DBIssue.status,
+      DBIssue.labels,
+      assignee,
+      DBIssue.priority
+    );
+    issueMap.set(DBIssue._id, issue);
 
     newTaskElement.addEventListener("click", async (e) => {
       console.log(e.target);
       const issue = await issueMap.get(e.target.id);
       openModalEdit(issue);
     });
-    const lane = document.getElementById(laneID);
+    const lane = document.getElementById(DBIssue.status);
     lane.appendChild(newTaskElement); // Append the new task lane element to the task lane/container
     UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
-  }
-);
+  });
+});
 
 function createTaskElement(title, id, createDate, priority, labels, assignee) {
   // Create a new task or task lane element with provided data
@@ -176,7 +190,7 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
   // Assignee
   const createdAssignee = document.createElement("img");
   createdAssignee.classList.add("issue-assignee");
-  createdAssignee.src = "../img/User/emptyPicture.png"; // Placeholder image
+  createdAssignee.src = assignee.profilePicture.url;
   newTask.appendChild(createdAssignee);
 
   // Issue footer
@@ -231,13 +245,14 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
 
 function CreateUserOptions(users) {
   selectionUserResponsibility.innerHTML = "";
-  users.forEach((user) => {
+  memberMap.forEach((member) => {
     const option = document.createElement("div");
     option.classList.add("item");
-    option.textContent = user;
+    option.textContent = member.username;
+    option.id = member._id;
     option.addEventListener("click", () => {
-      leadResponsibility = option.textContent;
-      selectedUserResponsibility.textContent = leadResponsibility;
+      leadResponsibility = option.id;
+      selectedUserResponsibility.textContent = option.textContent;
     });
     selectionUserResponsibility.appendChild(option);
   });

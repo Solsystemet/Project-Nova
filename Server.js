@@ -33,7 +33,6 @@ mongoose.connection.once("open", () => {
 });
 
 //Models
-const Issue = require("./models/issue.js");
 const User = require("./models/user.js");
 
 //Routers
@@ -117,8 +116,3 @@ app.use((err, req, res, next) => {
 connectDB();
 
 io.on("connection", (socket) => socketManager(socket, io));
-
-// Delete all issues in collection (only use after you have gotten greenlight from the group)
-async function EmptyIssues() {
-  await Issue.deleteMany({});
-}
