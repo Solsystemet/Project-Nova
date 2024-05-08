@@ -33,7 +33,6 @@ function UpdateDragAndDrop() {
   droppabls.forEach((zone) => {
     zone.addEventListener("dragover", (e) => {
       e.preventDefault();
-
       bottomTask = insertAboveTask(zone, e.clientY);
       curTask = document.querySelector(".is-dragging");
       curZone = zone;
@@ -59,8 +58,7 @@ socket.on("drag ended", (curTaskID, bottomTaskID, curZoneID) => {
 });
 
 const insertAboveTask = (zone, mouseY) => {
-  const els = zone.querySelectorAll(".task:not(.is-dragging)");
-
+  const els = zone.querySelectorAll(".card:not(.is-dragging)");
   let closestTask = null;
   let closestOffset = Number.NEGATIVE_INFINITY;
 
