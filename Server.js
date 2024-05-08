@@ -40,6 +40,7 @@ const User = require("./models/user.js");
 const workspaces = require("./routes/workspaces.js");
 const informationals = require("./routes/informationals.js");
 const users = require("./routes/users.js");
+const user = require("./models/user.js");
 
 //cookies and sessions
 app.use(express.static("public"));
@@ -83,6 +84,7 @@ app.set("views", "./views");
 // Runs no matter what route is called
 app.use(async (req, res, next) => {
   if (req.isAuthenticated()) {
+    console.log(req.user);
     res.locals.currentUserUsername = req.user.username;
     res.locals.currentUserId = req.user.id;
     res.locals.isLoggedIn = true;
@@ -107,7 +109,7 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Something went wrong";
-
+  console.log(err);
   res.status(statusCode).render("error", { err });
 });
 
