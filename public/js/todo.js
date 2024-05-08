@@ -126,11 +126,25 @@ socket.on(
 
 // Socket event listener for creating a new board (task lane)
 socket.on("create board", (workspace) => {
+  // makes map of members
   workspace.members.forEach((member) => {
     memberMap.set(member._id, member);
   });
+
+  //makes all issues
   workspace.issues.forEach((DBIssue) => {
-    assignee = memberMap.get(DBIssue.assignee._id);
+    // makes html element for each issue (sets assignee to the member object from the map so the information is correct when it changes)
+    assignee = memberMap.get(DBIssue.assignee);
+    const newTaskElement = createTaskElement(
+      DBIssue.title,
+      DBIssue._id,
+      DBIssue.createDate,
+      DBIssue.priority,
+      DBIssue.labels,
+      assignee
+    );
+
+    // makes issue object and adds it to the map
     const issue = new Issue(
       DBIssue._id,
       DBIssue.title,
@@ -140,14 +154,6 @@ socket.on("create board", (workspace) => {
       DBIssue.labels,
       assignee,
       DBIssue.priority
-    );
-    const newTaskElement = createTaskElement(
-      DBIssue.title,
-      DBIssue._id,
-      DBIssue.createDate,
-      DBIssue.priority,
-      DBIssue.labels,
-      assignee
     );
     issueMap.set(DBIssue._id, issue);
 
@@ -184,7 +190,7 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
   // Assignee
   const createdAssignee = document.createElement("img");
   createdAssignee.classList.add("issue-assignee");
-  createdAssignee.src = assignee.profilePicture.url; // Placeholder image
+  createdAssignee.src = assignee.profilePicture.url;
   newTask.appendChild(createdAssignee);
 
   // Issue footer
