@@ -22,6 +22,8 @@ router.get("/register", (req, res) => {
     css: [
       "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css",
       "../css/circleCrop.css",
+      "../css/register.css",
+      "../css/navbar.css",
     ],
     js: [
       {
