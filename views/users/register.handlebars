@@ -1,13 +1,32 @@
 {{> navbar}}
 <h1>Register</h1>
 
-<form action="/register" method="POST">
-    <label for="email">Email:</label>
-    <input id="email" name="email" type="email" required><br>
-    <label for="username">Username:</label>
-    <input id="username" name="username" type="text" required><br>
-    <label for="password">Password:</label>
-    <input id="password" name="password" type="password" required><br>
+<form
+  action="/register"
+  method="POST"
+  enctype="multipart/form-data"
+  id="register-form"
+>
+  <label for="email">Email:</label>
+  <input id="email" name="email" type="email" required /><br />
+  <label for="username">Username:</label>
+  <input id="username" name="username" type="text" required /><br />
+  <label for="password">Password:</label>
+  <input id="password" name="password" type="password" required /><br />
+  <label for="profile-picture-input">Choose a profile picture</label>
+  <input
+    class="form-control"
+    type="file"
+    name="profilePicture"
+    id="profile-picture-input"
+    accept=".png,.jpeg,.jpg"
+  />
+  <img
+    id="cropped-profile-picture"
+    class="circle-crop"
+    src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg"
+    alt=""
+  />
 
-    <button>Register</button>
+  <button>Register</button>
 </form>

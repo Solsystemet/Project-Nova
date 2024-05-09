@@ -2,12 +2,15 @@ const modalEdit = document.getElementById("modal-edit");
 const modalTitle = document.querySelector(".modal-title-edit");
 const btnCloseModal = document.querySelector(".close-button-edit");
 const modalEditDescription = document.querySelector(".issue-description-edit");
-const modalEditLabels = document.querySelectorAll("#options-edit > input ");
-const modalEditPrio = document.querySelector(".modal-priority-edit");
+const modalEditLabels = document.querySelectorAll(".option-edit > input ");
+const modalEditPrio = document.getElementById("selected-priority-edit");
 const selectionEditUserResponsibility = document.querySelector(
-  ".modal-lead-responsibility-edit"
+  ".select-user-on-issue-edit-dropdown"
 );
-
+const selectedUserResponsibilityEdit = document.getElementById(
+  "selected-responsibility-edit"
+);
+let leadResponsibilityEdit = null;
 let curIssue = null;
 
 const btnConfirm = document.getElementById("btn-issue-confirm-edit");
@@ -17,7 +20,7 @@ btnConfirm.addEventListener("click", function () {
   modalEditLabels.forEach((label) => {
     if (label.checked == true) checkedlabels.push(label.value);
   });
-  console.log(checkedlabels);
+  console.log(leadResponsibilityEdit);
   socket.emit(
     "modify issue",
     curIssue.id,
@@ -25,7 +28,7 @@ btnConfirm.addEventListener("click", function () {
     modalEditDescription.value,
     modalEditPrio.value,
     checkedlabels,
-    selectionEditUserResponsibility.value,
+    leadResponsibilityEdit,
     workspaceID
   );
 
@@ -52,9 +55,7 @@ function openModalEdit(issue) {
     })
   );
 
-  fetch("/get-users/" + workspaceID)
-    .then((res) => res.json())
-    .then((data) => CreateUserOptionsEdit(data));
+  CreateUserOptionsEdit();
   selectionEditUserResponsibility.value = issue.assignee;
   modalEdit.classList.add("active");
   overlay.classList.add("active");
@@ -65,29 +66,36 @@ btnCloseModal.addEventListener("click", () => {
 });
 
 function CreateUserOptionsEdit(users) {
-  //console.log("users: " + users);
   selectionEditUserResponsibility.innerHTML = "";
-  users.forEach((user) => {
-    const option = document.createElement("option");
-    option.value = user;
-    option.innerText = user;
+  memberMap.forEach((member) => {
+    const option = document.createElement("div");
+    option.classList.add("item");
+    option.textContent = member.username;
+    option.id = member._id;
+    option.addEventListener("click", () => {
+      leadResponsibilityEdit = option.id;
+      selectedUserResponsibilityEdit.textContent = option.textContent;
+    });
     selectionEditUserResponsibility.appendChild(option);
   });
 }
 
 socket.on(
   "modify issue",
-  (id, title, description, priority, labels, assignee) => {
-    const issue = issueMap.get(id);
-
+  (id, title, description, priority, labels, assigneeID) => {
+    issueMap.delete(id);
     const el = document.getElementById(id);
-
-    const arr = el.innerHTML.split('<p class="create-date" id="nopointer">');
-    el.innerHTML = title + '<p class="create-date" id="nopointer">' + arr[1];
-    issue.title = title;
-    issue.description = description;
-    issue.priority = priority;
-    issue.labels = labels;
-    issue.assignee = assignee;
+    const lane = el.parentElement;
+    el.remove();
+    const assignee = memberMap.get(assigneeID);
+    const newTaskElement = createTaskElement(
+      title,
+      id,
+      "08/05/2024",
+      priority,
+      labels,
+      assignee
+    );
+    lane.appendChild(newTaskElement);
   }
 );

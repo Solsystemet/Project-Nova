@@ -1,11 +1,11 @@
-let draggables = document.querySelectorAll(".task");
+let draggables = document.querySelectorAll(".card");
 let droppabls = document.querySelectorAll(".swim-lane");
 let bottomTask = null;
 let curTask = null;
 let curZone = null;
 
 function UpdateDragAndDrop() {
-  draggables = document.querySelectorAll(".task");
+  draggables = document.querySelectorAll(".card");
   droppabls = document.querySelectorAll(".swim-lane");
 
   draggables.forEach((task) => {
@@ -33,7 +33,6 @@ function UpdateDragAndDrop() {
   droppabls.forEach((zone) => {
     zone.addEventListener("dragover", (e) => {
       e.preventDefault();
-
       bottomTask = insertAboveTask(zone, e.clientY);
       curTask = document.querySelector(".is-dragging");
       curZone = zone;
@@ -59,8 +58,7 @@ socket.on("drag ended", (curTaskID, bottomTaskID, curZoneID) => {
 });
 
 const insertAboveTask = (zone, mouseY) => {
-  const els = zone.querySelectorAll(".task:not(.is-dragging)");
-
+  const els = zone.querySelectorAll(".card:not(.is-dragging)");
   let closestTask = null;
   let closestOffset = Number.NEGATIVE_INFINITY;
 

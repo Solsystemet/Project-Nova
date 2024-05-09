@@ -1,37 +1,30 @@
 const catchSocketAsync = require("./Utils/catchSocketAsync.js");
-const Issue = require("./models/issue.js");
 const Workspace = require("./models/workspace.js");
-const GetCurrentTime = require("./utils/Dates.js");
+const User = require("./models/user.js");
+const GetCurrentTime = require("./Utils/Dates.js");
 const mongoose = require("mongoose");
 module.exports = (socket, io) => {
   console.log("a user connected");
 
   socket.on(
     "init workspace",
-    catchSocketAsync(io, async (workspaceID) => {
-      console.log("Init workspace: " + workspaceID);
-      const workspace = await Workspace.findById(workspaceID);
+    catchSocketAsync(socket, async (workspaceID) => {
+      socket.join(workspaceID);
+
+      const workspace = await Workspace.findById(workspaceID)
+        .populate("members")
+        .lean();
+      console.log(workspace);
       if (!workspace) return;
-      workspace.issues.forEach((issue) => {
-        socket.emit(
-          "create board",
-          issue._id,
-          issue.title,
-          issue.description,
-          issue.createdData,
-          issue.status,
-          issue.labels,
-          issue.assignee,
-          issue.priority
-        );
-      });
+
+      socket.emit("create board", workspace);
     })
   );
 
   socket.on(
     "new task",
     catchSocketAsync(
-      io,
+      socket,
       async (
         title,
         description,
@@ -42,7 +35,7 @@ module.exports = (socket, io) => {
         workspaceID
       ) => {
         const createDate = `Created at ${GetCurrentTime()}`;
-        const issue = new Issue({
+        const issue = {
           title: title,
           description: description,
           createdData: createDate,
@@ -50,14 +43,15 @@ module.exports = (socket, io) => {
           priority: priority,
           status: laneID,
           labels: labels,
-        });
+        };
+
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
         await workspace.save();
-
-        io.emit(
+        io.to(workspaceID).emit(
           "new task",
-          issue._id,
+          // Thank you Blach :)
+          workspace.issues[workspace.issues.length - 1]._id,
           issue.title,
           issue.description,
           issue.createdData,
@@ -73,14 +67,14 @@ module.exports = (socket, io) => {
   socket.on(
     "drag ended",
     catchSocketAsync(
-      io,
+      socket,
       async (curTask, bottomTask, curZoneID, workspaceID) => {
         const workspace = await Workspace.findById(workspaceID);
         const issue = workspace.issues.filter((issue) => issue._id == curTask);
         if (!issue) return;
         issue[0].status = curZoneID;
         workspace.save();
-        io.emit("drag ended", curTask, bottomTask, curZoneID);
+        io.to(workspaceID).emit("drag ended", curTask, bottomTask, curZoneID);
       }
     )
   );
@@ -90,25 +84,25 @@ module.exports = (socket, io) => {
     async (id, title, description, priority, labels, assignee, workspaceID) => {
       const workspace = await Workspace.findById(workspaceID);
       const issue = workspace.issues.filter((issue) => issue._id == id);
+      const user = workspace.members.filter((member) => member._id == assignee);
       if (!issue) return;
 
-      console.log(title);
       issue[0].title = title;
       issue[0].description = description;
       issue[0].priority = priority;
       issue[0].labels = labels;
-      issue[0].assignee = assignee;
+      issue[0].assignee = user[0]._id;
 
       workspace.save();
 
-      io.emit(
+      io.to(workspaceID).emit(
         "modify issue",
         id,
         title,
         description,
         priority,
         labels,
-        assignee
+        user[0]._id
       );
     }
   );
