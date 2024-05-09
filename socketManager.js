@@ -1,6 +1,7 @@
 const catchSocketAsync = require("./Utils/catchSocketAsync.js");
 const Workspace = require("./models/workspace.js");
-const GetCurrentTime = require("./utils/Dates.js");
+const User = require("./models/user.js");
+const GetCurrentTime = require("./Utils/Dates.js");
 const mongoose = require("mongoose");
 module.exports = (socket, io) => {
   console.log("a user connected");
@@ -47,10 +48,10 @@ module.exports = (socket, io) => {
         const workspace = await Workspace.findById(workspaceID);
         workspace.issues.push(issue);
         await workspace.save();
-
         io.to(workspaceID).emit(
           "new task",
-          issue._id,
+          // Thank you Blach :)
+          workspace.issues[workspace.issues.length - 1]._id,
           issue.title,
           issue.description,
           issue.createdData,
@@ -83,14 +84,14 @@ module.exports = (socket, io) => {
     async (id, title, description, priority, labels, assignee, workspaceID) => {
       const workspace = await Workspace.findById(workspaceID);
       const issue = workspace.issues.filter((issue) => issue._id == id);
+      const user = workspace.members.filter((member) => member._id == assignee);
       if (!issue) return;
 
-      console.log(title);
       issue[0].title = title;
       issue[0].description = description;
       issue[0].priority = priority;
       issue[0].labels = labels;
-      issue[0].assignee = assignee;
+      issue[0].assignee = user[0]._id;
 
       workspace.save();
 
@@ -101,7 +102,7 @@ module.exports = (socket, io) => {
         description,
         priority,
         labels,
-        assignee
+        user[0]._id
       );
     }
   );

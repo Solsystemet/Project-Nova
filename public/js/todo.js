@@ -134,6 +134,7 @@ socket.on("create board", (workspace) => {
   //makes all issues
   workspace.issues.forEach((DBIssue) => {
     // makes html element for each issue (sets assignee to the member object from the map so the information is correct when it changes)
+    console.log(DBIssue.assignee);
     assignee = memberMap.get(DBIssue.assignee);
     const newTaskElement = createTaskElement(
       DBIssue.title,
