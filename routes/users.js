@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Workspace = require("../models/workspace.js");
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../Utils/catchAsync");
 
 // users
 const User = require("../models/user.js");

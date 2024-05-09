@@ -1,7 +1,7 @@
 const catchSocketAsync = require("./Utils/catchSocketAsync.js");
 const Workspace = require("./models/workspace.js");
 const User = require("./models/user.js");
-const GetCurrentTime = require("./utils/Dates.js");
+const GetCurrentTime = require("./Utils/Dates.js");
 const mongoose = require("mongoose");
 module.exports = (socket, io) => {
   console.log("a user connected");
