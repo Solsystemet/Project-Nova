@@ -106,6 +106,7 @@ router.get("/search-users/:filter", async (req, res) => {
   res.json(users);
   res.end();
 });
+
 router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
   console.log(req.params.usernames);
   const workspace = await Workspace.findById(req.params.workspaceID);

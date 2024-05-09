@@ -106,17 +106,25 @@ h1 {
   font-weight: bold;
 }
 
-.profile-picture-input {
+/* .profile-picture-input {
   width: var(--picSizeW);
   height: var(--picSizeH);
+} */
+
+.cropper-drag-box {
+  border-radius: 10px;
 }
 
-img {
-  width: var(--picSizeW);
-  height: var(--picSizeH);
-  object-fit: cover;
+.cropper-wrap-box {
+  border-radius: 10px;
 }
-.cropper-drag-box {
-  width: var(--picSizeW);
-  height: var(--picSizeH);
+
+.cropper-container {
+  border-radius: 10px;
+}
+
+#image-container.active {
+  border-radius: 10px;
+  width: 20vw;
+  height: 20vw;
 }

@@ -2,7 +2,11 @@
 const form = document.querySelector("#register-form");
 const fileInput = document.querySelector("#profile-picture-input");
 const imageElement = document.querySelector("#cropped-profile-picture");
+const imageContainer = document.querySelector("#image-container");
 
+cropper.setCropBoxData({ height: "100px", width: "100px" });
+
+// cropper.setCanvasData({ top: 10, left: 10, width: 200, height: 200 });
 // Event listener for file input change
 fileInput.addEventListener("change", (event) => {
   console.log(event);
@@ -17,11 +21,14 @@ fileInput.addEventListener("change", (event) => {
   };
 
   reader.readAsDataURL(file);
+
+  imageContainer.classList.add("active");
 });
 
 // Event listener for the register button
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // Prevent form submission
+  console.log(cropper.getCanvasData());
   // Get the cropped image data
   const cropperImageData = cropper.getData(true);
   console.log(cropperImageData);

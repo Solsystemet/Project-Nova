@@ -2,7 +2,7 @@ const cropImage = document.querySelector(".circle-crop");
 
 // Options: https://github.com/fengyuanchen/cropperjs/blob/main/README.md#options
 const cropper = new Cropper(cropImage, {
-  viewMode: 1,
+  viewMode: 3,
   aspectRatio: 1,
   guides: false,
   center: false,
@@ -10,4 +10,7 @@ const cropper = new Cropper(cropImage, {
   background: false,
   cropBoxMovable: false,
   cropBoxResizable: false,
+  responsive: true,
+  restore: true,
+  autoCropArea: 0.9,
 });
