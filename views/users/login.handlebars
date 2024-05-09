@@ -1,10 +1,22 @@
-{{> navbar}}
-<h1>Login</h1>
-<form action="/login" method="POST">
-  <label for="username">Username:</label>
-  <input id="username" name="username" type="text" required /><br />
-  <label for="password">Password:</label>
-  <input id="password" name="password" type="password" required /><br />
+<main>
+  {{> navbar}}
+  <form action="/login" method="POST">
+    <h1>Welcome back</h1>
+    <input
+      id="username"
+      name="username"
+      placeholder="Username"
+      type="text"
+      required
+    />
+    <input
+      id="password"
+      name="password"
+      placeholder="Password"
+      type="password"
+      required
+    />
 
-  <button>login</button>
-</form>
+    <button>Login</button>
+  </form>
+</main>

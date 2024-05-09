@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <defs>
+        <!-- Define the gradient -->
+        <linearGradient id="grad1" gradientTransform="rotate(92.48606681055435)">
+            <stop offset="0%" style="stop-color:rgba(25, 83, 147, 1)" /> <!-- Darkest color -->
+            <stop offset="25%" style="stop-color:rgba(52, 152, 219, 1)" /> 
+            <stop offset="50%" style="stop-color:rgba(72, 135, 202, 1)" /> 
+            <stop offset="75%" style="stop-color:rgba(109, 183, 235, 1)" /> 
+            <stop offset="100%" style="stop-color:rgba(174, 214, 241, 1)" /> <!-- Lightest color -->
+        </linearGradient>
+        
+        <!-- Define the filter for grainy effect -->
+        <filter id="grainy">
+            <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" result="noise" />
+            <feComposite in="noise" in2="SourceGraphic" operator="in" result="noisy" />
+            <feBlend in="SourceGraphic" in2="noisy" mode="multiply" />
+        </filter>
+    </defs>
+    
+    <!-- Apply the grainy filter to the rectangle -->
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#grad1)" filter="url(#grainy)" />
+</svg>

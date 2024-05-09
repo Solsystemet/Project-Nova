@@ -1,9 +1,66 @@
 {{> navbar}}
-<h1>Home</h1>
 
-<form action="/workspaces" method="POST">
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title" />
+<main>
+  <section class="toppage">
+    <header class="titlebar">
+      <h1>Where Every Student's Universe Unfolds!</h1>
+    </header>
+    <div class="container">
+      <div class="circle" id="mask"></div>
+      <div class="button-wrapper">
+        <button>Try now</button>
+      </div>
+    </div>
+    <div class="reveal-wrapper">
+      <div class="reveal">
+        <a href="/manifesto">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo
+          possimus cum sit laboriosam, minus minima adipisci nesciunt! Adipisci
+          totam, natus maiores, dolorem minima reiciendis dignissimos assumenda
+          repudiandae nostrum, fugit incidunt.
+        </a>
+      </div>
+    </div>
+    <div class="star-container"></div>
+  </section>
 
-  <input type="submit" value="Create workspace" />
-</form>
+  <section class="screenshot">
+    <figure class="kanban-screenshot-container">
+      <img
+        src="/img/kanban-screenshot.png"
+        class="scroll-trigger"
+        alt="Kanban
+      Screenshot"
+      />
+    </figure>
+  </section>
+
+  <section class="information">
+    <div class="scroll-trigger" id="splitter"></div>
+    <div class="scroll-trigger" id="our-value-wrapper">
+      <h2>Our values</h2>
+    </div>
+    <div class="value-frame scroll-trigger">
+      <div class="value-img">
+        <p>Designed for university students</p>
+      </div>
+      <div class="value-img">
+        <p>Empowering Academic Excellence Together</p>
+      </div>
+      <div class="value-img">
+        <p>Streamlining Student Project Management</p>
+      </div>
+      <div class="value-img">
+        <p>
+          Empowering students with efficient project management tools, fostering
+          collaboration, and driving innovation for academic excellence and
+          success together.
+        </p>
+      </div>
+    </div>
+    <div class="blur-container">
+      <div class="neon-blur scroll-trigger"></div>
+    </div>
+  </section>
+</main>
+{{> footer}}
