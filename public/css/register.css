@@ -44,9 +44,9 @@ form {
   backdrop-filter: blur(17.5px);
   width: fit-content;
   height: fit-content;
-  padding: 10vh 7vh;
+  padding: 7vh 7vh;
   position: absolute;
-  top: 50%;
+  top: 52.5%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -99,18 +99,37 @@ h1 {
   height: 3vw;
   flex-shrink: 0;
   padding-left: 1vw;
-  margin-bottom: 3cm;
+  margin-bottom: 4vh;
   color: var(--textColor);
   font-size: 2vh;
   font-style: normal;
   font-weight: bold;
 }
 
-/* .profile-picture-input {
-  width: var(--picSizeW);
-  height: var(--picSizeH);
-} */
+.pictext {
+  color: var(--textColor);
+  font-size: 3vh;
+  font-style: normal;
+  font-weight: bold;
+  margin-bottom: 2vh;
+}
 
+input[type="file"] {
+  color: var(--textColor);
+  font-size: 2vh;
+  font-style: normal;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: rgba(72, 135, 202, 0.8);
+  color: var(--textColor);
+  border-radius: 2cap;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* profile pic selector */
 .cropper-drag-box {
   border-radius: 10px;
 }
@@ -122,9 +141,27 @@ h1 {
 .cropper-container {
   border-radius: 10px;
 }
-
 #image-container.active {
   border-radius: 10px;
+  width: 10vw;
+  height: 10vw;
+}
+
+button {
+  margin-top: 2vh;
+  background: rgba(16, 141, 234, 0.65);
+  border: none;
+  transition: ease-in-out 0.2s;
+  border-radius: 2cap;
   width: 20vw;
-  height: 20vw;
+  height: 3vw;
+  color: var(--textColor);
+  font-size: 3vh;
+  font-style: normal;
+  font-weight: bold;
+}
+
+button:hover {
+  background: rgba(41, 150, 233, 0.65);
+  transform: scale(1.03);
 }
