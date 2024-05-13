@@ -14,6 +14,7 @@ router.get(
       workspaces: user.workspaces,
       title: "Workspaces",
       css: ["../css/navbar.css", "../css/workspaceList.css"],
+      js: [{ src: "../js/workspaceList.js", attributes: ["defer"] }],
     });
   })
 );

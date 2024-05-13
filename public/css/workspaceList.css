@@ -55,7 +55,7 @@ main {
 }
 
 .header > .open-create-workspace {
-  padding: 0px 8px;
+  padding: 0vh 1vh;
   margin-left: 1vw;
   border-radius: 8px;
   width: min-content;
@@ -63,12 +63,24 @@ main {
   border: none;
   outline: none;
   background: none;
+  cursor: pointer;
   color: var(--textColor);
   font-size: 2rem;
 }
 
-.modal {
-  display: none;
+.header > .open-create-workspace:hover {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(1vh);
+}
+
+.create-pop-up {
+  opacity: 0%;
+  position: fixed;
+  z-index: 5;
+  transition: ease-in-out 0.2s;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 0.15vw solid rgba(255, 255, 255, 0.5);
   background: rgba(19, 20, 21, 0.32);
   backdrop-filter: blur(17.5px);
@@ -77,11 +89,16 @@ main {
   padding: 3vh 5vh;
 }
 
-.modal.active {
-  display: block;
+.create-pop-up.active {
+  transition: ease-in-out 0.5s;
+  opacity: 100%;
 }
 
-.modal > p {
+.create-pop-up > div {
+  display: flex;
+  justify-content: space-between;
+}
+.create-pop-up > div > p {
   color: var(--textColor);
   font-family: Geist;
   font-size: 4vh;
@@ -90,7 +107,18 @@ main {
   margin-bottom: 4vh;
 }
 
-.modal > input[type="text"] {
+.create-pop-up > div > button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  justify-content: right;
+  color: #f2e9e4;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.create-pop-up > input[type="text"] {
   border-radius: 2cap;
   background: rgba(255, 255, 255, 0.25);
   border: none;
@@ -105,18 +133,30 @@ main {
   font-weight: bold;
 }
 
-.modal > input[type="submit"] {
-  top: 0.1cm;
+.create-pop-up > input[type="submit"] {
+  top: 0.15cm;
   position: relative;
-  left: -1cm;
+  left: -1.5cm;
   font-family: "Geist black";
   font-weight: bolder;
   font-size: 3vh;
   width: 3vw;
   height: 3vw;
   border-radius: 3cap;
-  margin-right: -1cm;
+  margin-right: -1.5cm;
   border: none;
+}
+
+.backdrop {
+  display: none;
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(0.2vh);
 }
 
 .workspaces-container {
