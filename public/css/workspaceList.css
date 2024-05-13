@@ -1,0 +1,169 @@
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist/Geist-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geist black";
+  src: url("../fonts/Geist/Geist-black.ttf");
+  font-weight: black;
+  font-style: black;
+}
+
+:root {
+  --textColor: #f9f4ef;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Geist";
+  -ms-text-overflow: none;
+  text-overflow: none;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(107, 107, 107);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+main {
+  margin: 10vh 10vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5vh;
+}
+
+.header > h1 {
+  color: var(--textColor);
+  font-family: Geist;
+  font-size: 6vh;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.header > .open-create-workspace {
+  padding: 0px 8px;
+  margin-left: 1vw;
+  border-radius: 8px;
+  width: min-content;
+  height: min-content;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--textColor);
+  font-size: 2rem;
+}
+
+.modal {
+  display: none;
+  border: 0.15vw solid rgba(255, 255, 255, 0.5);
+  background: rgba(19, 20, 21, 0.32);
+  backdrop-filter: blur(17.5px);
+  width: fit-content;
+  border-radius: 1cap;
+  padding: 3vh 5vh;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal > p {
+  color: var(--textColor);
+  font-family: Geist;
+  font-size: 4vh;
+  font-style: normal;
+  font-weight: bold;
+  margin-bottom: 4vh;
+}
+
+.modal > input[type="text"] {
+  border-radius: 2cap;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  width: 20vw;
+  height: 3vw;
+  flex-shrink: 0;
+  padding-left: 1vw;
+  margin-bottom: 3vh;
+  color: var(--textColor);
+  font-size: 2vh;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.modal > input[type="submit"] {
+  top: 0.1cm;
+  position: relative;
+  left: -1cm;
+  font-family: "Geist black";
+  font-weight: bolder;
+  font-size: 3vh;
+  width: 3vw;
+  height: 3vw;
+  border-radius: 3cap;
+  margin-right: -1cm;
+  border: none;
+}
+
+.workspaces-container {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.workspaces-container > div {
+  display: grid;
+  grid-template-rows: 1.6fr 1fr;
+  padding: 1vw;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(1vh);
+  border: 0.15vw solid rgba(255, 255, 255, 0.5);
+  border-radius: 1cap;
+  width: 27vw;
+  height: 10vw;
+}
+
+.workspaces-container > div > h2 {
+  grid-row: 1/1;
+  color: var(--textColor);
+  font-family: Geist;
+  font-size: 4vh;
+  font-style: normal;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+.workspaces-container > div > a {
+  display: flex;
+  grid-row: 2/2;
+  text-decoration: none;
+  background: rgba(16, 141, 234, 0.65);
+  border: none;
+  transition: ease-in-out 0.2s;
+  border-radius: 2cap;
+  color: var(--textColor);
+  width: fit-content;
+  font-size: 3vh;
+  font-style: normal;
+  font-weight: bold;
+  justify-self: end;
+  padding: 0.5vw 1vw;
+  justify-content: center;
+  align-items: center;
+}

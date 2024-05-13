@@ -5,7 +5,7 @@ const cropper = new Cropper(cropImage, {
   viewMode: 3,
   aspectRatio: 1,
   guides: false,
-  center: false,
+  center: true, //Satte dette til true
   dragMode: "move",
   background: false,
   cropBoxMovable: false,
