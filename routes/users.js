@@ -105,6 +105,7 @@ router.get("/search-users/:filter", async (req, res) => {
 });
 router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
   console.log(req.params.usernames);
+  let users = [];
   const workspace = await Workspace.findById(req.params.workspaceID);
   if (req.params.usernames.includes(",")) {
     let usernames = req.params.usernames.split(",");
@@ -114,6 +115,7 @@ router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
       if (!user.workspaces.includes(workspace._id)) {
         user.workspaces.push(workspace._id);
         workspace.members.push(user._id);
+        users.push(user._id);
         await user.save();
       }
     });
@@ -123,12 +125,19 @@ router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
     if (!user.workspaces.includes(workspace._id)) {
       user.workspaces.push(workspace._id);
       workspace.members.push(user._id);
+
+      let userPair = {
+        id: user._id,
+        username: user.username,
+      };
+
+      users.push(userPair);
       await user.save();
     }
   }
 
   await workspace.save();
-  res.json("gey");
+  res.json(users);
   res.end();
 });
 
