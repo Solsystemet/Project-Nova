@@ -19,8 +19,6 @@ const selectedUserResponsibility = document.getElementById(
 const issueMap = new Map();
 const memberMap = new Map();
 
-console.log(labels);
-
 labels.forEach((label) => {
   label.addEventListener("click", () => {
     const labelSelect = label.querySelector("label");
@@ -70,6 +68,13 @@ btnCreateIssue.addEventListener("click", (e) => {
     currentLane.id,
     workspaceID
   );
+
+  const modal = document.getElementById("modal");
+  closeModal(modal); // Close modal after task creation
+  description.innerHTML = ""; // Reset task description input field
+  priorityElement.innerText = "Priority";
+  selectedUserResponsibility.innerText = "Assignee";
+  leadResponsibility = null;
 });
 
 // Socket event listener for new tasks
@@ -115,12 +120,6 @@ socket.on(
     const laneParent = document.getElementById(laneID);
     laneParent.appendChild(newTaskElement); // Append the new task element to the task lane/container
     UpdateDragAndDrop(); // Update drag and drop functionality for all tasks
-    const modal = document.getElementById("modal");
-    closeModal(modal); // Close modal after task creation
-    description.innerHTML = ""; // Reset task description input field
-    priorityElement.innerText = "Priority";
-    selectedUserResponsibility.innerText = "Assignee";
-    leadResponsibility = null;
   }
 );
 

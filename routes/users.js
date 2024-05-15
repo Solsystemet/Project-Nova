@@ -70,7 +70,6 @@ router.post(
 router.get("/login", (req, res) => {
   res.render("users/login", {
     title: "Login",
-    css: ["../css/login.css", "../css/navbar.css"],
   });
 });
 
