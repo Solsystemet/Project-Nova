@@ -115,7 +115,7 @@ router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
       if (!user.workspaces.includes(workspace._id)) {
         user.workspaces.push(workspace._id);
         workspace.members.push(user._id);
-        users.push(user._id);
+        users.push(user);
         await user.save();
       }
     });
@@ -126,12 +126,7 @@ router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
       user.workspaces.push(workspace._id);
       workspace.members.push(user._id);
 
-      let userPair = {
-        id: user._id,
-        username: user.username,
-      };
-
-      users.push(userPair);
+      users.push(user);
       await user.save();
     }
   }
