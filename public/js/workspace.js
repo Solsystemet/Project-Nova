@@ -52,11 +52,12 @@ confirmButton.addEventListener("click", async () => {
       }
     );
 
-    // The response should contain userID for who is getting shared so it can be added to the hashmap
+    // The response should contain users for who is getting shared so it can be added to the hashmap
     const result = await response.json();
 
-    result.forEach((userPair) => {
-      memberMap.set(userPair.id, userPair.username);
+    result.forEach((user) => {
+      memberMap.set(user._id, user);
+      console.log(user);
     });
 
     console.log("Success:", result);
