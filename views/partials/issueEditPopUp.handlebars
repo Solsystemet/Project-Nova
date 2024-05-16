@@ -3,19 +3,16 @@
     <div class="modal-title-edit" contenteditable="plaintext-only">
       Example Modal
     </div>
-
-    <button data-close-button class="close-button-edit">&times;</button>
-  </div>
-  <div class="modal-body">
-    <label>Description</label>
-    <br />
-    <input
+    <textarea
       class="issue-description-edit"
-      type="text"
       placeholder="Describe issue here!"
       contenteditable="plaintext-only"
-    />
-    <br />
+    ></textarea>
+  </div>
+
+  <div class="edit-sidebar">
+    <button data-close-button class="close-button-edit">&times;</button>
+
     <div class="dropdown-footer">
       <div class="dropdown-wrapper" id="priorityDropdown">
         <div class="dropdown-btn">
@@ -48,7 +45,7 @@
           <span>Labels</span>
         </div>
         <div class="multiple-choice-menu">
-          <div class="option-edit">
+          <div class="option">
             <input type="checkbox" name="label1" id="label1" />
             <label for="label1">Analysis</label>
           </div>
@@ -67,6 +64,8 @@
         </div>
       </div>
     </div>
-    <button id="btn-issue-confirm-edit" type="submit">Confirm</button>
+    <div class="close-button-container">
+      <button id="btn-issue-confirm-edit" type="submit">Confirm</button>
+    </div>
   </div>
 </div>

@@ -1,0 +1,223 @@
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist/Geist-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geist black";
+  src: url("../fonts/Geist/Geist-black.ttf");
+  font-weight: black;
+  font-style: black;
+}
+
+:root {
+  --textColor: #f9f4ef;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Geist";
+  -ms-text-overflow: none;
+  text-overflow: none;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(107, 107, 107);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  background-image: url("../img/kanbanBackground.svg");
+  background-size: cover;
+}
+
+main {
+  margin: 10vh 10vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5vw;
+}
+
+.header > h1 {
+  color: var(--textColor);
+  font-family: Geist;
+  font-size: 3vw;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.header > .open-create-workspace {
+  padding: 0vh 1vh;
+  margin-left: 1vw;
+  border-radius: 8px;
+  width: min-content;
+  height: min-content;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  color: var(--textColor);
+  font-size: 2rem;
+}
+
+.header > .open-create-workspace:hover {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(1vh);
+}
+
+.create-pop-up {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  transition: ease-in-out 0.2s;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.15vw solid rgba(255, 255, 255, 0.5);
+  background: rgba(19, 20, 21, 0.32);
+  backdrop-filter: blur(17.5px);
+  width: fit-content;
+  border-radius: 1cap;
+  width: 28vw;
+  padding: 3vh 5vh;
+}
+
+.create-pop-up.active {
+  display: block;
+}
+
+.create-pop-up > div {
+  display: flex;
+  justify-content: space-between;
+}
+.create-pop-up > div > p {
+  color: var(--textColor);
+  font-family: Geist;
+  font-size: 4vh;
+  font-style: normal;
+  font-weight: bold;
+  margin-bottom: 4vh;
+}
+
+.create-pop-up > div > button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  justify-content: right;
+  color: #f2e9e4;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1vh;
+  height: fit-content;
+}
+
+.submit-container {
+  position: relative;
+  left: 1.5em;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.create-pop-up > .submit-container > input[type="text"] {
+  border-radius: 2cap;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  width: 20vw;
+  height: 3vw;
+  flex-shrink: 0;
+  padding-left: 1vw;
+  margin-bottom: 3vh;
+  color: var(--textColor);
+  font-size: 2vh;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.create-pop-up > .submit-container > input[type="submit"] {
+  position: relative;
+  font-family: "Geist black";
+  font-weight: bolder;
+  font-size: 3vh;
+  left: -2.1em;
+  width: 3vw;
+  height: 3vw;
+  border-radius: 3cap;
+  border: none;
+}
+
+.backdrop {
+  display: none;
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(0.2vh);
+}
+
+.backdrop.active {
+  display: block;
+}
+
+.workspaces-container {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4.7vw;
+}
+
+.workspaces-container > div {
+  display: grid;
+  grid-template-rows: 1.6fr 1fr;
+  padding: 1vw;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(1vh);
+  border: 0.15vw solid rgba(255, 255, 255, 0.5);
+  border-radius: 1cap;
+  width: 27vw;
+  height: 10vw;
+}
+
+.workspaces-container > div > h2 {
+  grid-row: 1/1;
+  color: var(--textColor);
+  font-family: Geist;
+  font-size: 2vw;
+  font-style: normal;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+.workspaces-container > div > a {
+  display: flex;
+  grid-row: 2/2;
+  text-decoration: none;
+  background: rgba(16, 141, 234, 0.65);
+  border: none;
+  transition: ease-in-out 0.2s;
+  border-radius: 2cap;
+  color: var(--textColor);
+  width: fit-content;
+  font-size: 1.5vw;
+  font-style: normal;
+  font-weight: bold;
+  justify-self: end;
+  padding: 0.5vw 1vw;
+  justify-content: center;
+  align-items: center;
+}

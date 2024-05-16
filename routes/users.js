@@ -22,6 +22,8 @@ router.get("/register", (req, res) => {
     css: [
       "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css",
       "../css/circleCrop.css",
+      "../css/register.css",
+      "../css/navbar.css",
     ],
     js: [
       {
@@ -103,6 +105,7 @@ router.get("/search-users/:filter", async (req, res) => {
   res.json(users);
   res.end();
 });
+
 router.put("/share-workspace/:workspaceID/:usernames", async (req, res) => {
   console.log(req.params.usernames);
   let users = [];

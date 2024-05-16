@@ -1,14 +1,19 @@
-{{> navbar}}
-<h1 class="header">Workspaces</h1>
-<form action="/workspaces" method="POST">
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title" />
-
-  <input type="submit" value="Create workspace" />
-</form>
-{{#each workspaces}}
-<div>
-  <h2>{{ this.title }}</h2>
-  <a href="/workspaces/{{ this._id }}"> Enter {{ this.title }}</a>
-</div>
-{{/each}}
+<body>
+  {{> navbar}}
+  <main>
+    <div class="header">
+      <h1 class="title">Workspaces</h1>
+      <button class="open-create-workspace">+</button>
+    </div>
+    {{> createWorkspacePopUp}}
+    <div class="workspaces-container">
+      {{#each workspaces}}
+      <div>
+        <h2>{{ this.title }}</h2>
+        <a href="/workspaces/{{ this._id }}"> Enter</a>
+      </div>
+      {{/each}}
+    </div>
+  </main>
+  <div class="backdrop"></div>
+</body>

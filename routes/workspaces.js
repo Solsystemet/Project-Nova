@@ -13,6 +13,8 @@ router.get(
     res.render("workspaces/index", {
       workspaces: user.workspaces,
       title: "Workspaces",
+      css: ["../css/navbar.css", "../css/workspaceList.css"],
+      js: [{ src: "../js/workspaceList.js", attributes: ["defer"] }],
     });
   })
 );
