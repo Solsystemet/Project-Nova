@@ -1,20 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const openBtns = document.querySelectorAll(".open-create-workspace");
-  const closeBtns = document.querySelectorAll(".close-create-workspace");
-  const createPopUp = document.querySelector(".create-pop-up");
+document.addEventListener("DOMContentLoaded", function () {
+  const openBtn = document.querySelectorAll(".open-create-workspace");
+  const closeBtn = document.querySelector(".close-create-workspace");
+  const form = document.querySelector(".create-pop-up");
   const backdrop = document.querySelector(".backdrop");
 
-  openBtns.forEach((btn) => {
+  openBtn.forEach((btn) => {
     btn.addEventListener("click", () => {
-      createPopUp.classList.add("active");
-      backdrop.style.display = "block";
+      form.classList.add("active");
+      backdrop.classList.add("active");
     });
   });
 
-  closeBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      createPopUp.classList.remove("active");
-      backdrop.style.display = "none";
-    });
+  closeBtn.addEventListener("click", () => {
+    form.classList.remove("active");
+    backdrop.classList.remove("active");
   });
 });

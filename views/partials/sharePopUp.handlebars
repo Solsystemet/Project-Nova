@@ -1,17 +1,14 @@
-<div class="modal-share" id="modal-share">
-  <div class="modal-header">
-    <div class="modal-title">Share</div>
-    <button data-close-button class="close-button-share">&times;</button>
+<form class="modal-share" id="modal-share">
+  <div class="search-header">
+    <input type="text" placeholder="Search" class="share-search-filter" />
+    <button type="button" class="share-search-button">
+      <img src="../img/icons/search.svg" alt="" />
+    </button>
   </div>
-  <div class="modal-body">
-    <form>
-      <label> Search</label>
-      <input type="text" class="share-search-filter" />
-      <button type="button" class="share-search-button">Search</button>
-      <select class="user-options-share"></select>
-      <button type="button" class="share-button">Share</button>
-      <div class="share-collection"></div>
-      <button type="button" class="confirm-button">Confirm</button>
-    </form>
-  </div>
-</div>
+  <button data-close-button type="button" class="close-button-share">
+    &times;
+  </button>
+  <select class="user-options-share"></select>
+  <div class="share-collection"></div>
+  <button type="button" class="confirm-button">Confirm</button>
+</form>

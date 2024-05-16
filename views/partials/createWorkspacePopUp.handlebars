@@ -1,10 +1,11 @@
 <form class="create-pop-up" action="/workspaces" method="POST">
   <div>
     <p>New workspace</p>
-    <button class="close-create-workspace">&times;</button>
+    <button type="button" class="close-create-workspace">&times;</button>
   </div>
-  <input type="text" id="title" name="title" placeholder="Workspace name" />
-  <button></button>
-  <input type="submit" value="✓" />
+
+  <div class="submit-container">
+    <input type="text" id="title" name="title" placeholder="Workspace name" />
+    <input type="submit" value="✓" />
+  </div>
 </form>
-<div class="backdrop"></div>

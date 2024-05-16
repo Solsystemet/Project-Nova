@@ -6,6 +6,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Geist black";
+  src: url("../fonts/Geist/Geist-black.ttf");
+  font-weight: black;
+  font-style: black;
+}
 /* Form Styles */
 select {
   -webkit-appearance: none;
@@ -44,9 +50,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("../img/kanbanBackground.svg");
-}
-.sidebar-content {
-  color: white;
 }
 
 /* Board Styles */
@@ -429,9 +432,10 @@ body {
 
   position: relative;
   text-align: center;
-  width: fit-content;
+  width: 7vw;
   padding: 5px 10px;
   font-size: 14px;
+  color: #f2e9e4;
 }
 
 .dropdown-btn {
@@ -458,11 +462,13 @@ body {
   transform: scale(0);
   transform-origin: top;
   transition: all 0.1s ease-in-out;
+  backdrop-filter: blur(10px);
 }
 
 .dropdown-menu.open {
   opacity: 1;
   transform: scale(1);
+  z-index: 10;
 }
 .dropdown-menu .item {
   /* padding: 8px 16px; */
@@ -488,17 +494,17 @@ body {
   margin-right: 3;
   grid-row: 3/3;
   grid-column: 1/-1;
-
   position: relative;
   text-align: center;
-  width: 115px;
+  color: #f2e9e4;
+  width: 7vw;
   padding: 5px 10px;
   font-size: 14px;
 }
 
 .multiple-choice-btn {
-  position: relative; /* Add this line */
-  width: fit-content;
+  position: relative;
+  width: 100%;
   padding: 8px 10px;
   background-color: rgba(45, 47, 49, 0.7);
   border-radius: 5px;
@@ -511,9 +517,9 @@ body {
   cursor: pointer;
   text-align: center;
   position: absolute;
-  transform: translateX(-50%); /* Add this line */
+  transform: translateX(-50%);
   top: 100%;
-  width: 100%; /* Add this line */
+  width: 120%;
   padding: 5px 0px;
   margin-top: 5px;
   background-color: rgba(45, 47, 49, 0.7);
@@ -522,11 +528,13 @@ body {
   transform: scale(0);
   transform-origin: top;
   transition: all 0.1s ease-in-out;
+  backdrop-filter: blur(10px);
 }
 
 .multiple-choice-menu.open {
   opacity: 1;
   transform: scale(1);
+  z-index: 10;
 }
 .option {
   cursor: pointer;
@@ -596,61 +604,234 @@ input[type="checkbox"]:checked {
   width: 25px;
 }
 
-/* Overlay Styles */
+/* Modal edit */
 .modal-edit {
+  display: grid;
   position: fixed;
+  grid-template-columns: 1.5fr 0.5fr;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   transition: 200ms ease-in-out;
-  border: 1px solid black;
-  border-radius: 10px;
-  z-index: 10;
-  background-color: white;
-  width: 500px;
-  max-width: 80%;
+  border-radius: 1cap;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  z-index: 5;
+  background-color: none;
+  width: 50vw;
+  height: 30vw;
 }
 
 .modal-edit.active {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-header .close-button-edit {
+.modal-edit > .modal-header {
+  padding: 2vw 2vw;
+  border-radius: 1cap 0 0 1cap;
+  grid-row: 1/1;
+  width: 100%;
+  height: 100%;
+  background: rgba(19, 20, 21, 0.6);
+}
+
+.modal-edit > .modal-header > .modal-title-edit {
+  color: #f2e9e4;
+  outline: none;
+  overflow: hidden;
+  font-size: 2.5vw;
+  font-family: Geist;
+  font-weight: bolder;
+}
+
+.modal-edit > .modal-header > .issue-description-edit {
+  margin-top: 2vh;
+  width: 90%;
+  height: 70%;
+  outline: none;
+  text-align: top;
+  min-height: 50px;
+  color: #f2e9e4;
+  overflow: hidden;
+  font-size: 1vw;
+  font-family: Geist;
+  background: none;
+  border: none;
+  resize: none;
+}
+.modal-edit > .edit-sidebar {
+  grid-column: 2/2;
+  fill: rgba(19, 20, 21, 0.4);
+  width: 100%;
+  height: 100%;
+  border-radius: 0 1cap 1cap 0;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2vw 1vw;
+}
+
+.modal-edit > .edit-sidebar > .dropdown-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-edit > .edit-sidebar > .dropdown-footer > .multiple-choice-wrapper,
+.modal-edit > .edit-sidebar > .dropdown-footer > .dropdown-wrapper {
+  width: 10vw !important;
+  color: #f2e9e4;
+}
+
+.modal-edit > .edit-sidebar > .close-button-edit {
+  position: relative;
+  color: #f2e9e4;
   cursor: pointer;
   border: none;
   outline: none;
   background: none;
-  justify-content: right;
-  font-size: 1.25rem;
+  font-size: 1.25vw;
   font-weight: bold;
+  left: 90%;
+  top: -3%;
 }
 
+.close-button-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+#btn-issue-confirm-edit {
+  position: fixed;
+  bottom: 4%;
+  padding: 5px 20px;
+  background: rgba(131, 107, 254, 0.65);
+  color: #f2e9e4;
+  font-size: 20px;
+  border-radius: 0.5cap;
+  border: none;
+  cursor: pointer;
+}
+
+/* Modal share */
+
 .modal-share {
+  display: grid;
+  grid-template-rows: 3fr 1fr 1fr;
+  grid-template-columns: 1fr 0.4fr;
+  grid-gap: 2vh;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: 200ms ease-in-out;
-  border: 1px solid black;
-  border-radius: 10px;
-  z-index: 10;
-  background-color: white;
   width: 500px;
   max-width: 80%;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(19, 20, 21, 0.3);
+  backdrop-filter: blur(17.5px);
+  transition: 200ms ease-in-out;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  z-index: 10;
+  padding: 2vw 2vw;
 }
 
 .modal-share.active {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-header .close-button-share {
+.modal-share > .search-header {
+  display: flex;
+  grid-row: 1/1;
+  grid-column: 1/1;
+  flex-direction: row;
+}
+
+.modal-share > .search-header > input {
+  width: 100%;
+  height: 7vh;
+  max-width: 450px;
+  white-space: nowrap;
+  color: #f2e9e4;
+  border: none;
+  background: none;
+  overflow: hidden;
+  outline: none;
+  overflow: hidden;
+  font-size: 1.5rem;
+  font-weight: bold;
+  align-self: flex-start;
+}
+
+.modal-share > .search-header > .share-search-button {
+  width: 4vh;
+  height: 4vh;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.8em;
+}
+
+.modal-share .close-button-share {
   cursor: pointer;
   border: none;
   outline: none;
   background: none;
   justify-content: right;
+  color: #f2e9e4;
   font-size: 1.25rem;
   font-weight: bold;
+  justify-self: flex-end;
+}
+
+.modal-share > .close-button-share {
+  height: fit-content;
+  padding: 0.5em 0.5em;
+}
+
+.modal-share > .share-search-button {
+  grid-row: 2;
+  grid-column: 2;
+  width: 100%;
+  justify-self: end;
+}
+
+.modal-share > .user-options-share {
+  grid-row: 2;
+  grid-column: 1;
+  width: 80%;
+  justify-self: center;
+}
+
+.modal-share > .share-button {
+  grid-row: 3/3;
+  justify-self: start;
+  width: 12vh;
+  background-color: rgba(45, 47, 49, 0.7);
+  border-radius: 0.3cap;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.modal-share > .user-options-share {
+  background: rgba(45, 47, 49, 0.7);
+  border-radius: 0.6cap;
+  border: none;
+  color: #f2e9e4;
+}
+
+.modal-share > .confirm-button {
+  grid-row: 3/3;
+  grid-column: 2/2;
+  justify-self: end;
+  padding: 5px 20px;
+  background: rgba(131, 107, 254, 0.65);
+  color: #f2e9e4;
+  font-size: 20px;
+  border-radius: 0.5cap;
+  border: none;
+  cursor: pointer;
+  width: auto;
+  height: auto;
 }
 
 #overlay {
@@ -664,17 +845,19 @@ input[type="checkbox"]:checked {
   backdrop-filter: blur(3px);
   transition: 200ms ease-in-out;
   pointer-events: none;
+  z-index: 0;
 }
 
 #overlay.active {
   pointer-events: all;
   opacity: 1;
+  z-index: 4;
 }
 
 /* Sidebar Styles */
 .sidebar {
   position: absolute;
-  z-index: 5;
+  z-index: 3;
   top: 0;
   left: 0;
   height: 100%;
@@ -697,13 +880,20 @@ input[type="checkbox"]:checked {
   margin: 0 auto;
 }
 
-.sidebar .sidebar-top img {
+.sidebar > .sidebar-top a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+.sidebar .sidebar-top > a > img {
   width: 50px;
   height: 50px;
   flex-shrink: 0;
 }
 
-.sidebar .sidebar-top p {
+.sidebar .sidebar-top > a > p {
   color: #f2e9e4;
   margin-left: 5px;
   font-family: Geist;
@@ -711,4 +901,30 @@ input[type="checkbox"]:checked {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+}
+
+/* sidebar content */
+.sidebar-content {
+  display: flex;
+  flex: column;
+  margin-top: 4vh;
+  width: 100%;
+  justify-content: center;
+}
+
+.sidebar-content > .workspace-icons {
+  width: 80%;
+  justify-content: space-between;
+}
+
+#share-workspace {
+  border-radius: 0.6cap;
+  width: 5vh;
+  height: 5vh;
+  padding: 1vh;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(1vh);
+  cursor: pointer;
+  font-size: 1.5vw;
 }
