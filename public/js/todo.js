@@ -133,12 +133,13 @@ socket.on("create board", (workspace) => {
   //makes all issues
   workspace.issues.forEach((DBIssue) => {
     // makes html element for each issue (sets assignee to the member object from the map so the information is correct when it changes)
-    console.log(DBIssue.assignee);
+    console.log(DBIssue.createDate);
     assignee = memberMap.get(DBIssue.assignee);
     const newTaskElement = createTaskElement(
       DBIssue.title,
       DBIssue._id,
-      DBIssue.createDate,
+      // Bruh for some reason the data field is called createdData lol
+      DBIssue.createdData,
       DBIssue.priority,
       DBIssue.labels,
       assignee
@@ -149,7 +150,8 @@ socket.on("create board", (workspace) => {
       DBIssue._id,
       DBIssue.title,
       DBIssue.description,
-      DBIssue.createDate,
+      // Bruh for some reason the data field is called createdData lol
+      DBIssue.createdData,
       DBIssue.status,
       DBIssue.labels,
       assignee,

@@ -2,7 +2,7 @@ const modalEdit = document.getElementById("modal-edit");
 const modalTitle = document.querySelector(".modal-title-edit");
 const btnCloseModal = document.querySelector(".close-button-edit");
 const modalEditDescription = document.querySelector(".issue-description-edit");
-const modalEditLabels = document.querySelectorAll(".option-edit > input ");
+const modalEditLabels = document.querySelectorAll(".option-edit");
 const modalEditPrio = document.getElementById("selected-priority-edit");
 const selectionEditUserResponsibility = document.querySelector(
   ".select-user-on-issue-edit-dropdown"
@@ -12,30 +12,32 @@ const selectedUserResponsibilityEdit = document.getElementById(
 );
 let leadResponsibilityEdit = null;
 let curIssue = null;
-
+let selectedLabelsEdit = [];
 const btnConfirm = document.getElementById("btn-issue-confirm-edit");
-console.log(btnConfirm);
-btnConfirm.addEventListener("click", function () {
-  let checkedlabels = [];
-  modalEditLabels.forEach((label) => {
-    if (label.checked == true) checkedlabels.push(label.value);
+console.log(modalEditLabels);
+modalEditLabels.forEach((label) => {
+  label.addEventListener("click", () => {
+    const labelSelect = label.querySelector("label");
+    if (selectedLabelsEdit.includes(labelSelect.textContent)) {
+      const index = selectedLabelsEdit.indexOf(labelSelect.textContent);
+      selectedLabelsEdit.splice(index, 1);
+    } else selectedLabelsEdit.push(labelSelect.textContent);
+    console.log(selectedLabelsEdit);
   });
-  console.log(leadResponsibilityEdit);
+});
+
+btnConfirm.addEventListener("click", function () {
+  console.log(modalEditPrio);
+
   socket.emit(
     "modify issue",
     curIssue.id,
     modalTitle.textContent,
     modalEditDescription.value,
-    modalEditPrio.value,
-    checkedlabels,
+    modalEditPrio.textContent,
+    selectedLabelsEdit,
     leadResponsibilityEdit,
     workspaceID
-  );
-
-  curIssue.labels.forEach((label) =>
-    modalEditLabels.forEach((checkbox) => {
-      if (label == checkbox.value) checkbox.checked = false;
-    })
   );
 
   closeModal(modalEdit);
