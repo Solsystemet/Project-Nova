@@ -514,12 +514,15 @@ body {
 }
 
 .multiple-choice-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   cursor: pointer;
   text-align: center;
   position: absolute;
   transform: translateX(-50%);
   top: 100%;
-  width: 120%;
+  width: 100%;
   padding: 5px 0px;
   margin-top: 5px;
   background-color: rgba(45, 47, 49, 0.7);
@@ -537,9 +540,11 @@ body {
   z-index: 10;
 }
 .option {
-  cursor: pointer;
   display: flex;
-  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
 }
 
 .dropdown-menu .option:hover {
@@ -558,7 +563,7 @@ body {
   cursor: pointer;
   align-self: left;
   margin-left: 10px;
-  margin-right: 20%;
+  margin-right: 5%;
   appearance: none;
   box-sizing: border-box;
   width: 15px;
@@ -574,18 +579,17 @@ input[type="checkbox"]:checked {
   background-size: cover;
   background-color: rgba(68, 157, 67, 1);
   background-image: url("../img/checkmark.svg");
-  margin-left: 10px;
-  margin-right: 20%;
 }
 
 /* Issue Creation Styles */
 .modal .modal-body #btn-issue-create {
   display: flex;
-  padding: 5px 20px;
+  text-align: center;
+  padding: 4px 20px;
   grid-row: 3/3;
   grid-column: 3/3;
   justify-self: end;
-  align-self: end;
+  align-self: center; /* Aligns the button vertically in the middle */
   background: rgba(131, 107, 254, 0.65);
   color: #f2e9e4;
   font-size: 20px;
@@ -594,6 +598,7 @@ input[type="checkbox"]:checked {
   cursor: pointer;
   width: auto;
   height: auto;
+  align-items: center;
 }
 
 .modal .modal-body #options.active {
@@ -678,6 +683,46 @@ input[type="checkbox"]:checked {
 .modal-edit > .edit-sidebar > .dropdown-footer > .dropdown-wrapper {
   width: 10vw !important;
   color: #f2e9e4;
+}
+.option-edit {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  align-items: center;
+}
+
+.dropdown-menu .option-edit:hover {
+  background-color: rgba(53, 56, 59, 0.5);
+}
+
+.dropdown-menu.option-edit.active {
+  font-weight: bold;
+}
+
+.option-edit label {
+  cursor: pointer;
+}
+
+.option-edit input[type="checkbox"] {
+  cursor: pointer;
+  align-self: left;
+  margin-left: 10px;
+  margin-right: 20%;
+  appearance: none;
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.3cap;
+  background-color: transparent;
+  margin-right: 5%;
+}
+
+input[type="checkbox"]:checked {
+  border: none;
+  background-size: cover;
+  background-color: rgba(68, 157, 67, 1);
+  background-image: url("../img/checkmark.svg");
 }
 
 .modal-edit > .edit-sidebar > .close-button-edit {

@@ -75,6 +75,12 @@ h1 {
   font-style: normal;
   font-weight: bold;
 }
+
+#email::placeholder {
+  color: var(--textColor);
+  opacity: 0.5;
+}
+
 #username {
   border-radius: 2cap;
   background: rgba(255, 255, 255, 0.25);
@@ -91,6 +97,11 @@ h1 {
   font-weight: bold;
 }
 
+#username::placeholder {
+  color: var(--textColor);
+  opacity: 0.5;
+}
+
 #password {
   border-radius: 2cap;
   background: rgba(255, 255, 255, 0.25);
@@ -104,6 +115,11 @@ h1 {
   font-size: 2vh;
   font-style: normal;
   font-weight: bold;
+}
+
+#password::placeholder {
+  color: var(--textColor);
+  opacity: 0.5;
 }
 
 .pictext {

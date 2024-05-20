@@ -178,7 +178,7 @@ main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 4.7vw;
+  gap: 3vw;
 }
 
 .workspaces-container > div {
