@@ -27,7 +27,7 @@ searchButton.addEventListener("click", () => {
     .then((res) => res.json())
     .then((data) => createOptions(data));
 });
-/*shareButton.addEventListener("click", () => {
+shareButton.addEventListener("click", () => {
   if (selectElement.innerHTML == "") return;
   if (usernames.includes(selectElement.value)) return;
 
@@ -37,7 +37,7 @@ searchButton.addEventListener("click", () => {
   userElement.textContent = selectElement.value;
 
   shareCollection.appendChild(userElement);
-});*/
+});
 
 confirmButton.addEventListener("click", async () => {
   console.log(usernames);
