@@ -849,12 +849,15 @@ input[type="checkbox"]:checked {
 .modal-share > .share-button {
   grid-row: 3/3;
   justify-self: start;
-  width: 12vh;
-  background-color: rgba(45, 47, 49, 0.7);
-  border-radius: 0.3cap;
-  justify-content: space-between;
-  align-items: center;
+  padding: 5px 20px;
+  background: rgba(255, 255, 255, 0.082);
+  color: #f2e9e4;
+  font-size: 20px;
+  border-radius: 0.5cap;
+  border: 2px solid rgba(255, 255, 255, 0.5);
   cursor: pointer;
+  width: auto;
+  height: auto;
 }
 
 .modal-share > .user-options-share {
@@ -933,8 +936,8 @@ input[type="checkbox"]:checked {
 }
 
 .sidebar .sidebar-top > a > img {
-  width: 50px;
-  height: 50px;
+  width: 3em;
+  height: 3em;
   flex-shrink: 0;
 }
 
@@ -964,9 +967,9 @@ input[type="checkbox"]:checked {
 
 #share-workspace {
   border-radius: 0.6cap;
-  width: 5vh;
-  height: 5vh;
-  padding: 1vh;
+  width: 1.5em;
+  height: 1.5em;
+  padding: 0.5vw;
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(1vh);
