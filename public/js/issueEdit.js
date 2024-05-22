@@ -98,6 +98,13 @@ socket.on(
       labels,
       assignee
     );
+
+    newTaskElement.addEventListener("click", async (e) => {
+      console.log(e.target);
+      const issue = await issueMap.get(e.target.id);
+      openModalEdit(issue);
+    });
+
     lane.appendChild(newTaskElement);
   }
 );

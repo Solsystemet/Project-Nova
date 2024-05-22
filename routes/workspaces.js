@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get(
   "/",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const user = await User.findById(req.user.id).populate("workspaces").lean();
     console.log(user);

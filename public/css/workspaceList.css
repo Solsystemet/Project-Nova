@@ -23,7 +23,8 @@
   font-family: "Geist";
   -ms-text-overflow: none;
   text-overflow: none;
-  box-sizing: border-box;
+  scrollbar-width: none;
+  overflow: hidden;
 }
 
 body {

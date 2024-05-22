@@ -1,0 +1,78 @@
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist/Geist-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geist black";
+  src: url("../fonts/Geist/Geist-black.ttf");
+  font-weight: black;
+  font-style: black;
+}
+
+:root {
+  --textColor: #f9f4ef;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Geist";
+  -ms-text-overflow: none;
+  text-overflow: hidden;
+  scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #3608a5;
+}
+main {
+  padding: 5vw 10vw;
+}
+div {
+  margin-top: 8vw;
+}
+h1 {
+  font-size: 5vw;
+  text-align-last: justify;
+  font-weight: normal;
+  font-family: "Geist black";
+  color: var(--textColor);
+  margin-bottom: 5vw;
+}
+
+h2 {
+  font-family: "Geist black";
+  font-weight: bold;
+  color: var(--textColor);
+  font-size: 3vw;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 0.4vw;
+  border-radius: 1cap;
+  background: var(--textColor);
+  margin-top: 2vw;
+  margin-bottom: 3vw;
+}
+
+p {
+  font-size: 2vw;
+  color: var(--textColor);
+  overflow: wrap;
+}
+
+.highlight {
+  margin-top: 4vw;
+  font-size: 2.6vw;
+  font-weight: bold;
+  text-align: center;
+  font-style: italic;
+}

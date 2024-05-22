@@ -7,17 +7,23 @@
     </header>
     <div class="container">
       <div class="circle" id="mask"></div>
-      <div class="button-wrapper">
-        <button>Try now</button>
-      </div>
+      {{#unless isLoggedIn}}
+      <a href="/login" class="button-wrapper">
+        <button class="try-now">Try now</button>
+      </a>
+      {{/unless}}
+      {{#if isLoggedIn}}
+      <a href="/workspaces" class="button-wrapper">
+        <button class="try-now">Try now</button>
+      </a>
+      {{/if}}
     </div>
     <div class="reveal-wrapper">
       <div class="reveal">
         <a href="/manifesto">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo
-          possimus cum sit laboriosam, minus minima adipisci nesciunt! Adipisci
-          totam, natus maiores, dolorem minima reiciendis dignissimos assumenda
-          repudiandae nostrum, fugit incidunt.
+          "This manifesto introduces our project management tool, designed to
+          function as a "Ulysses pact" for students—binding them to their
+          commitments and ensuring a singular focus on accountability."
         </a>
       </div>
     </div>
@@ -42,19 +48,19 @@
     </div>
     <div class="value-frame scroll-trigger">
       <div class="value-img">
-        <p>Designed for university students</p>
+        <p>Designed for project based learning</p>
       </div>
       <div class="value-img">
-        <p>Empowering Academic Excellence Together</p>
+        <p>Empowering dicaplined project management</p>
       </div>
       <div class="value-img">
-        <p>Streamlining Student Project Management</p>
+        <p>Streamlining student Project Management</p>
       </div>
       <div class="value-img">
         <p>
           Empowering students with efficient project management tools, fostering
-          collaboration, and driving innovation for academic excellence and
-          success together.
+          collaboration, and driving innovation for excellence and success
+          together.
         </p>
       </div>
     </div>

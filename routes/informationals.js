@@ -31,7 +31,7 @@ router.get("/about", (req, res) => {
 router.get("/manifesto", (req, res) => {
   res.render("informationals/manifesto", {
     title: "Manifesto",
-    css: ["../css/navbar.css"],
+    css: ["../css/navbar.css", "../css/manifesto.css"],
   });
 });
 

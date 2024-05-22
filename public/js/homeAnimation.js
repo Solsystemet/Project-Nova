@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   gsap.registerPlugin(ScrollTrigger);
+  const tryBtn = document.querySelector(".try-now");
 
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);

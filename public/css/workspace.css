@@ -92,6 +92,7 @@ body {
 .swim-lane {
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 12px;
   fill: white;
   padding: 12px;
@@ -140,6 +141,18 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
+.swim-lane::after {
+  content: "";
+  display: block;
+  width: 0.8vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.062);
+  margin-top: 10px;
+  position: absolute;
+  border-radius: 0.2cap;
+  top: -34;
+  right: -10;
+}
 /* Card Styles */
 .card {
   /* Layout */

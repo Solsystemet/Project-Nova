@@ -22,8 +22,8 @@
   box-sizing: border-box;
   font-family: "Geist";
   -ms-text-overflow: none;
-  text-overflow: none;
-  scrollbar-width: none;
+  text-overflow: auto;
+  scrollbar-width: auto;
   box-sizing: border-box;
 }
 
@@ -34,6 +34,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /* ---Toppage--- */
