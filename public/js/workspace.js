@@ -10,7 +10,6 @@ const shareButton = document.querySelector(".share-button");
 let usernames = [];
 
 shareElement.addEventListener("click", () => {
-  console.log("Heeeeeeeeeeey heeeeeey heyeah yeah");
   usernames = [];
   shareCollection.textContent = "";
   searchFilter.value = "";
