@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "Geist black";
-  src: url("../fonts/Geist/Geist-black.ttf");
+  src: url("../fonts/Geist/Geist-Black.ttf");
   font-weight: black;
   font-style: black;
 }
@@ -143,6 +143,7 @@ body {
   justify-content: center;
   align-items: center;
   top: -50vh;
+  text-decoration: none;
 }
 .button-wrapper > button {
   transition: 0.5s ease-in-out;

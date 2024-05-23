@@ -163,6 +163,7 @@ body {
   min-height: 90px;
   padding: 12px;
   margin: 5px;
+  transition: 0.2s ease-in-out;
   /* Styling */
   border: 2px solid rgba(255, 255, 255, 0.5);
   background: rgba(19, 20, 21, 0.2);
@@ -170,6 +171,11 @@ body {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 1cap;
   backdrop-filter: blur(20px);
+  cursor: pointer;
+}
+
+.card:hover {
+  background: rgba(71, 75, 78, 0.2);
 }
 
 /* Issue Description Styles */
