@@ -807,6 +807,8 @@ input[type="checkbox"]:checked {
   grid-row: 1/1;
   grid-column: 1/1;
   flex-direction: row;
+  height: fit-content;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .modal-share > .search-header > input {
@@ -851,18 +853,17 @@ input[type="checkbox"]:checked {
   padding: 0.5em 0.5em;
 }
 
-.modal-share > .share-search-button {
-  grid-row: 2;
-  grid-column: 2;
-  width: 100%;
-  justify-self: end;
-}
-
 .modal-share > .user-options-share {
   grid-row: 2;
   grid-column: 1;
   width: 80%;
   justify-self: center;
+}
+.modal-share > .user-options-share {
+  background: rgba(45, 47, 49, 0.7);
+  border-radius: 0.6cap;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #f2e9e4;
 }
 
 .modal-share > .share-button {
@@ -877,13 +878,6 @@ input[type="checkbox"]:checked {
   cursor: pointer;
   width: auto;
   height: auto;
-}
-
-.modal-share > .user-options-share {
-  background: rgba(45, 47, 49, 0.7);
-  border-radius: 0.6cap;
-  border: none;
-  color: #f2e9e4;
 }
 
 .modal-share > .confirm-button {

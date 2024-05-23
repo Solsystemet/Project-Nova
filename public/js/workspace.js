@@ -6,7 +6,6 @@ const searchButton = document.querySelector(".share-search-button");
 const selectElement = document.querySelector(".user-options-share");
 const shareCollection = document.querySelector(".share-collection");
 const confirmButton = document.querySelector(".confirm-button");
-const shareButton = document.querySelector(".share-button");
 let usernames = [];
 
 shareElement.addEventListener("click", () => {
@@ -26,7 +25,8 @@ searchButton.addEventListener("click", () => {
     .then((res) => res.json())
     .then((data) => createOptions(data));
 });
-shareButton.addEventListener("click", () => {
+
+confirmButton.addEventListener("click", async () => {
   if (selectElement.innerHTML == "") return;
   if (usernames.includes(selectElement.value)) return;
 
@@ -36,9 +36,7 @@ shareButton.addEventListener("click", () => {
   userElement.textContent = selectElement.value;
 
   shareCollection.appendChild(userElement);
-});
 
-confirmButton.addEventListener("click", async () => {
   console.log(usernames);
   try {
     const response = await fetch(
