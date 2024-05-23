@@ -81,29 +81,42 @@ module.exports = (socket, io) => {
 
   socket.on(
     "modify issue",
-    async (id, title, description, priority, labels, assignee, workspaceID) => {
-      const workspace = await Workspace.findById(workspaceID);
-      const issue = workspace.issues.filter((issue) => issue._id == id);
-      const user = workspace.members.filter((member) => member._id == assignee);
-      if (!issue) return;
-
-      issue[0].title = title;
-      issue[0].description = description;
-      issue[0].priority = priority;
-      issue[0].labels = labels;
-      issue[0].assignee = user[0]._id;
-
-      workspace.save();
-
-      io.to(workspaceID).emit(
-        "modify issue",
+    catchSocketAsync(
+      socket,
+      async (
         id,
         title,
         description,
         priority,
         labels,
-        user[0]._id
-      );
-    }
+        assignee,
+        workspaceID
+      ) => {
+        const workspace = await Workspace.findById(workspaceID);
+        const issue = workspace.issues.filter((issue) => issue._id == id);
+        const user = workspace.members.filter(
+          (member) => member._id == assignee
+        );
+        if (!issue) return;
+
+        if (title) issue[0].title = title;
+        if (description) issue[0].description = description;
+        if (priority) issue[0].priority = priority;
+        if (labels) issue[0].labels = labels;
+        if (user[0]._id) issue[0].assignee = user[0]._id;
+
+        workspace.save();
+
+        io.to(workspaceID).emit(
+          "modify issue",
+          id,
+          title,
+          description,
+          priority,
+          labels,
+          user[0]._id
+        );
+      }
+    )
   );
 };
