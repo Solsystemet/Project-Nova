@@ -85,7 +85,6 @@ function CreateUserOptionsEdit(users) {
 socket.on(
   "modify issue",
   (id, title, description, priority, labels, assigneeID) => {
-    issueMap.delete(id);
     const el = document.getElementById(id);
     const lane = el.parentElement;
     el.remove();
@@ -99,6 +98,13 @@ socket.on(
       assignee
     );
 
+    let issue = issueMap.get(id);
+    issue.title = title;
+    issue.description = description;
+    issue.priority = priority;
+    issue.labels = labels;
+    issue.assignee = memberMap.get(assigneeID);
+
     newTaskElement.addEventListener("click", async (e) => {
       console.log(e.target);
       const issue = await issueMap.get(e.target.id);
@@ -106,5 +112,8 @@ socket.on(
     });
 
     lane.appendChild(newTaskElement);
+
+    modalEditPrio.textContent = "Priority";
+    selectedUserResponsibilityEdit.textContent = "Assignee";
   }
 );
