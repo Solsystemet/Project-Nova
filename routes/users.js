@@ -144,7 +144,7 @@ router.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/login" }),
   (req, res) => {
-    res.redirect("/");
+    res.redirect("/workspaces");
   }
 );
 
