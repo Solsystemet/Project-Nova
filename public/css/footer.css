@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist/Geist-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geist black";
+  src: url("../fonts/Geist/Geist-Black.ttf");
+  font-weight: black;
+  font-style: black;
+}
+
+:root {
+  --textColor: #f9f4ef;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Geist";
+  -ms-text-overflow: none;
+  text-overflow: auto;
+  scrollbar-width: auto;
+  box-sizing: border-box;
+}
+
+.footer {
+  display: flex;
+  height: 30vh;
+  width: 100%;
+  background-color: 111111;
+}

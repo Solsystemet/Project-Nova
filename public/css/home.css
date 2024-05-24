@@ -371,6 +371,9 @@ body {
   grid-column: 1/1;
   width: 25vw;
   height: 35vh;
+  background-image: url(../img/ourValueOne.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .value-frame .value-img:nth-child(1) p {
   display: block; /* Add this line */
@@ -383,20 +386,24 @@ body {
 }
 
 .value-frame .value-img:nth-child(2) {
+  display: flex;
   grid-row: 1/1;
   grid-column: 2/2;
   width: 25vw;
   height: 35vh;
   transition-delay: 0.2s;
+  background-image: url(../img/ourValueTwo.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
 }
 .value-frame .value-img:nth-child(2) p {
-  display: block; /* Add this line */
   width: 80%;
   padding: 2vh;
   color: white;
   font-size: 2rem;
   font-family: "Geist black";
-  text-align: left;
+  text-align: center;
 }
 .value-frame .value-img:nth-child(3) {
   grid-row: 1/1;
@@ -404,37 +411,67 @@ body {
   width: 25vw;
   height: 35vh;
   transition-delay: 0.4s;
+  background-image: url(../img/ourValueThree.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .value-frame .value-img:nth-child(3) p {
-  display: block; /* Add this line */
+  display: block;
   width: 80%;
   padding: 2vh;
   color: white;
   font-size: 2rem;
   font-family: "Geist black";
-  text-align: left;
+  text-align: center; /* Change this line */
+  margin-left: auto;
 }
 .value-frame .value-img:nth-child(4) {
   grid-row: 2/2;
   grid-column: 1 / span 3;
-  width: vw;
-  height: 40vh;
+  height: 60vh;
   transition-delay: 0.6s;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
 }
+
 .value-frame .value-img:nth-child(4) p {
-  display: block; /* Add this line */
+  display: block;
   width: 80%;
   padding: 2vh;
   color: white;
   font-size: 2rem;
   font-family: "Geist black";
-  text-align: left;
+  text-align: center;
+}
+
+.value-frame .value-img:nth-child(4) p::before {
+  position: absolute;
+  content: '"';
+  display: block;
+  color: #866bfe;
+  font-size: 10vw;
+  top: 18%;
+  left: 7%;
+}
+
+.value-frame .value-img:nth-child(4) p::after {
+  position: absolute;
+  content: "- Solsystemet";
+  font-family: "Geist";
+  display: block;
+  color: var(--textColor);
+  font-style: italic;
+  font-size: 1.5vw;
+  bottom: 18%;
+  right: 9%;
 }
 
 .value-frame .value-img {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(1vh);
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 1cap;
   opacity: 0;
   filter: blur(1vh);
@@ -472,11 +509,4 @@ body {
 
 .blur-container .neon-blur.visible {
   opacity: 0.6;
-}
-
-.unnamed {
-  display: flex;
-  height: 50vh;
-  width: 100%;
-  background-color: 111111;
 }

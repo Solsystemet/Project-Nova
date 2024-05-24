@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   res.render("informationals/home", {
     title: "Home",
-    css: ["../css/home.css", "../css/navbar.css"],
+    css: ["../css/home.css", "../css/navbar.css", "../css/footer.css"],
     js: [
       {
         src: "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js",
@@ -25,13 +25,13 @@ router.get("/", (req, res) => {
 router.get("/about", (req, res) => {
   res.render("informationals/about", {
     title: "About",
-    css: ["../css/navbar.css"],
+    css: ["../css/navbar.css", "../css/footer.css"],
   });
 });
 router.get("/manifesto", (req, res) => {
   res.render("informationals/manifesto", {
     title: "Manifesto",
-    css: ["../css/navbar.css", "../css/manifesto.css"],
+    css: ["../css/navbar.css", "../css/manifesto.css", "../css/footer.css"],
   });
 });
 
