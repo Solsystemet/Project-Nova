@@ -182,18 +182,33 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
   taskTitle.classList.add("taskTitle");
   taskTitle.textContent = title; // Task description/title
   newTask.appendChild(taskTitle); // Append task title to task or task lane element
+  taskTitle.addEventListener("click", async (e) => {
+    console.log(e.target);
+    const issue = await issueMap.get(taskTitle.parentNode.id);
+    openModalEdit(issue);
+  });
 
   // Create task creation date element and set its content
   const createdDate = document.createElement("p");
   createdDate.classList.add("issue-date");
   createdDate.textContent = createDate; // Task creation date
   newTask.appendChild(createdDate); // Append creation date to task or task lane element
+  createdDate.addEventListener("click", async (e) => {
+    console.log(e.target);
+    const issue = await issueMap.get(createdDate.parentNode.id);
+    openModalEdit(issue);
+  });
 
   // Assignee
   const createdAssignee = document.createElement("img");
   createdAssignee.classList.add("issue-assignee");
   createdAssignee.src = assignee.profilePicture.url;
   newTask.appendChild(createdAssignee);
+  createdAssignee.addEventListener("click", async (e) => {
+    console.log(e.target);
+    const issue = await issueMap.get(createdAssignee.parentNode.id);
+    openModalEdit(issue);
+  });
 
   // Issue footer
   const issueFooter = document.createElement("div");
@@ -204,6 +219,11 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
   const priorityDiv = document.createElement("div");
   priorityDiv.classList.add("priority");
   issueFooter.appendChild(priorityDiv);
+  priorityDiv.addEventListener("click", async (e) => {
+    console.log(e.target);
+    const issue = await issueMap.get(priorityDiv.parentNode.parentNode.id);
+    openModalEdit(issue);
+  });
 
   //Priority icon
   const priorityIcon = document.createElement("img");
@@ -219,6 +239,11 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
   const dueDateDiv = document.createElement("div");
   dueDateDiv.classList.add("due-date");
   issueFooter.appendChild(dueDateDiv);
+  dueDateDiv.addEventListener("click", async (e) => {
+    console.log(e.target);
+    const issue = await issueMap.get(dueDateDiv.parentNode.parentNode.id);
+    openModalEdit(issue);
+  });
 
   // Due date icon
   const dueDateIcon = document.createElement("img");
@@ -236,6 +261,11 @@ function createTaskElement(title, id, createDate, priority, labels, assignee) {
     createdLabels.textContent = labels; // Default tag
     createdLabels.classList.add("created-labels");
     issueFooter.appendChild(createdLabels);
+    createdLabels.addEventListener("click", async (e) => {
+      console.log(e.target);
+      const issue = await issueMap.get(createdLabels.parentNode.parentNode.id);
+      openModalEdit(issue);
+    });
   }
   // Add drag and drop event listeners to the new task or task lane element
   newTask.addEventListener("dragstart", () => {
