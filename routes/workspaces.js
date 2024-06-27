@@ -58,7 +58,7 @@ router.get("/:id", isLoggedIn, isWorkspaceMember, (req, res) => {
       { src: "/socket.io/socket.io.js", attributes: ["defer"] },
       { src: "../js/socketAPI.js", attributes: ["defer"] },
       { src: "../dataObjects/issue.js", attributes: ["defer"] },
-      { src: "../js/drag.js", attributes: ["module", "defer"] },
+      { src: "../js/drag.js", attributes: ["defer"] },
       { src: "../js/popup.js", attributes: ["defer"] },
       { src: "../js/todo.js", attributes: ["defer"] },
       { src: "../js/userConnect.js", attributes: ["defer"] },
